@@ -264,7 +264,7 @@ but you'll understand once when we talk about the ARM Cortex Application Binary 
 
 ### 2.2 Calculating the discriminant of a quadratic equation
 
-For a quadratic equation \( ax^2 + bx + c = 0 \), its discriminant, commonly represented by the Greek symbol Delta, determines if the equation has any real roots:
+For a quadratic equation $ ax^2 + bx + c = 0 $, its discriminant, commonly represented by the Greek symbol Delta, determines if the equation has any real roots:
 
 $$
 \begin{align*}
@@ -272,7 +272,7 @@ $$
 \end{align*}
 $$
 
-If $ \Delta = 0 $, the equation has two identical real roots; if \( \Delta > 0 \), two distinct real roots exist; if \( \Delta < 0 \), no real roots exist.
+If $ \Delta = 0 $, the equation has two identical real roots; if $ \Delta > 0 $, two distinct real roots exist; if $ \Delta < 0 $, no real roots exist.
 
 Use the assembly function `q2_2_delta` to write the assembly necessary to compute
 the discrminiant of a quadratic equation with the coefficents given in registers `x0-x2`.
@@ -295,7 +295,7 @@ After completing the problem, you could build and run the lab 1 executable. The 
 
 ### 2.3 Calculating the dot product of two 2-D vectors
 
-For two vectors in \( \mathbb{R}^2 \) space, \( \vec{A} = (a_1, a_2) \) and \( \vec{B} = (b_1, b_2) \), the dot product between them is commonly defined as:
+For two vectors in $ \mathbb{R}^2 $ space, $ \vec{A} = (a_1, a_2) $ and $ \vec{B} = (b_1, b_2) $, the dot product between them is commonly defined as:
 
 $$
 \begin{align*}
