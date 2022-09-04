@@ -272,7 +272,7 @@ $$
 \end{align*}
 $$
 
-If \( \Delta = 0 \), the equation has two identical real roots; if \( \Delta > 0 \), two distinct real roots exist; if \( \Delta < 0 \), no real roots exist.
+If $ \Delta = 0 $, the equation has two identical real roots; if \( \Delta > 0 \), two distinct real roots exist; if \( \Delta < 0 \), no real roots exist.
 
 Use the assembly function `q2_2_delta` to write the assembly necessary to compute
 the discrminiant of a quadratic equation with the coefficents given in registers `x0-x2`.
