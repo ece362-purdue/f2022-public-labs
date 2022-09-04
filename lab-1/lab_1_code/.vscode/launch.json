@@ -1,0 +1,28 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "FVP Debug",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/lab",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "miDebuggerPath": "${env:HOME}/Desktop/FVP_Linux/gcc-linaro-4.9.4-2017.01-x86_64_aarch64-linux-gnu/bin/aarch64-linux-gnu-gdb",
+            //"miDebuggerServerAddress": "localhost:9234",
+            "setupCommands": [
+                {
+                    "text": "source ${workspaceFolder}/.gdbinit"
+                }
+            ],
+            "preLaunchTask": "Debug Prep"
+        }
+    ]
+}
