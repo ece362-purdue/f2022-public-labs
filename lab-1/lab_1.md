@@ -12,11 +12,7 @@ The flip-side is that ARMv8 is harder to design hardware for. For this lab, don'
 
 A reference manual for the Arm A64 ISA could be found [here](https://developer.arm.com/documentation/ddi0596/2020-12/Base-Instructions).
 
-<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-
-<!-- code_chunk_output -->
-
-- [Lab 1: Intro to basic assembly](#lab-1-intro-to-basic-assembly)
+- (100 points total) [Lab 1: Intro to basic assembly](#lab-1-intro-to-basic-assembly)
   - [Due week of 9/12 in your lab section](#due-week-of-912-in-your-lab-section)
   - [1. A tutorial on program generation](#1-a-tutorial-on-program-generation)
     - [1.1 Intro](#11-intro)
@@ -24,25 +20,23 @@ A reference manual for the Arm A64 ISA could be found [here](https://developer.a
     - [1.3 Assembler](#13-assembler)
     - [1.4 Linker](#14-linker)
     - [1.5 Summary](#15-summary)
-  - [2. Assembly instruction: arithmetic](#2-assembly-instruction-arithmetic)
+  - (20 points) [2. Assembly instruction: arithmetic](#2-assembly-instruction-arithmetic)
     - [2.0 Import template](#20-import-template)
     - [2.1 Example](#21-example)
       - [2.1.1 Solution for the example](#211-solution-for-the-example)
       - [2.1.2 Another solution for the example](#212-another-solution-for-the-example)
-    - [2.2 Calculating the discriminant of a quadratic equation](#22-calculating-the-discriminant-of-a-quadratic-equation)
-    - [2.3 Calculating the dot product of two 2-D vectors](#23-calculating-the-dot-product-of-two-2-d-vectors)
-  - [3. Assembly instruction: bit-wise/logical](#3-assembly-instruction-bit-wiselogical)
-    - [3.1 Taking one byte from a 64-bit word](#31-taking-one-byte-from-a-64-bit-word)
-    - [3.2 Turning a flag on/off](#32-turning-a-flag-onoff)
-    - [3.3 Swaping the LSB and MSB of a 64-bit word](#33-swaping-the-lsb-and-msb-of-a-64-bit-word)
-  - [4. Assembly instruction: memory](#4-assembly-instruction-memory)
+    - (10 points) [2.2 Calculating the discriminant of a quadratic equation](#22-calculating-the-discriminant-of-a-quadratic-equation)
+    - (10 points) [2.3 Calculating the dot product of two 2-D vectors](#23-calculating-the-dot-product-of-two-2-d-vectors)
+  - (30 points) [3. Assembly instruction: bit-wise/logical](#3-assembly-instruction-bit-wiselogical)
+    - (10 points) [3.1 Taking one byte from a 64-bit word](#31-taking-one-byte-from-a-64-bit-word)
+    - (10 points) [3.2 Turning a flag on/off](#32-turning-a-flag-onoff)
+    - (10 points) [3.3 Swaping the LSB and MSB of a 64-bit word](#33-swaping-the-lsb-and-msb-of-a-64-bit-word)
+  - (50 points) [4. Assembly instruction: memory](#4-assembly-instruction-memory)
     - [4.0 Crash course on assembly directives](#40-crash-course-on-assembly-directives)
-    - [4.1 Uppercase formatter](#41-uppercase-formatter)
-    - [4.2 Swapping two integers](#42-swapping-two-integers)
-    - [4.3 String cutter](#43-string-cutter)
-    - [4.4 Endianness: which side are you with?](#44-endianness-which-side-are-you-with)
-
-<!-- /code_chunk_output -->
+    - (15 points) [4.1 Uppercase formatter](#41-uppercase-formatter)
+    - (15 points) [4.2 Swapping two integers](#42-swapping-two-integers)
+    - (20 points) [4.3 String cutter](#43-string-cutter)
+    - (Bonus 15 points) [4.4 Endianness: which side are you with?](#44-endianness-which-side-are-you-with)
 
 ## 1. A tutorial on program generation
 
@@ -270,7 +264,7 @@ but you'll understand once when we talk about the ARM Cortex Application Binary 
 
 ### 2.2 Calculating the discriminant of a quadratic equation
 
-For a quadratic equation $ax^2 + bx + c = 0$, its discriminant, commonly represented by the Greek symbol Delta, determines if the equation has any real roots:
+For a quadratic equation \( ax^2 + bx + c = 0 \), its discriminant, commonly represented by the Greek symbol Delta, determines if the equation has any real roots:
 
 $$
 \begin{align*}
@@ -278,7 +272,7 @@ $$
 \end{align*}
 $$
 
-If $\Delta = 0$, the equation has two identical real roots; if $\Delta > 0$, two distinct real roots exist; if $\Delta < 0$, no real roots exist.
+If \( \Delta = 0 \), the equation has two identical real roots; if \( \Delta > 0 \), two distinct real roots exist; if \( \Delta < 0 \), no real roots exist.
 
 Use the assembly function `q2_2_delta` to write the assembly necessary to compute
 the discrminiant of a quadratic equation with the coefficents given in registers `x0-x2`.
@@ -301,7 +295,7 @@ After completing the problem, you could build and run the lab 1 executable. The 
 
 ### 2.3 Calculating the dot product of two 2-D vectors
 
-For two vectors in $\mathbb{R}^2$ space, $\vec{A} = (a_1, a_2)$ and $\vec{B} = (b_1, b_2)$, the dot product between them is commonly defined as:
+For two vectors in \( \mathbb{R}^2 \) space, \( \vec{A} = (a_1, a_2) \) and \( \vec{B} = (b_1, b_2) \), the dot product between them is commonly defined as:
 
 $$
 \begin{align*}

@@ -9,43 +9,43 @@ We will touch on the subtle differences later in the semester. For Labs 0.2, 1, 
 
 This lab consists of two parts: the first is how to setup Dev Studio on your own machines, the second is how to run an open-source equivalent version on the lab machines. **You are only required to use one of these methods to demo the lab (since many of you have had issues with Dev Studio)**.
 
-<!-- code_chunk_output -->
-
-- [Method 1: ARM Dev Studio on Personal Machines](#method-1-arm-dev-studio-on-personal-machines)
+- [Lab 0.2: ARMv8 Development environment setup](#lab-02-armv8-development-environment-setup)
+- [Method 1 ARM Dev Studio on Personal Machines](#method-1-arm-dev-studio-on-personal-machines)
   - [Prerequisites](#prerequisites)
   - [ARM Developer account registration](#arm-developer-account-registration)
   - [ARM Development Studio IDE installation](#arm-development-studio-ide-installation)
     - [Windows](#windows)
     - [Linux](#linux)
   - [ARM Development Studio License](#arm-development-studio-license)
-  - [Example program setup](#example-program-setup-dev-studio)
+  - [Example program setup Dev Studio](#example-program-setup-dev-studio)
     - [Creating a project in ARM Development Studio](#creating-a-project-in-arm-development-studio)
     - [Adding and compiling source file `main.S`](#adding-and-compiling-source-file-mains)
     - [Configuring the debugger](#configuring-the-debugger)
     - [Launching debugger with FVP](#launching-debugger-with-fvp)
     - [Debugging `main.S` step-by-step](#debugging-mains-step-by-step)
   - [Further guides](#further-guides)
-- [Method 2: Lab Machine Setup](#method-2-lab-machine-setup)
-    - [Environment Setup](#environment-setup)
-    - [A sample debug process](#a-sample-debug-process)
-        - [Setup the lab template](#setup-the-lab-template)
-        - [Begin debugging](#begin-debugging)
-            - [Debugger control buttons](#debugger-control-buttons)
-            - [View register value](#view-register-value)
-            - [View memory content](#view-memory-content)
-        - [Finish debugging](#finish-debugging)
-    - [Debugging commands explained](#debugging-commands-explained)
-        - [Launch FVP](#launch-fvp)
-        - [Compile the sample program](#compile-the-sample-program)
-        - [Upload the compiled program to FVP](#upload-the-compiled-program-to-fvp)
-        - [Start a gdbserver on FVP](#start-a-gdbserver-on-fvp)
-        - [Shutdown FVP properly](#shutdown-fvp-properly)
-    - [Example program setup](#example-program-setup-fvp)
-- [\[100 Points\] Lab 0.2 Sanity Test](#lab-02-sanity-quiz) 
-- [Errata](#errata)
-  
-
-<!-- /code_chunk_output -->
+- [Method 2 Lab Machine Setup](#method-2-lab-machine-setup)
+  - [Environment Setup](#environment-setup)
+  - [A sample debug process](#a-sample-debug-process)
+    - [Setup the lab template](#setup-the-lab-template)
+    - [Begin debugging](#begin-debugging)
+      - [Debugger control buttons](#debugger-control-buttons)
+      - [View register value](#view-register-value)
+      - [View memory content](#view-memory-content)
+    - [Finish debugging](#finish-debugging)
+  - [Debugging commands explained](#debugging-commands-explained)
+    - [Launch FVP](#launch-fvp)
+    - [Compile the sample program](#compile-the-sample-program)
+    - [Upload the compiled program to FVP](#upload-the-compiled-program-to-fvp)
+    - [Start a gdbserver on FVP](#start-a-gdbserver-on-fvp)
+    - [Shutdown FVP properly](#shutdown-fvp-properly)
+  - [Example program setup FVP](#example-program-setup-fvp)
+- [[100 Points] Lab 0.2 Sanity Quiz](#100-points-lab-02-sanity-quiz)
+  - [Questions](#questions)
+    - [[30 Points] Question 1](#30-points-question-1)
+    - [[30 Points] Question 2](#30-points-question-2)
+    - [[40 Points] Question 3](#40-points-question-3)
+  - [Errata](#errata)
 
 # Method 1 ARM Dev Studio on Personal Machines
 
@@ -559,7 +559,7 @@ Also remember to shut down the FVP with `make stop_fvp`
 
 If you encounter error with `ret lr`, replace it with `ret` instead.
 
-# Lab 0.2 Sanity Quiz
+# [100 Points] Lab 0.2 Sanity Quiz
 
 A simple quiz to test basic debugger usage.
 
