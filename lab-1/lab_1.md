@@ -1,4 +1,5 @@
 # Lab 1: Intro to basic assembly
+
 ## Due week of 9/12 in your lab section
 
 You will not use the microcontroller to complete this lab. Use the development environment setup on Lab 0.2 (either Dev Studio or VS Code with FVP).
@@ -15,29 +16,31 @@ A reference manual for the Arm A64 ISA could be found [here](https://developer.a
 
 <!-- code_chunk_output -->
 
-- (100 points total) [Lab 1: Intro to basic assembly](#lab-1-intro-to-basic-assembly)
-  - (0 points) [1. A tutorial on program generation](#1-a-tutorial-on-program-generation)
+- [Lab 1: Intro to basic assembly](#lab-1-intro-to-basic-assembly)
+  - [Due week of 9/12 in your lab section](#due-week-of-912-in-your-lab-section)
+  - [1. A tutorial on program generation](#1-a-tutorial-on-program-generation)
     - [1.1 Intro](#11-intro)
     - [1.2 ISA and Compiler](#12-isa-and-compiler)
     - [1.3 Assembler](#13-assembler)
     - [1.4 Linker](#14-linker)
     - [1.5 Summary](#15-summary)
-  - (20 points) [2. Assembly instruction: arithmetic](#2-assembly-instruction-arithmetic)
+  - [2. Assembly instruction: arithmetic](#2-assembly-instruction-arithmetic)
+    - [2.0 Import template](#20-import-template)
     - [2.1 Example](#21-example)
-      - [Solution for the example](#solution-for-the-example)
-      - [Another solution for example](#another-solution-for-example)
-    - (10 points) [2.2 Calculating the discriminant of a quadratic equation](#22-calculating-the-discriminant-of-a-quadratic-equation)
-    - (10 points) [2.3 Calculating the dot product of two 2-D vectors](#23-calculating-the-dot-product-of-two-2-d-vectors)
-  - (30 points) [3. Assembly instruction: bit-wise/logical](#3-assembly-instruction-bit-wiselogical)
-    - (10 points) [3.1 Taking one byte from a 64-bit word](#31-taking-one-byte-from-a-64-bit-word)
-    - (10 points) [3.2 Turning a flag on/off](#32-turning-a-flag-onoff)
-    - (10 points) [3.3 Swaping the LSB and MSB of a 64-bit word](#33-swaping-the-lsb-and-msb-of-a-64-bit-word)
-  - (50 points) [4. Assembly instruction: memory](#4-assembly-instruction-memory)
+      - [2.1.1 Solution for the example](#211-solution-for-the-example)
+      - [2.1.2 Another solution for the example](#212-another-solution-for-the-example)
+    - [2.2 Calculating the discriminant of a quadratic equation](#22-calculating-the-discriminant-of-a-quadratic-equation)
+    - [2.3 Calculating the dot product of two 2-D vectors](#23-calculating-the-dot-product-of-two-2-d-vectors)
+  - [3. Assembly instruction: bit-wise/logical](#3-assembly-instruction-bit-wiselogical)
+    - [3.1 Taking one byte from a 64-bit word](#31-taking-one-byte-from-a-64-bit-word)
+    - [3.2 Turning a flag on/off](#32-turning-a-flag-onoff)
+    - [3.3 Swaping the LSB and MSB of a 64-bit word](#33-swaping-the-lsb-and-msb-of-a-64-bit-word)
+  - [4. Assembly instruction: memory](#4-assembly-instruction-memory)
     - [4.0 Crash course on assembly directives](#40-crash-course-on-assembly-directives)
-    - (15 points) [4.1 Uppercase formatter](#41-uppercase-formatter)
-    - (15 points) [4.2 Swapping two integers](#42-swapping-two-integers)
-    - (20 points) [4.3 String cutter](#43-string-cutter)
-    - (Bonus 15 Points) [4.4 Endianness: which side are you with?](#44-endianness-which-side-are-you-with)
+    - [4.1 Uppercase formatter](#41-uppercase-formatter)
+    - [4.2 Swapping two integers](#42-swapping-two-integers)
+    - [4.3 String cutter](#43-string-cutter)
+    - [4.4 Endianness: which side are you with?](#44-endianness-which-side-are-you-with)
 
 <!-- /code_chunk_output -->
 
@@ -206,7 +209,7 @@ In this sections, we will discuss the arithmetic instructions of ARM A64 ISA and
 
 ### 2.0 Import template
 
-In the rest of the lab and furture ARMv8 assembly labs, you will need to download the lab template zip file from BrightSpace. After downloading the template, you will need to unzip it. If using ARM Development Studio: import the folder as a project. A guide to import the project is [here](https://developer.arm.com/documentation/101469/2022-1/Projects-and-examples-in-Arm-Development-Studio/Importing-and-exporting-projects/Import-an-existing-Eclipse-project). If you are using the VS Code method on the lab computers, unzip and run ```./setup.sh``` in the lab folder.
+In the rest of the lab and furture ARMv8 assembly labs, you will need to either clone or download the lab template zip file from course GitHub webpage. After downloading the template, you will need to unzip it. If using ARM Development Studio: import the folder as a project. A guide to import the project is [here](https://developer.arm.com/documentation/101469/2022-1/Projects-and-examples-in-Arm-Development-Studio/Importing-and-exporting-projects/Import-an-existing-Eclipse-project). If you are using the VS Code method on the lab computers, unzip and run ```./labx_setup.sh``` in the lab folder, where `x` is the lab number.
 
 ### 2.1 Example
 
@@ -221,7 +224,7 @@ mov x3, #8
 
 You should expect that the x0 register will contain the value 15 when execution reaches the nop following the subroutine invocation. It does not matter what values are left in x1, x2, and x3 after the return from example. Remember to use only the registers x0 through x3 when you write your instructions.
 
-#### Solution for the example
+#### 2.1.1 Solution for the example
 
 The operation cannot be implemented with a single instruction. You must compose multiple instructions to produce the result.
 
@@ -241,7 +244,7 @@ q2_1_example:
 
 You should copy this into the example subroutine in the file, and trace through the execution with the debugger to make sure you understand how it works.
 
-#### Another solution for the example
+#### 2.1.2 Another solution for the example
 
 There are usually many ways to write the same high-level operation in assembly language. The fewer instructions you can use, the faster the code will run to completion. Here is another solution for the previous problem that has fewer instructions:
 
