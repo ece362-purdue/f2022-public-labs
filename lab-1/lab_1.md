@@ -9,6 +9,7 @@ In this lab we will briefly discuss the process of program generation to underst
 We will also walk through several types of assembly instructions used with ARMv8-A architecture, specifically from the [Arm A64 Instruction Set Architecture](https://developer.arm.com/documentation/ddi0596/2020-12/Base-Instructions) (ISA). In addition, some assembly directives will also be discussed to let you be prepared for the next two labs.
 The ISA used in the lab is slightly different from the one covered in the book (the ARMv8 ISA is actually a little easier to program that the LEG covered in the book).
 The flip-side is that ARMv8 is harder to design hardware for. For this lab, don't worry about this minutia we'll be using ARMv8.
+**Be sure to upload your lab1.s file to BrightSpace after your checkoff**
 
 A reference manual for the Arm A64 ISA could be found [here](https://developer.arm.com/documentation/ddi0596/2020-12/Base-Instructions).
 
