@@ -472,7 +472,9 @@ From left to right, for each button:
 
 #### View register value
 
-You can view the registers value on the left under `Registers/CPU`.
+You can view the registers value on the left under `Registers/CPU`:
+
+![register view on vscode](./images/vscode_register_view.png)
 
 #### View memory content
 
