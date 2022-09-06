@@ -352,7 +352,8 @@ In this section, we will be using the ARM Development Studio (ARM DS) IDE to wri
 
 ## Environment Setup
 
-To setup the environment, run the `initial_lab_setup.sh` script as follows on the lab machine:
+To setup the environment, run the `initial_lab_setup.sh` script as follows on the lab machine.
+The `initial_lab_setup.sh` file can be found in the [Lab 0.2 github](https://github.com/ece362-purdue/f2022-lab-0.2) or downloaded from github as [a zip file](https://github.com/ece362-purdue/f2022-lab-0.2/archive/refs/heads/main.zip).
 
 ```bash
 # You will need to cd into the place of `initial_lab_setup.sh` file
