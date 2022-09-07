@@ -188,6 +188,16 @@ In this section we will obtain an evaluation license for the ARM Development Stu
 
 In this section, we will be using the ARM Development Studio (ARM DS) IDE to write a simple assembly program and debug with ARM FVP simulation model.
 
+If you are working on lab machines, use the following commands to open the IDE:
+
+```
+# Opens up a terminal, copy and run the following commands
+ml armds
+armds_ide
+```
+
+> Note: if you launch the IDE from the application page, you might encounter some issues when launching the debugger.
+
 ### Creating a project in ARM Development Studio
 
 1. Open the ARM Development Studio and ensure you are in the Development Studio Perspective similar to the following:
