@@ -130,7 +130,7 @@ Not needed since we have a license server
 
 ## ARM Development Studio License
 
-We will using a license server within Purdue to gain access. This license will work both on lab machines as well as your personal machines provided you are connected to Purdue network (i.e. PAL 3.0 or Purdue VPN).
+We will use a license server within Purdue to gain IDE access. This license will work both on lab machines as well as your personal machines provided you are connected to Purdue network (i.e. PAL 3.0 or Purdue VPN).
 
 > Note: for connecting to Purdue VPN, see [this guide](https://www.itap.purdue.edu/connections/vpn/) from ITAP.
 
