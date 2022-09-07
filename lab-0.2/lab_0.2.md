@@ -23,7 +23,7 @@ This lab shows you how to setup Dev Studio one your own machines or using Method
     - [Launching debugger with FVP](#launching-debugger-with-fvp)
     - [Debugging `main.S` step-by-step](#debugging-mains-step-by-step)
   - [Further guides](#further-guides)
-- [(Method 2 Lab Machine Setup)](#method-2-lab-machine-setup-please-use-method-1-instead-this-will-not-be-maintained)
+- [Method 2 Lab Machine Setup](#method-2-lab-machine-setup-please-use-method-1-instead-this-will-not-be-maintained)
   - [Environment Setup](#environment-setup)
   - [A sample debug process](#a-sample-debug-process)
     - [Setup the lab template](#setup-the-lab-template)
