@@ -7,7 +7,8 @@ Essentially this software will emulate an ARMv8 chip, allowing us to program in 
 **If you try to code ARMv8 in System Workbench, which we used in Lab 0.1, it won't work.**
 We will touch on the subtle differences later in the semester. For Labs 0.2, 1, 2, and 3, we will use an ARMv8 emulator.
 
-This lab consists of two parts: the first is how to setup Dev Studio on your own machines, the second is how to run an open-source equivalent version on the lab machines. **You are only required to use one of these methods to demo the lab (since many of you have had issues with Dev Studio)**.
+This lab shows you how to setup Dev Studio which you can use from either the lab machines (Dev Studio has been installed) or your own machines.
+**You can dafely ignore method 2, as Dev Studio licenses are now available**.
 
 - [Lab 0.2: ARMv8 Development environment setup](#lab-02-armv8-development-environment-setup)
 - [Method 1 ARM Dev Studio](#method-1-arm-dev-studio)
