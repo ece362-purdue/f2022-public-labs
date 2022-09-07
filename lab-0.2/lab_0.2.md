@@ -10,9 +10,7 @@ We will touch on the subtle differences later in the semester. For Labs 0.2, 1, 
 This lab consists of two parts: the first is how to setup Dev Studio on your own machines, the second is how to run an open-source equivalent version on the lab machines. **You are only required to use one of these methods to demo the lab (since many of you have had issues with Dev Studio)**.
 
 - [Lab 0.2: ARMv8 Development environment setup](#lab-02-armv8-development-environment-setup)
-- [Method 1 ARM Dev Studio on Personal Machines](#method-1-arm-dev-studio-on-personal-machines)
-  - [Prerequisites](#prerequisites)
-  - [ARM Developer account registration](#arm-developer-account-registration)
+- [Method 1 ARM Dev Studio](#method-1-arm-dev-studio)
   - [ARM Development Studio IDE installation](#arm-development-studio-ide-installation)
     - [Windows](#windows)
     - [Linux](#linux)
@@ -24,7 +22,7 @@ This lab consists of two parts: the first is how to setup Dev Studio on your own
     - [Launching debugger with FVP](#launching-debugger-with-fvp)
     - [Debugging `main.S` step-by-step](#debugging-mains-step-by-step)
   - [Further guides](#further-guides)
-- [Method 2 Lab Machine Setup](#method-2-lab-machine-setup)
+- [~~Method 2 Lab Machine Setup~~ (Please use method 1 instead, this will not be maintained)](#method-2-lab-machine-setup-please-use-method-1-instead-this-will-not-be-maintained)
   - [Environment Setup](#environment-setup)
   - [A sample debug process](#a-sample-debug-process)
     - [Setup the lab template](#setup-the-lab-template)
@@ -47,17 +45,17 @@ This lab consists of two parts: the first is how to setup Dev Studio on your own
     - [[40 Points] Question 3](#40-points-question-3)
   - [Errata](#errata)
 
-# Method 1 ARM Dev Studio on Personal Machines
+# Method 1 ARM Dev Studio
 
-## Prerequisites
+<!-- ## Prerequisites
 
 1. An PC with Windows or Linux installed and 5GB+ free space
 2. An ARM Developer account
-   1. If you have an ARM developer account, you could directly skip to [IDE installation section](#arm-development-studio-ide-installation)
+   1. If you have an ARM developer account, you could directly skip to [IDE installation section](#arm-development-studio-ide-installation) -->
 
+<!-- 
+Not needed since we have a license server
 ## ARM Developer account registration
-
-<!-- Do we need this if we have own licenses -->
 
 1. Go to the [ARM developer website](https://developer.arm.com/)
 2. Click on account icon on top right and select `Register`
@@ -71,13 +69,14 @@ This lab consists of two parts: the first is how to setup Dev Studio on your own
 
     ![ARM Account registration page](./images/account-info.png)
 
-6. Hit `Create` and you should be able to login into your ARM account.
+6. Hit `Create` and you should be able to login into your ARM account. -->
 
 ## ARM Development Studio IDE installation
 
-1. ARM Development Studio IDE requires a Windows or Linux PC. If you hold a Mac machine, please refer to the Lab machine to use this software.
-2. Visit the [ARM Developer Studio website](https://developer.arm.com/downloads/-/arm-development-studio-downloads) to download the newest IDE.
-3. After the download completes, please go to the section corresponding to your PC operating system and proceed with the remaining steps:
+1. You don't need to install the IDE on lab machines; they are already pre-installed.
+2. ARM Development Studio IDE requires a Windows or Linux PC. If you hold a Mac machine, please refer to the Lab machine to use this software.
+3. Visit the [ARM Developer Studio website](https://developer.arm.com/downloads/-/arm-development-studio-downloads) to download the newest IDE.
+4. After the download completes, please go to the section corresponding to your PC operating system and proceed with the remaining steps:
    1. [Windows PC](#windows)
    2. [Linux PC](#linux)
 
@@ -131,6 +130,36 @@ This lab consists of two parts: the first is how to setup Dev Studio on your own
 
 ## ARM Development Studio License
 
+We will using a license server within Purdue to gain access. This license will work both on lab machines as well as your personal machines provided you are connected to Purdue network (i.e. PAL 3.0 or Purdue VPN).
+
+> Note: for connecting to Purdue VPN, see [this guide](https://www.itap.purdue.edu/connections/vpn/) from ITAP.
+
+In the ARM DS IDE, opens up the license manager from top menu under `Help->Arm License Manager...`: 
+
+![license manager](./images/arm-ds-license-manager.png)
+
+Then, in the popped up window, select `Change`:
+
+![license change](./images/arm-ds-change-license.png)
+
+> You might also want to remove any previous evaluation license as well.
+
+Then select `Add product license` and hit `Next`:
+
+![add product license](./images/arm-ds-add-product-license.png)
+
+Select `License Server` and enter the following: `8224@marina.ecn.purdue.edu`:
+
+![license server config](./images/arm-ds-license-server.png)
+
+Keep hitting `Next` until this page shows up, then click `Finish`:
+
+![license done](./images/arm-ds-license-done.png)
+
+Click `Apply & Close`, your ARM DS IDE should be set up properly.
+
+<!--
+All of these are the evaluation license 
 > Note: this section is perform under the Linux version of the IDE, there might exist minor differences with the Windows one, but will not affect the final outcome.
 
 In this section we will obtain an evaluation license for the ARM Development Studio (we are currently working on getting educational licenses from ARM, but for the first lab, we will be using the trial version).
@@ -148,7 +177,7 @@ In this section we will obtain an evaluation license for the ARM Development Stu
 
     ![ide-license-success](./images/ide-license-success.png)
 
-6. You are now ready to use the ARM Development Studio to create your first assembly program!
+6. You are now ready to use the ARM Development Studio to create your first assembly program! -->
 
 ## Example program setup Dev Studio
 
@@ -348,7 +377,7 @@ In this section, we will be using the ARM Development Studio (ARM DS) IDE to wri
 2. [ARM Development Studio IDE Introduction](https://developer.arm.com/documentation/101469/2000/Introduction-to-the-Integrated-Development-Environment)
 3. [ARM Development Studio Debugger Introduction](https://developer.arm.com/documentation/101469/2000/Tutorials/Tutorial--Hello-World/Application-debug-with-Arm-Debugger?lang=en)
 
-# Method 2 Lab Machine Setup
+# ~~Method 2 Lab Machine Setup~~ (Please use method 1 instead, this will not be maintained)
 
 ## Environment Setup
 
