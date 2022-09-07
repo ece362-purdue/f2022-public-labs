@@ -23,7 +23,7 @@ This lab shows you how to setup Dev Studio one your own machines or using Method
     - [Launching debugger with FVP](#launching-debugger-with-fvp)
     - [Debugging `main.S` step-by-step](#debugging-mains-step-by-step)
   - [Further guides](#further-guides)
-- [Method 2 Lab Machine Setup](#method-2-lab-machine-setup-please-use-method-1-instead-this-will-not-be-maintained)
+- [Method 2 Lab Machine Setup](#method-2-lab-machine-setup)
   - [Environment Setup](#environment-setup)
   - [A sample debug process](#a-sample-debug-process)
     - [Setup the lab template](#setup-the-lab-template)
@@ -378,7 +378,7 @@ In this section, we will be using the ARM Development Studio (ARM DS) IDE to wri
 2. [ARM Development Studio IDE Introduction](https://developer.arm.com/documentation/101469/2000/Introduction-to-the-Integrated-Development-Environment)
 3. [ARM Development Studio Debugger Introduction](https://developer.arm.com/documentation/101469/2000/Tutorials/Tutorial--Hello-World/Application-debug-with-Arm-Debugger?lang=en)
 
-# ~~Method 2 Lab Machine Setup~~ (Please use method 1 instead, this will not be maintained)
+# Method 2 Lab Machine Setup
 
 ## Environment Setup
 
