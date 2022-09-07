@@ -135,16 +135,6 @@ We will use a license server within Purdue to gain IDE access. This license will
 
 > Note: for connecting to Purdue VPN, see [this guide](https://www.itap.purdue.edu/connections/vpn/) from ITAP.
 
-If you are working on lab machines, use the following commands to open the IDE:
-
-```
-# Opens up a terminal, copy and run the following commands
-ml armds
-armds_ide
-```
-
-> Note: if you launch the IDE from the application page, you might encounter some issues when launching the debugger.
-
 In the ARM DS IDE, opens up the license manager from top menu under `Help->Arm License Manager...`: 
 
 ![license manager](./images/arm-ds-license-manager.png)
@@ -319,6 +309,13 @@ In this section, we will be using the ARM Development Studio (ARM DS) IDE to wri
 10. Now you are ready to debug! You could always reconfigure all this by opening the file `HelloWorld_FVP.launch` or by right clicking the project name and navigate to `Debug As -> Debug Configurations...`
 
 ### Launching debugger with FVP
+
+> Note: if you launch the IDE from the application page, and encounter issues when launching the debugger, try close the IDE and launch from terminal using the commands below:
+> ```
+> # Opens up a terminal, copy and run the following commands
+> ml armds
+> armds_ide
+> ```
 
 1. To start debugging, you could either
    1. Hit the `Debug` button when configuring the debugger
