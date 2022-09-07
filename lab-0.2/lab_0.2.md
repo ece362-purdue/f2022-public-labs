@@ -7,8 +7,8 @@ Essentially this software will emulate an ARMv8 chip, allowing us to program in 
 **If you try to code ARMv8 in System Workbench, which we used in Lab 0.1, it won't work.**
 We will touch on the subtle differences later in the semester. For Labs 0.2, 1, 2, and 3, we will use an ARMv8 emulator.
 
-This lab shows you how to setup Dev Studio which you can use from either the lab machines (Dev Studio has been installed) or your own machines.
-**You can safely ignore method 2, as Dev Studio licenses are now available**.
+This lab shows you how to setup Dev Studio one your own machines or using Method 2 on the lab machines.
+**You are only required to demo one of the methods for this lab. Although we recommend you get Dev Studio working on your own computer**.
 
 - [Lab 0.2: ARMv8 Development environment setup](#lab-02-armv8-development-environment-setup)
 - [Method 1 ARM Dev Studio](#method-1-arm-dev-studio)
@@ -23,7 +23,7 @@ This lab shows you how to setup Dev Studio which you can use from either the lab
     - [Launching debugger with FVP](#launching-debugger-with-fvp)
     - [Debugging `main.S` step-by-step](#debugging-mains-step-by-step)
   - [Further guides](#further-guides)
-- [~~Method 2 Lab Machine Setup~~ (Please use method 1 instead, this will not be maintained)](#method-2-lab-machine-setup-please-use-method-1-instead-this-will-not-be-maintained)
+- [(Method 2 Lab Machine Setup)](#method-2-lab-machine-setup-please-use-method-1-instead-this-will-not-be-maintained)
   - [Environment Setup](#environment-setup)
   - [A sample debug process](#a-sample-debug-process)
     - [Setup the lab template](#setup-the-lab-template)
