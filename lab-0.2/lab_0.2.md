@@ -135,6 +135,16 @@ We will use a license server within Purdue to gain IDE access. This license will
 
 > Note: for connecting to Purdue VPN, see [this guide](https://www.itap.purdue.edu/connections/vpn/) from ITAP.
 
+If you are working on lab machines, use the following commands to open the IDE:
+
+```
+# Opens up a terminal, copy and run the following commands
+ml armds
+armds_ide
+```
+
+> Note: if you launch the IDE from the application page, you might encounter some issues when launching the debugger.
+
 In the ARM DS IDE, opens up the license manager from top menu under `Help->Arm License Manager...`: 
 
 ![license manager](./images/arm-ds-license-manager.png)
@@ -187,16 +197,6 @@ In this section we will obtain an evaluation license for the ARM Development Stu
 > Note: this section is partially based on the [ARM Development Studio Getting Started Guide](https://developer.arm.com/documentation/101469/2000/Tutorials/Tutorial--Hello-World).
 
 In this section, we will be using the ARM Development Studio (ARM DS) IDE to write a simple assembly program and debug with ARM FVP simulation model.
-
-If you are working on lab machines, use the following commands to open the IDE:
-
-```
-# Opens up a terminal, copy and run the following commands
-ml armds
-armds_ide
-```
-
-> Note: if you launch the IDE from the application page, you might encounter some issues when launching the debugger.
 
 ### Creating a project in ARM Development Studio
 
