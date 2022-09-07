@@ -145,6 +145,8 @@ Then, in the popped up window, select `Change`:
 
 > You might also want to remove any previous evaluation license as well.
 
+> If you do not see the `Change` button, just click on the `Configure` button instead.
+
 Then select `Add product license` and hit `Next`:
 
 ![add product license](./images/arm-ds-add-product-license.png)
