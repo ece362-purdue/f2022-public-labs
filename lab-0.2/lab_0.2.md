@@ -135,6 +135,8 @@ We will use a license server within Purdue to gain IDE access. This license will
 
 > Note: for connecting to Purdue VPN, see [this guide](https://www.itap.purdue.edu/connections/vpn/) from ITAP.
 
+> Note: also you might need a VPN connection even with PAL 3.0.
+
 In the ARM DS IDE, opens up the license manager from top menu under `Help->Arm License Manager...`: 
 
 ![license manager](./images/arm-ds-license-manager.png)
