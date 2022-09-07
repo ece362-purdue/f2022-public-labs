@@ -204,7 +204,13 @@ In this sections, we will discuss the arithmetic instructions of ARM A64 ISA and
 
 ### 2.0 Import template
 
-In the rest of the lab and furture ARMv8 assembly labs, you will need to either clone or download the lab template zip file from course GitHub webpage. After downloading the template, you will need to unzip it. If using ARM Development Studio: import the folder as a project. A guide to import the project is [here](https://developer.arm.com/documentation/101469/2022-1/Projects-and-examples-in-Arm-Development-Studio/Importing-and-exporting-projects/Import-an-existing-Eclipse-project). If you are using the VS Code method on the lab computers, unzip and run ```./labx_setup.sh``` in the lab folder, where `x` is the lab number.
+In the rest of the lab and furture ARMv8 assembly labs, you will need to either clone or download the lab template zip file from course GitHub webpage. After downloading the template, you will need to unzip it. If using ARM Development Studio: import the folder as a project. A guide to import the project is [here](https://developer.arm.com/documentation/101469/2022-1/Projects-and-examples-in-Arm-Development-Studio/Importing-and-exporting-projects/Import-an-existing-Eclipse-project). 
+
+After importing the folder, expand it and click the `Lab_x_FVP.launch` (`x` is the lab number) script to open up the debugger config. Hit `Debug` to begin debugging.
+
+<!--
+FVP Not used 
+If you are using the VS Code method on the lab computers, unzip and run ```./labx_setup.sh``` in the lab folder, where `x` is the lab number. -->
 
 ### 2.1 Example
 
