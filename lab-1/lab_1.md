@@ -543,8 +543,8 @@ Still, there exist two ways to do this: store the MSB first or LSB first:
 
 |address  |   `x`  | `x + 1` | `x + 2` | `x + 3` |
 |:--      |  :--:  |  :--:   |  :--:   |  :--:   |
-|MSB first| `0x44` | `0x33`  | `0x22`  | `0x11`  |
-|LSB first| `0x11` | `0x22`  | `0x33`  | `0x44`  |
+|LSB first| `0x44` | `0x33`  | `0x22`  | `0x11`  |
+|MSB first| `0x11` | `0x22`  | `0x33`  | `0x44`  |
 
 > Note: MSB refers to most significant byte and LSB refers to least significant byte, check [3.1](#31-taking-one-byte-from-a-64-bit-word) for more explanation on them.
 
