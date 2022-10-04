@@ -17,3 +17,4 @@
    - You could download the [lab 3 template](https://github.com/ece362-purdue/f2022-lab-3):
      - `git clone git@github.com:ece362-purdue/f2022-lab-3.git`
      - Or with [zipped file](https://github.com/ece362-purdue/f2022-lab-3/archive/refs/heads/main.zip)
+6. [Lab 4 Computer Organization](./lab-4/lab_4.md) (Due in week of 10/10 of your lab section)
