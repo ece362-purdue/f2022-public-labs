@@ -1,5 +1,8 @@
 # Lab 4: Computer Organization v0
 
+<b>NOTE: This is an early version of the lab, meant to give people a chance to get a head start.
+Everything you implement here can be used in the final version of the lab.</b>
+
 In this lab, we will be studying the hardware implementation a simple, single cycle implementation of a subset of the LEGv8 architecture.
 
 Specifically, we will be implementing some elements of the processor in a C simulator.
