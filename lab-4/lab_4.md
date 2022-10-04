@@ -31,7 +31,7 @@ struct ControlSignals {
     uint64_t RegWrite;
 };
 
-// Assume that the least significant 10 bits of instBits
+// Assume that the least significant 11 bits of instBits
 // contain the instruction bits [31-21].
 // Set the output signals as follows:
 //  outputSignals.Reg2Loc = 1;
