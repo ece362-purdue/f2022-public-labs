@@ -50,13 +50,20 @@ uint64_t getExtendedBits(uint64_t instBits) {
 
 In this step, you will be implementing the control logic block in the following diagram.
 
-
 ![Single Cycle Processor](img/ss.jpg)
 
 Assume that the control unit takes in the 11-bits of the op code and
 outputs the set of control signals necessary to implement:
 ADD, ADDI, SUB, SUBI, LDUR, STUR, EOR, EORI, and CBZ.
 Since this is a C simulator and we are not generating real hardware, for "don't care" signals, nothing has to be set.
+For the ALUOp line, assume a 2-bit signal with the following meaning:
+
+| Value |         Meaning      |
+| ----- | -------------------- |
+|  00   |          Add         |
+|  10   |        R-Type        |
+|  11   | Pass Through data 2  |
+
 
 
 ## Part B: Implementing the sign extender
