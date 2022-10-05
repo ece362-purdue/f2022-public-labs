@@ -58,4 +58,4 @@ sign extended portion of the instruction.
 - Recall, not all instructions have the same number of opcode bits, however, your setControl function is always getting the the uppermost 11-bits of the instruction in the lowermost 11-bits of instrBits.
 
 Your final points will be calculated based on the percentage of test cases passed
-in each category.
+in each category. Please be sure to hand in your lab4.cc file to Bright Space.
