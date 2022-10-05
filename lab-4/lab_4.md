@@ -1,52 +1,31 @@
-# Lab 4: Computer Organization v0
+# Lab 4: Computer Organization
 
-<b>NOTE: This is an early version of the lab, meant to give people a chance to get a head start.
-Everything you implement here can be used in the final version of the lab.</b>
-
-In this lab, we will be studying the hardware implementation a simple, single cycle implementation of a subset of the LEGv8 architecture.
+In this lab, we will be studying the hardware implementation of a simple, single cycle of a subset of the LEGv8 architecture.
 
 Specifically, we will be implementing some elements of the processor in a C simulator.
 The code for this simulator can be written/run on virtually any linux/mac or windows
 system with an appropriate C compiler.
 
+After you have pulled down the code, building the tester should
+just involve running:
 
-A github code repo will be released soon, but for now, you can assume you will start with the following code:
-
-```c
-include <stdint.h>
-
-// Assume that only the LSB of the 64-bit values
-// are used to store the value of the control signal.
-// Since this is a C-simulator and not a real piece of hardware
-// wasting space on making all the types 64-bits is not a important
-// but lets us keep the software flexible.
-struct ControlSignals {
-    uint64_t Reg2Loc;
-    uint64_t Branch;
-    uint64_t MemRead;
-    uint64_t MemtoReg;
-    uint64_t ALUOp;
-    uint64_t MemWrite;
-    uint64_t ALUSrc;
-    uint64_t RegWrite;
-};
-
-// Assume that the least significant 11 bits of instBits
-// contain the instruction bits [31-21].
-// Set the output signals as follows:
-//  outputSignals.Reg2Loc = 1;
-void setControl(uint64_t instBits,  ControlSignals& outputSignals) {
-
-}
-
-// Assume that the lower 32-bits of instBits contain the instruction.
-uint64_t getExtendedBits(uint64_t instBits) {
-    uint64_t returnVal = 0;
-    return returnVal;
-}
+```bash
+make
 ```
 
-## Part A: Implementing the control logic
+from the command line. If you want to test this code on your own ARM-based MAC,
+use the command:
+
+```bash
+make MacArm
+```
+
+To run the test for the lab, run:
+```bash
+./lab4
+```
+
+##  Part A: Implementing the control logic [40 Points]
 
 In this step, you will be implementing the control logic block in the following diagram.
 
@@ -54,7 +33,7 @@ In this step, you will be implementing the control logic block in the following 
 
 Assume that the control unit takes in the 11-bits of the op code and
 outputs the set of control signals necessary to implement:
-ADD, ADDI, SUB, SUBI, LDUR, STUR, EOR, EORI, and CBZ.
+ADD, ADDI, SUB, SUBI, LDUR, STUR, ORR, and CBZ.
 Since this is a C simulator and we are not generating real hardware, for "don't care" signals, nothing has to be set.
 For the ALUOp line, assume a 2-bit signal with the following meaning:
 
@@ -66,8 +45,17 @@ For the ALUOp line, assume a 2-bit signal with the following meaning:
 
 
 
-## Part B: Implementing the sign extender
+##  Part B: Implementing the sign extender [60 Points]
 
 Similar to Part A, write a C-function that implements the Sign-Extender.
 It should take in the 32-bits of the instruction, and output the sign appropriate
 sign extended portion of the instruction.
+
+## Some helpful hints
+
+- Recall that you can specify hex constants in C using the ```0x``` format and binary constants using the ```0b``` format.
+- Be careful with shifting "1". Since we are using large, 64-bit types, C by default will treat a constant "1" as a 32-bit value. If you want to shift the value "1" to set the higher bits in a number by shifting it over (i.e. "1 << 63"), decare "const uint64_t one = 1;", then do "one << 63".
+- Recall, not all instructions have the same number of opcode bits, however, your setControl function is always getting the the uppermost 11-bits of the instruction in the lowermost 11-bits of instrBits.
+
+Your final points will be calculated based on the percentage of test cases passed
+in each category.
