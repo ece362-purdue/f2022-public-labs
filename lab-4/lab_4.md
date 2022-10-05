@@ -55,7 +55,7 @@ sign extended portion of the instruction.
 
 - Recall that you can specify hex constants in C using the ```0x``` format and binary constants using the ```0b``` format.
 - Be careful with shifting "1". Since we are using large, 64-bit types, C by default will treat a constant "1" as a 32-bit value. If you want to shift the value "1" to set the higher bits in a number by shifting it over (i.e. "1 << 63"), decare "const uint64_t one = 1;", then do "one << 63".
-- Recall, not all instructions have the same number of opcode bits, however, your setControl function is always getting the the uppermost 11-bits of the instruction in the lowermost 11-bits of instrBits.
+- Recall, not all instructions have the same number of opcode bits, however, your setControl function is always getting the uppermost 11-bits of the instruction in the lowermost 11-bits of instrBits.
 
 Your final points will be calculated based on the percentage of test cases passed
 in each category. Please be sure to hand in your lab4.cc file to Bright Space.
