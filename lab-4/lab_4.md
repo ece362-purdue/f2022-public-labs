@@ -69,7 +69,7 @@ All you really need to know to use this code is that you should set the fields
 of the outputSignals struct like this ```outputSignals.Reg2Loc = 1;```.
 And now you can all claim you have coded in C++ ;)
 Sidebar: This is really a bare-minimum subset of C++, so don't go telling recruiters that you
-"know" C++, or they are going to start asking you about [The Diamond Problem](https://en.wikipedia.org/wiki/Multiple_inheritance#:~:text=The%20%22diamond%20problem%22%20(sometimes,from%20both%20B%20and%20C.),
+"know" C++, or they are going to start asking you about [The Diamond Problem](https://en.wikipedia.org/wiki/Multiple_inheritance#:~:text=The%20%22diamond%20problem%22%20(sometimes,from%20both%20B%20and%20C),
 and you might risk looking silly :)
 
 After you have pulled down the code, building the tester should
