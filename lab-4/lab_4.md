@@ -2,9 +2,75 @@
 
 In this lab, we will be studying the hardware implementation of a simple, single cycle of a subset of the LEGv8 architecture.
 
-Specifically, we will be implementing some elements of the processor in a C simulator.
+Specifically, we will be implementing some elements of the processor in a C/C++ simulator.
 The code for this simulator can be written/run on virtually any linux/mac or windows
-system with an appropriate C compiler.
+system with an appropriate C++ compiler.
+
+Please note that you are able to complete this lab using only standard C
+knowledge, however, we are using two C++ features (for convenience) in the code we have given you.
+The first is the definition of a struct. C++ has dropped the versbose requirement that
+you must define a struct before referencing it (or create a typedef to avoid doing it).
+Therefore; a ```ControlSignals``` instance can be instantiated by simply stating ```ControlSignals a;```
+
+In C you would have had to declare it as a typedef this way:
+
+```C
+// C struct
+typedef struct {
+  uint64_t Reg2Loc;
+  uint64_t Branch;
+  uint64_t MemRead;
+  uint64_t MemtoReg;
+  uint64_t ALUOp;
+  uint64_t MemWrite;
+  uint64_t ALUSrc;
+  uint64_t RegWrite;
+} ControlSignals;
+
+// Cpp struct
+struct ControlSignals {
+  uint64_t Reg2Loc;
+  uint64_t Branch;
+  uint64_t MemRead;
+  uint64_t MemtoReg;
+  uint64_t ALUOp;
+  uint64_t MemWrite;
+  uint64_t ALUSrc;
+  uint64_t RegWrite;
+} ;
+```
+
+The other concept is something called "pass by reference", which is used on the ```ControlSignals``` struct
+passed into the setControl function:
+
+```CPP
+// CPP pass-by-reference
+void setControl(uint64_t instBits, ControlSignals& outputSignals)
+{
+  outputSignals.Reg2Loc = 1;
+  ...
+}
+```
+
+You can think of a ControlSignals& as a pointer where you use the ```.``` operator
+to dereference it instead of the ```->``` operator.
+
+So the above code snippet is functionally-equvalent to the following in C:
+```C
+// C passing by pointer
+void setControl(uint64_t instBits, ControlSignals* outputSignals)
+{
+  outputSignals->Reg2Loc = 1;
+  ...
+}
+```
+
+All you really need to know to use this code is that you should set the fields
+of the outputSignals struct like this ```outputSignals.Reg2Loc = 1;```.
+And now you can all claim you have coded in C++ ;)
+Sidebar: This is really a bare-minimum subset of C++, so don't go telling recruiters that you
+"know" C++, or they are going to start asking you about (The Diamond Problem)[https://en.wikipedia.org/wiki/Multiple_inheritance#:~:text=The%20%22diamond%20problem%22%20(sometimes,from%20both%20B%20and%20C.],
+and you might risk looking silly :)
 
 After you have pulled down the code, building the tester should
 just involve running:
