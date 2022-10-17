@@ -46,6 +46,8 @@ You should start by downloading the Lab 5 student template from the Lab website 
 
 Every subsection of this step (4.1, 4.2, ..., etc) requires a checkoff by your TA. Do NOT wait until the end of lab to check everything off.
 
+To prepare for debugging, make sure you follow the steps in [lab 0.1](https://engineering.purdue.edu/ece362/f22/lab/lab0.f2022/#Edit) to set up the debugger properly.
+
 In addition, a precompiled autotest object has been incorporated into the template folder. You can utilize it to test both the wire connection and subroutines. To do so, make sure you have connect the UART serial adapter and the STLink to the microcontroller. Then you will need to uncomment the line `autotest()` in the `main.c` file and start the debugging on System Workbench. After the debugger successfully launched, make sure it goes into the `autotest()` and launch a serial connection to the microcontroller in a terminal with `screen /dev/ttyUSB0 115200` (the same one in lab 0.1). You should see a prompt similar to the following:
 
 ```text
