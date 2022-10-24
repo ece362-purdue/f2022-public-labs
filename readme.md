@@ -29,3 +29,8 @@
    - you could download the [lab 6 template](https://github.com/ece362-purdue/f2022-lab-6):
      - `git clone git@github.com:ece362-purdue/f2022-lab-6.git`
      - or with [zipped file](https://github.com/ece362-purdue/f2022-lab-6/archive/refs/heads/main.zip)
+9. [Lab 7 Timers](./lab-7/lab_7.md) (Due in week of 10/31 of your lab section)
+   - you could download the [lab 7 template](https://github.com/ece362-purdue/f2022-lab-7):
+     - `git clone git@github.com:ece362-purdue/f2022-lab-7.git`
+     - or with [zipped file](https://github.com/ece362-purdue/f2022-lab-7/archive/refs/heads/main.zip)
+   - This is a rather heavy lab on wiring, please start early and ask for help in office hours if you are having issues setting up the circuit.
