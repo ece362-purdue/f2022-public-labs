@@ -34,3 +34,7 @@
      - `git clone git@github.com:ece362-purdue/f2022-lab-7.git`
      - or with [zipped file](https://github.com/ece362-purdue/f2022-lab-7/archive/refs/heads/main.zip)
    - This is a rather heavy lab on wiring, please start early and ask for help in office hours if you are having issues setting up the circuit.
+10. [Lab 8 Analog IO](./lab-8/lab_8.md) (Due in week of 11/7 of your lab section)
+   - you could download the [lab 8 template](https://github.com/ece362-purdue/f2022-lab-8):
+     - `git clone git@github.com:ece362-purdue/f2022-lab-8.git`
+     - or with [zipped file](https://github.com/ece362-purdue/f2022-lab-8/archive/refs/heads/main.zip)
