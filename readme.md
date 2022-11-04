@@ -38,3 +38,8 @@
    - you could download the [lab 8 template](https://github.com/ece362-purdue/f2022-lab-8):
      - `git clone git@github.com:ece362-purdue/f2022-lab-8.git`
      - or with [zipped file](https://github.com/ece362-purdue/f2022-lab-8/archive/refs/heads/main.zip)
+11. [Lab 9 PWM](./lab-9/lab_9.md) (Final due date for this lab is with lab 10, though you could checkoff early before Thanksgiving break)
+   - Since this lab will be held during exam week, it is made to be a lighter lab with more hints than usual. Also you can check it off during exam week, the Monday office hours before Thanksgiving break, or together with your lab 10.
+   - you could download the [lab 9 template](https://github.com/ece362-purdue/f2022-lab-9):
+     - `git clone git@github.com:ece362-purdue/f2022-lab-9.git`
+     - or with [zipped file](https://github.com/ece362-purdue/f2022-lab-9/archive/refs/heads/main.zip)
