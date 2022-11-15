@@ -43,3 +43,7 @@
    - you could download the [lab 9 template](https://github.com/ece362-purdue/f2022-lab-9):
      - `git clone git@github.com:ece362-purdue/f2022-lab-9.git`
      - or with [zipped file](https://github.com/ece362-purdue/f2022-lab-9/archive/refs/heads/main.zip)
+12. [Lab 10 SPI and DMA](./lab-10/lab_10.md) (Due 11/28, after the Thanksgiving break)
+   - you could download the [lab 10 template](https://github.com/ece362-purdue/f2022-lab-10):
+     - `git clone git@github.com:ece362-purdue/f2022-lab-10.git`
+     - or with [zipped file](https://github.com/ece362-purdue/f2022-lab-10/archive/refs/heads/main.zip)
