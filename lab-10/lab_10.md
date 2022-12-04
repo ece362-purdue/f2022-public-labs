@@ -169,6 +169,11 @@ Uncomment the `#define BIT_BANG` stanza in `main.c`. This will invoke your `setu
 
 The display should say "ECE 362", though it will iterate through each display element very slowly. Make sure that each digit displays correctly. Then reduce the number of nanoseconds that small_delay waits until the display is smooth. 
 
+If your display is not working, check:
+- Make sure that each pin is set to output mode on the debugger (0x01 per each pin)
+- Make sure that you're using the correct ODR (or BSRR) pins. You can check this by stepping through each line in your code with the debugger and seeing what pins change on the ODR.
+- Set up your AD2 in a similar fashion as the next task. Do not use the value trigger, instead clock on the box to the right of DIO 1 to initialize a simple trigger. Zoom in/out until you can see the individual codes being sent out on each line. Is the NSS pin being deasserted when data is being sent, and reasserted after the frame completes? Is the SCK pin sending out a clock signal properly? Is the MOSI line outputting the expected data frames? If any of these are not true, then chances are the ODR is not being set correctly. There is a slight chance that your for loop is not passing the correct data, in which case you will need to step into the function with the debugger and look at the variable tab to find what variables are being passed in.
+
 #### 4.1.6 Demonstrate Bit Banging
 
 Comment out the `nano_wait()` call and use your AD2 to capture a trace of the SPI protocol. To do so,
@@ -225,6 +230,14 @@ In labs 8 and 9, you used DMA to copy 16-bit words into an 11-bit GPIO ODR to dr
 
 **Have a TA check you off for this section** (TA Instructions: Check that the correct functions are commented/uncommented in main and that the display and keyboard work normally). 
 
+#### 4.2.4 Debugging the SPI2 Channel
+If your display is not working, check these items inside of the debugger:
+- Are you setting the respective pins to Alternate Function mode? If you check inside of the debugger, each used pin should read 0x10.
+- Because we are setting alternate functions in these pins, the AFRH (AFR[1]) should be reading the alternate function that can be used for these pins. These can be found in the STM32F0 datasheet, not the family reference manual.
+- Are you turning on the SPI2 RCC clock? Every peripheral in the STM32F0 has a clock associated with it in the RCC. Assume that these peripherals will not work unless you turn their clock on.
+- Are you turning off the SPE bit before configuration and turning it back on after?
+- Are your CR1 and CR2 registers coming out to expected values? Make sure to put a breakpoint after your code, run the debugger to that breakpoint, and check the values in those registers. CR1 initializes to 0x0700 and CR2 initializes to 0x0000, so most of the things that are turned on are bits that you turn on in your code. If they are coming out different than what you expext, check through your code to make sure you are correctly setting and clearing bits.
+
 ### (15 points) 4.3 Trigger DMA with SPI_TX
 
 An SPI peripheral can be configured to trigger the DMA channel all by itself. No timer is needed! It just so happens that the SPI2 transmitter triggers the same DMA channel that Timer 15 triggers. (See the entry in Table 32 for SPI2_TX.) The only additional work to do is to configure the SPI peripheral to trigger the DMA. Subroutine to do this are provided for you. They are named `spi2_setup_dma()` and `spi2_enable_dma()`. They call the code you wrote in `setup_dma()` and `enable_dma()`.
@@ -236,6 +249,9 @@ You now have a system that can automatically transfer 16-bit chunks from an 8-en
 #### 4.3.1 Demonstrate Trigger DMA with SPI_TX
 
 Comment the `SPI_LEDS` stanza and uncomment the `SPI_LEDS_DMA` stanza. **Have a TA check you off for this section** (TA Instructions: Run this in the System Workbench debugger and confirm that Timer 15 is not initialized.) 
+
+#### 4.3.2 Debugging the DMA
+This task is a very similar task to what we've done in the past with the course. You can copy and paste on of the previous DMA setup code blocks that you've written, change the channel to the one needed for SPI2TX, and update the CMAR, CPAR, and CNDTR to the new needed values for the SPI DR, msg array, and msg array size.
 
 ### (10 points) 4.4 Using SPI to drive the OLED LCD
 
@@ -295,7 +311,15 @@ The display hardware allows for scroll buffers for each line, so the beginning o
 
 At this point, you should be able to comment and previous stanzas and uncomment the `SPI_OLED` stanza. It uses the `init_spi1()` you wrote along with the support code to initialize and write things to the OLED display.
 
-**Have a TA check you off for this part** (TA Instructions: the OLED display should display "Hello again,\n[Their login]") 
+**Have a TA check you off for this part** (TA Instructions: the OLED display should display "Hello again,\n[Their login]")
+
+#### 4.4.8 Debugging the SPI1 Channel
+If your OLED isnt working right away, check these things:
+- Are you setting your GPIOA pins to alternate function mode (0x10)? A common problem here is accidentally editing PA13 and PA14. If you edit these, it will make your debugger stop working. If your debugger suddenly is saying "device not detected," then you are accidentally changing PA13 and PA14. Fix your code, and hold the reset button while you're programming it. 
+- Are you turning on the RCC clock to SPI1?
+- Are you correctly setting the data size to 10 bits? In an earlier help section, it's mentioned that CR2 intitializes to 0x0700. This means you can't just OR in 0x0900. Further, you cannot clear out 0x0f00 because it returns the SPI channel to a default state. You must do a set and clear operation to get the data size to the correct value for this case.
+- If your code looks correct, your data size is set to ten bits, and it looks like everything is working on the AD2, you may need to reset your OLED display. These are pretty cheap displays that aren't very smart, so it's easy to confuse them and make them quit working. This can be fixed by unplugging its wiring and plugging it back in.
+- I've noticed that there are some edge cases where the OLED will not work with this task, but it will work with the next task. This is only happening with a small amount of students, so don't immediately assume it's your problem. Anyways, I'm chalking this specific problem up to the quality of the OLED displays. If you're confident that your SPI1 bus is working correctly, the output on the AD2 is correct, and your wiring is correct, skip to the next task and it might start working. If it still does not work after the next task, something went wrong that you missed here, and you'll need to look over this section again.
 
 ### (25 points) 4.5 Trigger SPI1 DMA
 
@@ -318,6 +342,9 @@ An example of subroutines to update the `display[]` array is provided in the `su
 #### 4.5.3 Demonstrate your work
 
 Uncomment the `SPI_OLED_DMA` stanza and comment all other stanzas. You should see the message encoded into the `display[]` array. (TA instructions: Once this works, try commenting all stanzas so that the game is invoked.) 
+
+#### 4.5.4 Debugging the DMA
+This task is a very similar task to what we've done in the past with the course. You can copy and paste on of the previous DMA setup code blocks that you've written, change the channel to the one needed for SPI1TX, and update the CMAR, CPAR, and CNDTR to the new needed values for the SPI DR, display array, and display array size.
 
 ## 3. Play the game
 
