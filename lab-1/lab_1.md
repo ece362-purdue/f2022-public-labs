@@ -1,6 +1,6 @@
 # Lab 1: Intro to basic assembly
 
-## Due week of 9/12 in your lab section
+## Due week of 1/16 in your lab section
 
 You will not use the microcontroller to complete this lab. Use the development environment setup on Lab 0 (either Dev Studio or VS Code with FVP).
 
