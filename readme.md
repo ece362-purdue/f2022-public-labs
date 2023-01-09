@@ -1,5 +1,5 @@
 # Spring 2023 ECE 362 Lab reources
-1. [Lab 0 ARMv8 Development environment setup](./lab-0.2/lab_0.2.md) (Due in week of 1/9 at tje end of your lab section)
+1. [Lab 0 ARMv8 Development environment setup](./lab-0.2/lab_0.2.md) (Due in week of 1/9 at the end of your lab section)
    - You could download the [lab 0.2 template](https://github.com/ece362-purdue/f2022-lab-0.2):
      - `git clone git@github.com:ece362-purdue/f2022-lab-0.2.git`
      - Or with [zipped file](https://github.com/ece362-purdue/f2022-lab-0.2/archive/refs/heads/main.zip)
