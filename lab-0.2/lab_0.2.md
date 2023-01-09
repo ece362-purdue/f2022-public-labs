@@ -1,11 +1,7 @@
-# Lab 0.2: ARMv8 Development environment setup
+# Lab 0: ARMv8 Development environment setup
 
-Unlike Lab 0.1, which made use of your Cortex-M0 microcontroller, the bulk of the assembly code
-we will be doing in this class will be using ARMv8.
 Unfortunately, we do not have any ARMv8 chips, so we must rely on an ARM Fixed Virtual Platform (FVP).
 Essentially this software will emulate an ARMv8 chip, allowing us to program in the ISA we have studied in class.
-**If you try to code ARMv8 in System Workbench, which we used in Lab 0.1, it won't work.**
-We will touch on the subtle differences later in the semester. For Labs 0.2, 1, 2, and 3, we will use an ARMv8 emulator.
 
 This lab shows you how to setup Dev Studio one your own machines or using Method 2 on the lab machines.
 **You are only required to demo one of the methods for this lab. Although we recommend you get Dev Studio working on your own computer**.
