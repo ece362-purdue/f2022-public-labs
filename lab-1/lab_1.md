@@ -2,7 +2,7 @@
 
 ## Due week of 9/12 in your lab section
 
-You will not use the microcontroller to complete this lab. Use the development environment setup on Lab 0.2 (either Dev Studio or VS Code with FVP).
+You will not use the microcontroller to complete this lab. Use the development environment setup on Lab 0 (either Dev Studio or VS Code with FVP).
 
 In this lab we will briefly discuss the process of program generation to understand how C source files and assembly source files get translated into program that machine could understand.
 
