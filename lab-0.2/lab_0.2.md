@@ -6,7 +6,7 @@ Essentially this software will emulate an ARMv8 chip, allowing us to program in 
 This lab shows you how to setup Dev Studio one your own machines or using Method 2 on the lab machines.
 **You are only required to demo one of the methods for this lab. Although we recommend you get Dev Studio working on your own computer**.
 
-- [Lab 0.2: ARMv8 Development environment setup](#lab-02-armv8-development-environment-setup)
+- [Lab 0: ARMv8 Development environment setup](#lab-02-armv8-development-environment-setup)
 - [Method 1 ARM Dev Studio](#method-1-arm-dev-studio)
   - [ARM Development Studio IDE installation](#arm-development-studio-ide-installation)
     - [Windows](#windows)
@@ -35,7 +35,7 @@ This lab shows you how to setup Dev Studio one your own machines or using Method
     - [Start a gdbserver on FVP](#start-a-gdbserver-on-fvp)
     - [Shutdown FVP properly](#shutdown-fvp-properly)
   - [Example program setup FVP](#example-program-setup-fvp)
-- [[100 Points] Lab 0.2 Sanity Quiz](#100-points-lab-02-sanity-quiz)
+- [[100 Points] Lab 0 Sanity Quiz](#100-points-lab-02-sanity-quiz)
   - [Questions](#questions)
     - [[30 Points] Question 1](#30-points-question-1)
     - [[30 Points] Question 2](#30-points-question-2)
@@ -599,7 +599,7 @@ Also remember to shut down the FVP with `make stop_fvp`
 
 If you encounter error with `ret lr`, replace it with `ret` instead.
 
-# [100 Points] Lab 0.2 Sanity Quiz
+# [100 Points] Lab 0 Sanity Quiz
 
 A simple quiz to test basic debugger usage.
 
