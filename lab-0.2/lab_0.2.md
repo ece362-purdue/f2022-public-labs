@@ -34,8 +34,6 @@ This lab shows you how to setup Dev Studio one your own machines or using Method
 2. An ARM Developer account
    1. If you have an ARM developer account, you could directly skip to [IDE installation section](#arm-development-studio-ide-installation) -->
 
-<!-- 
-Not needed since we have a license server
 ## ARM Developer account registration
 
 1. Go to the [ARM developer website](https://developer.arm.com/)
@@ -50,7 +48,9 @@ Not needed since we have a license server
 
     ![ARM Account registration page](./images/account-info.png)
 
-6. Hit `Create` and you should be able to login into your ARM account. -->
+6. Hit `Create` and you should be able to login into your ARM account.
+   1. In some cases, you may have to wait for ARM to verify your account for export laws. This normally does not take long, but can take up to five days.
+   2. You do not need this ARM account for the lab machines, only for your personal machine. If it takes a while to verify, use the lab machines in the meantime.
 
 ## ARM Development Studio IDE installation
 
@@ -373,7 +373,7 @@ In this section, we will be using the ARM Development Studio (ARM DS) IDE to wri
 
 A simple quiz to test basic debugger usage.
 
-Copy the following code into the `lab0.S` of lab 0, use debugger to find answers to the 3 questions down below.
+Delete the current code in the main.s file and copy the following code into it. Then use debugger to find answers to the 3 questions down below.
 
 ```asm
 .global main
