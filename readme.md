@@ -19,3 +19,4 @@
    - you could download the [lab 4 template](https://github.com/ece362-purdue/f2022-lab-4):
      - `git clone git@github.com:ece362-purdue/f2022-lab-4.git`
      - or with [zipped file](https://github.com/ece362-purdue/f2022-lab-4/archive/refs/heads/main.zip)
+6. [Lab 5.0 Microcontroller kit setup](https://engineering.purdue.edu/ece362/f22/lab/lab0.f2022/) (Due in week of 2/13 of your lab section)
