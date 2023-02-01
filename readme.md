@@ -7,15 +7,15 @@
    - You could download the [lab 1 template](https://github.com/ece362-purdue/f2022-lab-1):
      - `git clone git@github.com:ece362-purdue/f2022-lab-1.git`
      - Or with [zipped file](https://github.com/ece362-purdue/f2022-lab-1/archive/refs/heads/main.zip)
-3. [Lab 2 Control Flow and C-to-Assembly](./lab-2/lab_2.md) (Due in week of 1/17 at the end of your lab section)
+3. [Lab 2 Control Flow and C-to-Assembly](./lab-2/lab_2.md) (Due in week of 1/23 at the end of your lab section)
    - You could download the [lab 2 template](https://github.com/ece362-purdue/f2022-lab-2):
      - `git clone git@github.com:ece362-purdue/f2022-lab-2.git`
      - Or with [zipped file](https://github.com/ece362-purdue/f2022-lab-2/archive/refs/heads/main.zip)
-4. [Lab 3 Functions in Assembly](./lab-3/lab_3.md) (Due in week of 1/23 at the end of your lab section)
+4. [Lab 3 Functions in Assembly](./lab-3/lab_3.md) (Due in week of 1/30 at the end of your lab section)
    - You could download the [lab 3 template](https://github.com/ece362-purdue/f2022-lab-3):
      - `git clone git@github.com:ece362-purdue/f2022-lab-3.git`
      - Or with [zipped file](https://github.com/ece362-purdue/f2022-lab-3/archive/refs/heads/main.zip)
-5. [Lab 4 Computer Organization](./lab-4/lab_4.md) (Due in week of 10/10 of your lab section)
+5. [Lab 4 Computer Organization](./lab-4/lab_4.md) (Due in week of 2/6 of your lab section)
    - you could download the [lab 4 template](https://github.com/ece362-purdue/f2022-lab-4):
      - `git clone git@github.com:ece362-purdue/f2022-lab-4.git`
      - or with [zipped file](https://github.com/ece362-purdue/f2022-lab-4/archive/refs/heads/main.zip)
