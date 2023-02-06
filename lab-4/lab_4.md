@@ -93,7 +93,7 @@ To run the test for the lab, run:
 
 ##  Part A: Implementing the control logic [40 Points]
 
-In this step, you will be implementing the control logic block in the following diagram.
+In this step, you will be implementing the control logic block (control signals highlighted in blue) in the following diagram. Additional guidance for how this processor works can be found in Part 3 of the single-cycle processor slides. Helpful hits are located at the bottom of the lab document.
 
 ![Single Cycle Processor](img/ss.jpg)
 
@@ -109,13 +109,13 @@ For the ALUOp line, assume a 2-bit signal with the following meaning:
 |  10   |        R-Type        |
 |  11   | Pass Through data 2  |
 
-
-
 ##  Part B: Implementing the sign extender [60 Points]
 
 Similar to Part A, write a C-function that implements the Sign-Extender.
 It should take in the 32-bits of the instruction, and output the sign appropriate
-sign extended portion of the instruction.
+sign extended portion of the instruction. Use the LEGv8 instruction set's form of a sign extender. LEGv8 uses a type of sign extender that's a smart extender, which is just one that'c capable of both zero-extending and sign-extending based on the current case. 
+
+As a clarification, extension is the operation where a 32-bit value is extended to a 64-bit format. The sign extender keeps the sign the same between the two.
 
 ## Some helpful hints
 
