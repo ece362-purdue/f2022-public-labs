@@ -109,13 +109,24 @@ For the ALUOp line, assume a 2-bit signal with the following meaning:
 |  10   |        R-Type        |
 |  11   | Pass Through data 2  |
 
+Further clarification:
+There are 8 possible instructions. In this task, you want to figure out how to assign the control logic required for each instruction. In a sum, you should:
+- Check which instruction is incoming. These instructions come in the same format as LEGv8. You can find how these are structured in the LEGv8 greencard document.
+- Assign the control logic required for that instruction.
+
 ##  Part B: Implementing the sign extender [60 Points]
 
 Similar to Part A, write a C-function that implements the Sign-Extender.
 It should take in the 32-bits of the instruction, and output the sign appropriate
-sign extended portion of the instruction. Use the LEGv8 instruction set's form of a sign extender. LEGv8 uses a type of sign extender that's a smart extender, which is just one that'c capable of both zero-extending and sign-extending based on the current case. 
+sign extended portion of the instruction. Use the LEGv8 instruction set's form of a sign extender. LEGv8 uses a type of sign extender that's a smart extender, which is just one that's capable of both zero-extending and sign-extending based on the current case. 
 
-As a clarification, extension is the operation where a 32-bit value is extended to a 64-bit format. The sign extender keeps the sign the same between the two.
+Further clarification: 
+Extension is the operation where a 32-bit value is extended to a 64-bit format. The sign extender keeps the sign the same between the two. In this task, you should:
+- Assume the lower 32 bits of instBits contain the instruction. These are structured the same way that the LEGv8 32-bit instructions are structured.
+- Chech which instruction is incoming.
+- Sign-extend or zero-extend based on which one is relevant.
+
+[This](https://en.wikipedia.org/wiki/Sign_extension) article might be helpful for envisioning what sign extension is. In a sum, you take a look at the top bit of the immediate and then replicate it across the rest of the field. You only need to sign-extend the immediate to a 64-bit value.
 
 ## Some helpful hints
 
