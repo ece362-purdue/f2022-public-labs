@@ -156,7 +156,7 @@ This will reset each time you make a new debug configuration, which will happen 
 ## Step 6.3: Debugging a Program
 Lets try debugging a program! First, clear out your main file, and enter this instead:
 
-```bash
+```C
 #include "stm32f0xx.h"
       
 int main(void) 
@@ -188,7 +188,7 @@ Call over a TA, and demonstrate that your debugger is working, and show them wha
 # Step 7: Setup and Interact With a Serial Port
 Begin with terminating the debugger. Switch bag into "editor" view by clicking the button to the left of the bug on the top right corner of the debug window. Copy and paste this code into your main.c file:
 
-```bash
+```C
 void setup_serial(void)
 {
     RCC->AHBENR |= 0x00180000;
