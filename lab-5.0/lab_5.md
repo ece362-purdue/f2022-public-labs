@@ -249,11 +249,11 @@ Your terminal should go blank. After, instead of the debug button, click the gre
 ## Step 7.3: Turning on the Serial Monitor on Your Personal Machine
 On your personal computer, download and install a program called TeraTerm. It's an open-source serial terminal. After installation, open it. You should see a dialog like the one shown below. Select "Serial Port," and then find the "USB Serial Port" option. It does not have to be COM5, so long as it knows as it's a USB serial port.
 
-![ftdi3](./img/img21)
+![ftdi3](./img/img21.PNG)
 
 After, click the "Setup" dropdown, and click the "Serial Port" option. Ensure that the port that's selected is the COM port that the serial port defaults to. Then, change "Speed" to 115200. Click "OK."
 
-![ftdi4](./img/img22)
+![ftdi4](./img/img22.PNG)
 
 After, instead of the debug button, click the green "Run" symbol to the right of the bug symbol. This programs your microcontroller and runs your code. Then, click back to your terminal and try typing some things. You should see the terminal show whatever characters you have typed.
 
