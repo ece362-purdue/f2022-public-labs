@@ -25,14 +25,14 @@ After plugging in the programming side to the devboard , you should see a red an
 # Step 2: Install the Development Software
 For our course, the Eclipse IDE will be used, alongside of the SystemWorkbench for STM32 plugin. Eclipse is open source, so it may not seem like the most user-friendly when you are first using it. After extended use, you should be able to navigate it pretty well. Here are instructions on how to set it up on your machine, as well as on the lab computers.
 
-# Step 2.1 Installation on the lab computers
+## Step 2.1 Installation on the lab computers
 Fortunately for you, one of the past instructors created a setup package that you can invoke to (msotly) take care of this for you. Open a terminal window, and invoke this line of code:
 ```bash
 ~ece362/bin/setup
 ```
 After running this, you should see new icons appear on your desktop. One of them reruns the setup program, which you can use to update your configuration if any new applications are needed. Another icon is created for System Workbench, which is the main application that you will use.
 
-# Step 2.2: Installation on a Linux system.
+## Step 2.2: Installation on a Linux system.
 The version of Linux that this application is supported on is Ubuntu LTS. It might work on other distributions, or it might not. You can get the installation package [here](https://www.st.com/en/development-tools/sw4stm32.html#get-software). A couple of different ways to install it are located below:
 
 ```bash
@@ -53,7 +53,7 @@ Pick the one that works best for your distribution, and keep track of where the 
 [the path to the installation directory]/eclipse
 ```
 
-# Step 2.3: Installation on a Windows System
+## Step 2.3: Installation on a Windows System
 Eclipse works on Windows 10 and 11. You can find the installation package [here](https://www.st.com/en/development-tools/sw4stm32.html#get-software). Once downloaded, run the installer. Keep track of where the installer puts the required folders. These will be important later. Sometimes Windows may require a driver for the STLink programming device. Download and install the driver, located [here](https://www.st.com/en/development-tools/stsw-link009.html).
 
 # Step 3: Download and Install the Standard Peripheral Library
@@ -76,29 +76,29 @@ Move the zip file into the firmwares directory, and unzip it inside of that loca
 # Step 4: Configure SystemWorkbench
 Now that the software is installed, we can begin configuration. Start this by selecting the "Window" dropdown at the top of the screen, and selecting the "Settings" option. As you're doing this, make sure that you're changing the settings highlighted with the red Xs.
 
-# Step 4.1: General Workspace Preferences
+## Step 4.1: General Workspace Preferences
 Here, we configure the general workspace preferences. Open the "General" dropdown, and select "Workspace." Here, unselect "build automatically" and select "Save automatically before build." After, change your text file encoding to UTF-8, and new text file line delimiters to Unix. This helps standardize what you and the TAs look at, and enables a setting to build the correct version of your project, as Eclipse only builds the last-saved version. An example setting is shown below:
 
 ![workspace](./img/img3.PNG)
 
-# Step 4.2: General Text Editor Preferences
+## Step 4.2: General Text Editor Preferences
 Next, drop down the "Editors" tab, and select "Text Editors." Check the "Show print margin" tab so you can see where the printer would stop in case your code ever needs to be printed out. An example setting is shown below:
 
 ![text editor](./img/img4.PNG)
 
-# Step 4.3: C/C++ indexer Preferences
+## Step 4.3: C/C++ indexer Preferences
 Open the "C/C++" dropdown, and then select "Indexer." Make sure "Use active build configuration" is checked. An example setting is shown below:
 
 ![indexer](./img/img5.PNG)
 
-# Step 4.4: C/C++ Code Formatting Settings
+## Step 4.4: C/C++ Code Formatting Settings
 Eclipse, like other IDEs, automatically formats code for you. However, it needs to be told to not use tabs. Open the "C/C++" dropdown, open the "Code Style" dropdown within it, and then select "Formatter." Select "New" to open a new template, and select "K&R C" as your base. Make sure to select "Spaces only" for your tab policy. Past that, you're free to format your code however you want. Make sure you save and apply after. An example setting is shown below:
 
 ![Formatter1](./img/img6.PNG)
 
 ![Formatter2](./img/img7.PNG)
 
-# Step 4.5: Build Console Settings
+## Step 4.5: Build Console Settings
 Open the "C/C++" dropdown, then the "Build" dropdown within it. Then select the "Console" tab. In there, check "Bring console to top when building (if present) and "Wrap lines on the console." These make sure that the build console is present, as well as ensuring that the console is visible if you have it open. After, increase the number of lines to something larger. I typically use 5,000, as it's atypical for a program of our nature to print anything larger than that. An example setting is shown below:
 
 ![Build](./img/img8.PNG)
