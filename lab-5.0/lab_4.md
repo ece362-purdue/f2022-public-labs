@@ -8,16 +8,16 @@ In ECE362, students will learn fundamentals of microcontrollers, including their
 # Step 1: Place the Development Board on a Breadboard
 Open your ECE 362 lab kit and find the STM32F091RCT microcontroller development board. It should look like the one in the image below. 
 
-[devboard](img/img1.png)
+[devboard](img/img1.jpeg)
 
 Your ECE Master/Mini kit has a large, four-panel breadboard similar to the one pictured below. Place the devboard so that it is on the bottom of the second panel, shown below:
 
-[breadboard](img/img2.png)
+[breadboard](img/img2.jpeg)
 
 Typically, these will be a little hard to get in there, but you should not have to remove it once it's in there. To prevent damage to the board, press down on the buttons. Do not apply force to anything else, as parts of the board are delicate and may become damaged. When inserting, make sure there are two holes on either side of the development board to leave room to plug in peripherals.
 Next, connect the USB programmer (shiny colored device with a light on it, pictured below) to the devboard.
 
-[programmer](img/img9.png)
+[programmer](img/img9.jpeg)
 
 It is important that this programmer only ever gets connected to the black header on the side of the devboard. If you manage to place it on the exposed pins on the long sides of the devboard, you will irreversably damage the development board.
 After plugging in the programming side to the devboard , you should see a red and a green LED light up. If it does not light up, unplug the programmer and call over a TA so they can take a look at it.
