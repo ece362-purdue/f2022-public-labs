@@ -253,6 +253,8 @@ On your personal computer, download and install a program called TeraTerm. It's 
 
 After, click the "Setup" dropdown, and click the "Serial Port" option. Ensure that the port that's selected is the COM port that the serial port defaults to. Then, change "Speed" to 115200. Click "OK."
 
+![ftdi4](./img/img22)
+
 After, instead of the debug button, click the green "Run" symbol to the right of the bug symbol. This programs your microcontroller and runs your code. Then, click back to your terminal and try typing some things. You should see the terminal show whatever characters you have typed.
 
 ## Step 7.4: Demonstrate Your Serial Port 
