@@ -8,16 +8,16 @@ In ECE362, students will learn fundamentals of microcontrollers, including their
 # Step 1: Place the Development Board on a Breadboard
 Open your ECE 362 lab kit and find the STM32F091RCT microcontroller development board. It should look like the one in the image below. 
 
-[devboard](./img/img1.jpeg)
+![devboard](./img/img1.jpeg)
 
 Your ECE Master/Mini kit has a large, four-panel breadboard similar to the one pictured below. Place the devboard so that it is on the bottom of the second panel, shown below:
 
-[breadboard](./img/img2.jpeg)
+![breadboard](./img/img2.jpeg)
 
 Typically, these will be a little hard to get in there, but you should not have to remove it once it's in there. To prevent damage to the board, press down on the buttons. Do not apply force to anything else, as parts of the board are delicate and may become damaged. When inserting, make sure there are two holes on either side of the development board to leave room to plug in peripherals.
 Next, connect the USB programmer (shiny colored device with a light on it, pictured below) to the devboard.
 
-[programmer](./img/img9.jpeg)
+![programmer](./img/img9.jpeg)
 
 It is important that this programmer only ever gets connected to the black header on the side of the devboard. If you manage to place it on the exposed pins on the long sides of the devboard, you will irreversably damage the development board.
 After plugging in the programming side to the devboard , you should see a red and a green LED light up. If it does not light up, unplug the programmer and call over a TA so they can take a look at it.
@@ -79,26 +79,26 @@ Now that the software is installed, we can begin configuration. Start this by se
 # Step 4.1: General Workspace Preferences
 Here, we configure the general workspace preferences. Open the "General" dropdown, and select "Workspace." Here, unselect "build automatically" and select "Save automatically before build." After, change your text file encoding to UTF-8, and new text file line delimiters to Unix. This helps standardize what you and the TAs look at, and enables a setting to build the correct version of your project, as Eclipse only builds the last-saved version. An example setting is shown below:
 
-[workspace](./img/img3.PNG)
+![workspace](./img/img3.PNG)
 
 # Step 4.2: General Text Editor Preferences
 Next, drop down the "Editors" tab, and select "Text Editors." Check the "Show print margin" tab so you can see where the printer would stop in case your code ever needs to be printed out. An example setting is shown below:
 
-[text editor](./img/img4.PNG)
+![text editor](./img/img4.PNG)
 
 # Step 4.3: C/C++ indexer Preferences
 Open the "C/C++" dropdown, and then select "Indexer." Make sure "Use active build configuration" is checked. An example setting is shown below:
 
-[indexer](./img/img5.PNG)
+![indexer](./img/img5.PNG)
 
 # Step 4.4: C/C++ Code Formatting Settings
 Eclipse, like other IDEs, automatically formats code for you. However, it needs to be told to not use tabs. Open the "C/C++" dropdown, open the "Code Style" dropdown within it, and then select "Formatter." Select "New" to open a new template, and select "K&R C" as your base. Make sure to select "Spaces only" for your tab policy. Past that, you're free to format your code however you want. Make sure you save and apply after. An example setting is shown below:
 
-[Formatter1](./img/img6.PNG)
+![Formatter1](./img/img6.PNG)
 
-[Formatter2](./img/img7.PNG)
+![Formatter2](./img/img7.PNG)
 
 # Step 4.5: Build Console Settings
 Open the "C/C++" dropdown, then the "Build" dropdown within it. Then select the "Console" tab. In there, check "Bring console to top when building (if present) and "Wrap lines on the console." These make sure that the build console is present, as well as ensuring that the console is visible if you have it open. After, increase the number of lines to something larger. I typically use 5,000, as it's atypical for a program of our nature to print anything larger than that. An example setting is shown below:
 
-[Build](./img/img8.PNG)
+![Build](./img/img8.PNG)
