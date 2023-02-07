@@ -59,7 +59,7 @@ For this class, we will use the OpenSTM32 Standard Peripheral Library as the cor
 
 Once downloaded, moved the zip file into the their repective directory. If you chose the default locations, typically they're located in:
 ```bash
-.ac6/SW4STM32/firmwares.
+.ac6/SW4STM32/firmwares
 ```
 for Linux, or
 ```bash
