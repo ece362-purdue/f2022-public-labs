@@ -69,7 +69,12 @@ for Windows.
 
 For the lab machines, you need to enable the ability to view hidden files, as having the dot in front of ac6 makes it a hidden file. You can do this by selecting the view tab on the file explorer, and checking the box that says "show hidden files." 
 
-Move the zip file into the firmwares directory, and unzip it inside of that location. None of use are really sure why, but Eclipse looks for both the zipped and unzipped version. They must have the same name, otherwise Eclipse will pretend like it's not there. If you download an earlier or later version than V1.5, you may have to rename it to V1.5, as shown in section 5.4 of this document. None of us really know why, but Eclipse sometimes only likes V1.5.
+Move the zip file into the firmwares directory, and unzip it inside of that location. None of use are really sure why, but Eclipse looks for both the zipped and unzipped version. They must have the same name, otherwise Eclipse will pretend like it's not there. If you download an earlier or later version than V1.5, you may have to rename it to V1.5, as shown in section 5.4 of this document. None of us really know why, but Eclipse sometimes only likes V1.5. It might also only look for one specific naming covention, like the one shown below. If all else fails, try naming both of your files like this:
+
+```bash
+stm32f0_stdperiph_lib_v150
+stm32f0_stdperiph_lib_v150.zip
+```
 
 # Step 4: Configure SystemWorkbench
 Now that the software is installed, we can begin configuration. Start this by selecting the "Window" dropdown at the top of the screen, and selecting the "Settings" option. As you're doing this, make sure that you're changing the settings highlighted with the red Xs.
