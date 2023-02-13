@@ -57,6 +57,8 @@ Eclipse works on Windows 10 and 11. You can find the installation package [here]
 # Step 3: Download and Install the Standard Peripheral Library
 For this class, we will use the OpenSTM32 Standard Peripheral Library as the core of our work. In a sum, it's a script that starts the chip up, as well as a couple of other scripts that provide memory address acronyms. This is nice because you will not have to constantly look up the memory addresses for each part of the chip, which is a huge pain. You can find it [here](https://www.st.com/en/embedded-software/stsw-stm32048.html#get-software), or cached on the Brightspace.
 
+**NOTE**  I cached a renamed version on the Brightspace now, so you no longer have to mess with the version or rename it. Simply drop the zip file into the Firmwares folder, and extract it into the same folder. You should have **two** copies: one zipped, and one unzipped.
+
 Once downloaded, moved the zip file into the their repective directory. If you chose the default locations, typically they're located in:
 ```bash
 .ac6/SW4STM32/firmwares
@@ -75,6 +77,12 @@ Move the zip file into the firmwares directory, and unzip it inside of that loca
 stm32f0_stdperiph_lib_v150
 stm32f0_stdperiph_lib_v150.zip
 ```
+
+This is what your Firmwares folder should look like after:
+
+[periph5](./img/img23.JPEG)
+
+
 
 # Step 4: Configure SystemWorkbench
 Now that the software is installed, we can begin configuration. Start this by selecting the "Window" dropdown at the top of the screen, and selecting the "Settings" option. As you're doing this, make sure that you're changing the settings highlighted with the red Xs.
