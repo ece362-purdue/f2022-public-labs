@@ -80,7 +80,7 @@ stm32f0_stdperiph_lib_v150.zip
 
 This is what your Firmwares folder should look like after:
 
-[periph5](./img/img23.JPEG)
+[periph5](./img/img23.PNG)
 
 
 
