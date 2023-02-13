@@ -1,7 +1,7 @@
 # Lab 5.0: Setting up the Microcontroller
 In ECE362, students will learn fundamentals of microcontrollers, including their operation, and usage. In addition to the lecture portion of the course, students are expected to complete a series of lab experiments using a microcontroller platform and IDE. Computers and measurement equipment are provided in the course laboratory facilities to assist students in completing labs, however, the course has also been designed to allow students to perform experiment exercises on their own computers at home or elsewhere. Instructions provided in this lab document serves as a guide to setting up the microcontroller development environment used in ECE362 to provide a consistent user experience between home and the laboratory.
 
-MAKE SURE YOU READ THIS DOCUMENT IN FULL. THERE ARE TWO WAYS TO DESTROY YOUR DEVELOPMENT BOARD.
+**Make sure that you read this document in full. There are two ways in here to destroy your development board.**
 
 # Step 1: Place the Development Board on a Breadboard
 Open your ECE 362 lab kit and find the STM32F091RCT microcontroller development board. It should look like the one in the image below. 
@@ -57,7 +57,7 @@ Eclipse works on Windows 10 and 11. You can find the installation package [here]
 # Step 3: Download and Install the Standard Peripheral Library
 For this class, we will use the OpenSTM32 Standard Peripheral Library as the core of our work. In a sum, it's a script that starts the chip up, as well as a couple of other scripts that provide memory address acronyms. This is nice because you will not have to constantly look up the memory addresses for each part of the chip, which is a huge pain. You can find it [here](https://www.st.com/en/embedded-software/stsw-stm32048.html#get-software), or cached on the Brightspace.
 
-**NOTE**  I cached a renamed version on the Brightspace now, so you no longer have to mess with the version or rename it. Simply drop the zip file into the Firmwares folder, and extract it into the same folder. You should have **two** copies: one zipped, and one unzipped.
+**NOTE:**  I cached a renamed version on the Brightspace now, so you no longer have to mess with the version or rename it. Simply drop the zip file into the Firmwares folder, and extract it into the same folder. You should have **two** copies: one zipped, and one unzipped.
 
 Once downloaded, moved the zip file into the their repective directory. If you chose the default locations, typically they're located in:
 ```bash
