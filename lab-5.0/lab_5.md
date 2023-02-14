@@ -30,9 +30,10 @@ Fortunately for you, one of the past instructors created a setup package that yo
 ```
 After running this, you should see new icons appear on your desktop. One of them reruns the setup program, which you can use to update your configuration if any new applications are needed. Another icon is created for System Workbench, which is the main application that you will use.
 
+## Step 2.2: Installation on a Linux system.
+
 **NOTE:** I have cached the most recent installers into the Brightspace, so you can download them without going through the OpenSTM registration process now. There are Ubuntu and Windows installers. These are located in their own tab on the bottom of the tab list on Brightspace.
 
-## Step 2.2: Installation on a Linux system.
 The version of Linux that this application is supported on is Ubuntu LTS. It might work on other distributions, or it might not. You can get the installation package [here](https://www.st.com/en/development-tools/sw4stm32.html#get-software). A couple of different ways to install it are located below:
 
 ```bash
@@ -54,6 +55,9 @@ Pick the one that works best for your distribution, and keep track of where the 
 ```
 
 ## Step 2.3: Installation on a Windows System
+
+**NOTE:** I have cached the most recent installers into the Brightspace, so you can download them without going through the OpenSTM registration process now. There are Ubuntu and Windows installers. These are located in their own tab on the bottom of the tab list on Brightspace.
+
 Eclipse works on Windows 10 and 11. You can find the installation package [here](https://www.st.com/en/development-tools/sw4stm32.html#get-software). Once downloaded, run the installer. Keep track of where the installer puts the required folders. These will be important later. Sometimes Windows may require a driver for the STLink programming device. Download and install the driver, located [here](https://www.st.com/en/development-tools/stsw-link009.html).
 
 # Step 3: Download and Install the Standard Peripheral Library
