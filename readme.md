@@ -20,3 +20,7 @@
      - `git clone git@github.com:ece362-purdue/f2022-lab-4.git`
      - or with [zipped file](https://github.com/ece362-purdue/f2022-lab-4/archive/refs/heads/main.zip)
 6. [Lab 5.0 Microcontroller kit setup](./lab-5.0/lab_5.md) (Due in week of 2/13 of your lab section)
+7. [Lab 5.1 General Purpsose I/O](./lab-5/lab_5.md) (Due in week of 2/20 of your lab section)
+   - you could download the [lab 5 template](https://github.com/ece362-purdue/f2022-lab-5):
+     - `git clone git@github.com:ece362-purdue/f2022-lab-5.git`
+     - or with [zipped file](https://github.com/ece362-purdue/f2022-lab-5/archive/refs/heads/main.zip)
