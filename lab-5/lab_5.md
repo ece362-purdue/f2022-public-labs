@@ -1,4 +1,4 @@
-# Lab 5: General Purpose I/O
+# Lab 5.1: General Purpose I/O
 
 - [Lab 5: General Purpose I/O](#lab-5-general-purpose-io)
   - [1. Introduction](#1-introduction)
