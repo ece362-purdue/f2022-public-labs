@@ -18,7 +18,9 @@
 In this experiment, you will learn how to connect simple input devices (push buttons and keypad) and simple output devices (LEDs) to an STM32 development board. You will learn how to configure the General Purpose Input/Output (GPIO) subsystems. You will read values from and write values to these pins.
 
 **NOTE:** Past this point, if you use hexadecimal or binary code, you should comment each line so we can see what you're intending to do. If it's in CMSIS, it does not require a comment.
+
 **NOTE:** Past this point, wiring good practice rules are in effect. Please see the Brightspace resource on it. If your breadboard is not neat and not working, we will not help you to get it working.
+
 **NOTE:** Past this point, the 20-minute rule is in effect. If you show up more than 20-minutes late to your scheduled lab section, you will be asked to leave.
 
 ## 2. Instructional Objectives
