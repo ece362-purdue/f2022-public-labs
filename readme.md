@@ -24,3 +24,7 @@
    - you could download the [lab 5 template](https://github.com/ece362-purdue/f2022-lab-5):
      - `git clone git@github.com:ece362-purdue/f2022-lab-5.git`
      - or with [zipped file](https://github.com/ece362-purdue/f2022-lab-5/archive/refs/heads/main.zip)
+8. [Lab 6 Interrupts](./lab-6/lab_6.md) (Due in week of 2/27 of your lab section)
+   - you could download the [lab 5 template](https://github.com/ece362-purdue/f2022-lab-6):
+     - `git clone git@github.com:ece362-purdue/f2022-lab-6.git`
+     - or with [zipped file](https://github.com/ece362-purdue/f2022-lab-6/archive/refs/heads/main.zip)
