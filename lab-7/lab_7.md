@@ -131,11 +131,13 @@ Rather than try to deal with low voltage to enable current flow through each PNP
 
 ![sch 1](./images/schematic-1.png)
 
-It can be difficult to follow all of the connections as they cross over each other. A second schematic, with most of the wires replaced by symbolic connections is shown below. That should offer slightly more clarity in how the connections are made. A schematic is normally intended for a high-level understanding of the logical connections, and has few details about the physical layout of components. Nevertheless, some nuances of the physical construction are preserved in these schematics. In particular, note that the transistors are numbered, from left to right, Q1, Q0, Q3, Q2, and so on. This is intentional since that is the way they will be placed on the breadboard. 
+<!==It can be difficult to follow all of the connections as they cross over each other. A second schematic, with most of the wires replaced by symbolic connections is shown below. That should offer slightly more clarity in how the connections are made. A schematic is normally intended for a high-level understanding of the logical connections, and has few details about the physical layout of components. Nevertheless, some nuances of the physical construction are preserved in these schematics. In particular, note that the transistors are numbered, from left to right, Q1, Q0, Q3, Q2, and so on. This is intentional since that is the way they will be placed on the breadboard. 
 
-![sch 2](./images/schematic-2.png)
+![sch 2](./images/schematic-2.png)==>
 
 ## 3.5 Tips for wiring the circuit
+
+<span style="color:red">*REMINDER:* You do not need to follow this exact form. You can wire it in a way that makes sense to you, but you must keep it *neat.*</span>.
 
 You'll be assembling two 4-digit display modules, driven by 8 PN2970A transistors, a TLC59211 sink driver, 8 resistors between the sink driver and LED cathodes, a 3-to-8 decoder, and 8 more resistors between the decoder and the transistors. Another eight resistors will be used to connect the keypad to the microcontroller. With some planning, it will be possible to assemble this quickly and reliably. Here are several suggestions to make it as easy as possible... 
 
