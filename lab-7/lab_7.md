@@ -173,6 +173,8 @@ As the decimal point illuminates, make sure that the other segments of each digi
 
 ![overview](./images/Overview.jpeg)
 
+**Ignore the LCD in the lower right-hand corner.**
+
 ## (100 points) 4. Experiment
 
 Download the lab 7 template project from lab website. Make sure to configure the debugger as in previous labs.
