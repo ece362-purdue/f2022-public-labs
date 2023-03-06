@@ -138,7 +138,7 @@ Rather than try to deal with low voltage to enable current flow through each PNP
 ## 3.5 Tips for wiring the circuit
 
 ```diff
-- *NOTE :* You do not need to follow this exact form. You can wire it in a way that makes sense to you, but you must keep it *neat.*</span>
+- **NOTE :** You do not need to follow this exact form. You can wire it in a way that makes sense to you, but you must keep it *neat.*
 ```
 
 You'll be assembling two 4-digit display modules, driven by 8 PN2970A transistors, a TLC59211 sink driver, 8 resistors between the sink driver and LED cathodes, a 3-to-8 decoder, and 8 more resistors between the decoder and the transistors. Another eight resistors will be used to connect the keypad to the microcontroller. With some planning, it will be possible to assemble this quickly and reliably. Here are several suggestions to make it as easy as possible... 
