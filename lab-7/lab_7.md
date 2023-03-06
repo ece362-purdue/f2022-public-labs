@@ -171,7 +171,7 @@ As the decimal point illuminates, make sure that the other segments of each digi
 
 ### 3.5.6 Example Breadboard
 
-[overview] (./images/Overview.jpeg)
+![overview] (./images/Overview.jpeg)
 
 ## (100 points) 4. Experiment
 
