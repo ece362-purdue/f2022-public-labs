@@ -198,15 +198,15 @@ Buttons and switches are not perfect. Usually, there is some sort of spring to i
 
 When I zoom in really far, it looks something like this:
 
-![bounce2](./images/Zo0med_in_Good_Bounce)
+![bounce2](./images/Zo0med_in_Good_Bounce.PNG)
 
 You'll notice that I put in a red cursor that shows where the logic line is. This is a better bounce because it's a nicer switch, and it doesn't cross back over the logic line. What happens when I use a switch I found on my floor?
 
-![bounce3](./images/Zoomed_In_Bad_Bounce)
+![bounce3](./images/Zoomed_In_Bad_Bounce.PNG)
 
 **That looks like garbage,** right? Notice that I have two red cursors on the screen that are separated by a singular pixel. Within this very slight time duration, the processor is able to look for an input around 15 times. The system doesn't settle for another 250 microseconds, so it could be reading any of those oscillations! How do we fix this? Debouncing. We can do this in a hardware fashion or a software fashion. For the hardware fashion, we add a capacitor in paralell with the input like in lab 5.1. This creates a charge constant, and will smooth out high frequency noise. Here's an example of when I add a 1uF capacitor in paralell with my input:
 
-![bounce4](./images/Zoomed_in_Debounce)
+![bounce4](./images/Zoomed_in_Debounce.PNG)
 
 That looks a lot more decisive than the last picture. However, this isn't the point of the lab, and I'm just including it so you can see exactly what this is, as we haven't in the past. 
 
@@ -283,7 +283,7 @@ In analog-to-digital conversion, an analog signal is read by a circuit known as 
 
 There are several ways to lay out a toplogiy scheme for an ADC. Below is an example of one that also happens to be a 3-bit decoder, although it is simplified a little:
 
-![ADCTop](./images/ADC_Topology.JPG)
+![ADCTop](./images/ADC_Topology.jpg)
 
 In this section, you will set up the analog-to-digital converter (`ADC`) and repeatedly check it to update a global variable. Since there is always some amount of noise, you will smooth out the readings by creating a boxcar averaging mechanism and using that average to update a variable.
 
