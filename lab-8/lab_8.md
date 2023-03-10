@@ -1,7 +1,7 @@
 # Lab 8: DMA, DAC, and ADC
 
 #### This is where things begin to get... I wouldn't say complicated, but application heavy. Documentation reading really is a requirement at this point. Make sure that you're reading the background of this lab in full, as it'll point you to where you need to look. We do ease the burden a little with with some supporting functions that we give you. We've reconstructed this lab to be in a more linear fashion, so background is given on a task-by task basis. Hopefully this helps you a little bit.
-<!===
+<!---
 - [Lab 8: Analog I/O](#lab-8-analog-io)
   - [1. Introduction](#1-introduction)
   - [2. Instructional Objectives](#2-instructional-objectives)
@@ -44,7 +44,7 @@
       - [4.4.6 When it doesn't work](#446-when-it-doesnt-work)
       - [4.4.7 Demo time](#447-demo-time)
   - [5. Interrupt Priorities](#5-interrupt-priorities)
-==>
+-->
 
 ## 1. Introduction
 
@@ -115,8 +115,8 @@ Then you have the control register, `CCR`. We suggest reading through the Family
 - `DIR:` A singular bit that sets the direction the transfer is taking. It can be memory to peripheral (writing a value to the ODR) or reading something into memory (writing a value from the IDR into a variable).
 
 There are, of course, other things that you can do with this. For now, let's stick with those definitions.
-<!===
-Under normal circumstances, when moving a number of words of memory (indicated by the CNDTR register) to or from a single peripheral address (in the CPAR register), the register that points to the memory address (CMAR) will be incremented by the size of the word. This increment is optional and must be set with the MINC bit of the channel’s CCR register. A DMA request is activated by setting the EN bit of the channel’s CCR register. Once the requested number of words has been moved, the EN bit for that channel is cleared. Each DMA channel can be configured for circular operation by setting the CIRC bit in the CCR register. In circular mode, the DMA channel moves the specified number of words (CNDTR) between the addresses in CMAR and CPAR, incrementing these registers as requested, but when finished, instead of disabling the EN bit, the CMAR, CPAR, and CNDTR registers are reset to their original values, and the channel request is restarted. A circular request is one that continually moves words between a region of memory and a peripheral register.==>
+<!---
+Under normal circumstances, when moving a number of words of memory (indicated by the CNDTR register) to or from a single peripheral address (in the CPAR register), the register that points to the memory address (CMAR) will be incremented by the size of the word. This increment is optional and must be set with the MINC bit of the channel’s CCR register. A DMA request is activated by setting the EN bit of the channel’s CCR register. Once the requested number of words has been moved, the EN bit for that channel is cleared. Each DMA channel can be configured for circular operation by setting the CIRC bit in the CCR register. In circular mode, the DMA channel moves the specified number of words (CNDTR) between the addresses in CMAR and CPAR, incrementing these registers as requested, but when finished, instead of disabling the EN bit, the CMAR, CPAR, and CNDTR registers are reset to their original values, and the channel request is restarted. A circular request is one that continually moves words between a region of memory and a peripheral register.-->
 
 Last, each DMA channel can give updates on its progress by invoking interrupts. Three interrupts are possible. First, the Transfer Complete interrupt indicates that all words of the DMA request have been moved. Second, the Half Transfer interrupt indicates that half of the words of the DMA request have been moved. (This is useful when using a circular buffer to indicate that the first half of the buffer is ready, like when you're playing a song out of the micro) Finally, a Transfer Error interrupt indicates that an access was attempted to a memory location that was not permitted for the type of operation requested.
 
