@@ -198,9 +198,9 @@ Buttons and switches are not perfect. Usually, there is some sort of spring to i
 
 When I zoom in really far, it looks something like this:
 
-![bounce2](./images/Zo0med_in_Good_Bounce.PNG)
+![bounce2](./images/Zoomed_in_Good_Bounce.PNG)
 
-You'll notice that I put in a red cursor that shows where the logic line is. This is a better bounce because it's a nicer switch, and it doesn't cross back over the logic line. What happens when I use a switch I found on my floor?
+You'll notice that I put in a red cursor that shows where the logic line is. This is a better bounce because it's a nicer switch, and it doesn't cross back over the logic line. What happens when I use a switch that I found on my floor?
 
 ![bounce3](./images/Zoomed_In_Bad_Bounce.PNG)
 
