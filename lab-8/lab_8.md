@@ -1,6 +1,6 @@
 # Lab 8: DMA, DAC, and ADC
 
-### This is where things begin to get... I wouldn't say complicated, but application heavy. Documentation reading really is a requirement at this point. Make sure that you're reading the background of this lab in full, as it'll point you to where you need to look. We do ease the burden a little with with some supporting functions that we give you. We've reconstructed this lab to be in a more linear fashion, so background is given on a task-by task basis. Hopefully this helps things make sense.
+#### This is where things begin to get... I wouldn't say complicated, but application heavy. Documentation reading really is a requirement at this point. Make sure that you're reading the background of this lab in full, as it'll point you to where you need to look. We do ease the burden a little with with some supporting functions that we give you. We've reconstructed this lab to be in a more linear fashion, so background is given on a task-by task basis. Hopefully this helps things make sense.
 
 - [Lab 8: Analog I/O](#lab-8-analog-io)
   - [1. Introduction](#1-introduction)
@@ -59,7 +59,7 @@ Interfacing a microcontroller with real-world devices often means working with a
 - To understand the concept of digital-to-analog conversion
 - To learn how to use STM32F0 peripherals to measure and process analog information
 - To use DMA to automatically transfer data to and from peripherals
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 ## 3. Experiment Setup (5 points total)
 
 Download the template project folder from lab website.
@@ -180,7 +180,7 @@ By systematically check all of these elements, you can find the root cause(s) of
 
 ### 4.5 Demo time
 
-Uncomment the `#define SCROLL_DISPLAY stanza`. This will define a symbol that will enable compilation of the code block enclosed in the `#ifdef ... #endif` below it.
+Uncomment the `#define SCROLL_DISPLAY` stanza. This will define a symbol that will enable compilation of the code block enclosed in the `#ifdef ... #endif` below it.
 
 Your LEDs should scrolling the `Hello...Hello...` string now.
 
@@ -204,7 +204,7 @@ You'll notice that I put in a red cursor that shows where the logic line is. Thi
 
 ![bounce3](./images/Zoomed_In_Bad_Bounce.PNG)
 
-**That looks like garbage,** right? Notice that I have two red cursors on the screen that are separated by a singular pixel. Within this very slight time duration, the processor is able to look for an input around 15 times. The system doesn't settle for another 250 microseconds, so it could be reading any of those oscillations! How do we fix this? Debouncing. We can do this in a hardware fashion or a software fashion. For the hardware fashion, we add a capacitor in paralell with the input like in lab 5.1. This creates a charge constant, and will smooth out high frequency noise. Here's an example of when I add a 1uF capacitor in paralell with my input:
+That looks like **garbage,** right? Notice that I have two red cursors on the screen that are separated by a singular pixel. Within this very slight time duration, the processor is able to look for an input around 15 times. The system doesn't settle for another 250 microseconds, so it could be reading any of those oscillations! How do we fix this? Debouncing. We can do this in a hardware fashion or a software fashion. For the hardware fashion, we add a capacitor in paralell with the input like in lab 5.1. This creates a charge constant, and will smooth out high frequency noise. Here's an example of when I add a 1uF capacitor in paralell with my input:
 
 ![bounce4](./images/Zoomed_in_Debounce.PNG)
 
@@ -220,7 +220,7 @@ Briefly, a method called **the history method** keeps track of the last eight re
 
 To detect multiple button presses, we would want to configure the keypad scanning outputs as open-drain (either pulled low or floating high) and enable pull-up resistors on the keypad scanning inputs. That way, each input would naturally float high, and any key press on a selected column would force a row low. This way different columns would not be high and low, and pressing two buttons in the same row no longer creates an indeterminate voltage level on the row. For instance, if Col1 was pulled low and the others were floating pressing the '4' and '5' buttons will only cause the Row2 output to go low. Col2 is not pulled high or low, so pressing the '5' button does not interfere.
 
-It would be simpler to understand if an output pin could be configured to either push high or float. This configuration is called open-source, and it is not supported by the STM32 GPIO system. (By the way, it has nothing to do with "open-source software". The term has to do with the "source" pin on a MOSFET.) From an electrical standpoint, it is no better or worse to do so with open-drain outputs.
+It would be simpler to understand if an output pin could be configured to either push high or float. This configuration is called open-source, and it is not supported by the STM32 GPIO system. (By the way, it has nothing to do with "open-source software". The term has to do with the "source" pin on a MOSFET.) From an electrical standpoint, it is no better or worse to do so with **open-drain** outputs.
 
 Each time a button is pressed or released, an entry will be placed in a circular queue. For the purposes of this lab experiment, a two-element queue will be enough. The main loop of your program will check the queue quickly and remove entries before it is filled up by a button press.
 
@@ -270,7 +270,7 @@ The interesting thing about using open-drain configuration to scan the keypad is
 
 #### 5.6 How does it work?
 
-Look at the `update_history()` subroutine in `support.c` file. It uses the `push_queue()` subroutine to put new event entries in the two-entry `msg[]` queue. Then, look at the `get_key_event()` function. It checks the two-entry queue to wait for a non-zero value. It removes that value, using `pop_queue` and returns it. As an efficiency improvement, it embeds a `WFI` instruction so that it does not continually run. A button event can only happen as a result of an interrupt, so it doesn't miss anything by waiting for the `WFI` to complete.
+Look at the `update_history()` subroutine in support.c file. It uses the `push_queue()` subroutine to put new event entries in the two-entry `msg[]` queue. Then, look at the `get_key_event()` function. It checks the two-entry queue to wait for a non-zero value. It removes that value, using `pop_queue` and returns it. As an efficiency improvement, it embeds a `WFI` instruction so that it does not continually run. A button event can only happen as a result of an interrupt, so it doesn't miss anything by waiting for the `WFI` to complete.
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ## 6 Analog-to-Digital Conversion (30 Points Total)
