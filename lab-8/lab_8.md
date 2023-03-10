@@ -77,6 +77,8 @@ You will use potentiometers to connected between 3V and Gnd with the center tap 
 
 ![wiring](./images/Schematic.PNG)
 
+**Note:** The output capacitor on the buffer can be either 10 or 100uF. I just don't have a great way to get that accross in a schematic.
+
 ### 3.2 enable_ports() (5 points)
 
 Fill out the subroutine `enable_ports()` with the following configurations:
@@ -157,7 +159,7 @@ Once you are ready for the actual demo, please comment out the `for` loop with `
 
 So you've done all these steps and it does nothing. Is it time to call the course staff and have them just tell you exactly what to type?
 
-(It's never time to ask the course staff to tell you what to type.)
+(Just kidding. It's never time to ask the course staff to tell you what to type.)
 
 So many circumstances in this class depend on getting many details exactly correct before something works. Now, you have an opportunity to develop your debugging skills so that you are prepared for future situations. Here are the steps to take when using DMA. Invoke the program in the System Workbench debugger and use the I/O Register Debug panel to check registers one at a time to ensure they are correct. Here are the imporant ones:
 
@@ -310,9 +312,9 @@ In some situations, particularly when disabling the ADC, it may be desirable to 
 
 Once an analog-to-digital conversion has been completed, the converted data can be read from the ADC data register, `ADC_DR`. Data will be right-aligned or left-aligned, depending on configuration settings (right-aligned by default).
 
-> Note: It is worth reiterating that, when an external pin is configured for analog operation, it puts delicate internal circuitry at risk. If you expose an external pin to greater than 4.0 V even for a fraction of a second, it will permanently, irreparably damage either the pin or the entire microcontroller. Disconnect your microcontroller from power when you are wiring circuits. Don't connect anything to the 5 V power pin of the microcontroller. Check your circuitry before applying power to your development board. There is some "optional" wiring you can do in section 3.9 that involves connecting 5V to an external chip. If you elect to do that, you should be careful.
+> **Note:** It is worth reiterating that, when an external pin is configured for analog operation, it puts delicate internal circuitry at risk. If you expose an external pin to greater than 4.0 V even for a fraction of a second, it will permanently, irreparably damage either the pin or the entire microcontroller. Disconnect your microcontroller from power when you are wiring circuits. Don't connect anything to the 5 V power pin of the microcontroller. Check your circuitry before applying power to your development board. There is some "optional" wiring you can do in section 3.9 that involves connecting 5V to an external chip. If you elect to do that, you should be careful.
 
-> Note: In this lab, you will be using pins on Port A for analog operations. This means you will modify the `GPIOA_MODER` configuration. Remember that, **if you modify the configuration for pins PA13 or PA14, you will lose the ability to debug or even re-program the microcontroller**. Double-check your `MODER` updates to make sure they will not change pins 13 or 14. Some of the newer TAs will not recognize this issue right away, and it will consume an hour of your time.
+> **Note:** In this lab, you will be using pins on Port A for analog operations. This means you will modify the `GPIOA_MODER` configuration. Remember that, **if you modify the configuration for pins PA13 or PA14, you will lose the ability to debug or even re-program the microcontroller**. Double-check your `MODER` updates to make sure they will not change pins 13 or 14. Some of the newer TAs will not recognize this issue right away, and it will consume an hour of your time.
 >
 > When you misconfigure GPIO Port A, remember that you can restore the ability to use the debug/programming interface by:
 >
@@ -391,9 +393,12 @@ Because the boxcar is 32 samples wide, and because new samples are only taken te
 
 A digital-to-analog converter (DAC) is similar to analog-to-digital conversion in reverse. An n-bit digital quantity is written to a data register, the conversion is triggered, and the quantized analog value appears on an output pin. One significant difference is that, since the conversion mechanism uses only a resistor network, the conversion is nearly instant. There is no need to continually check a DAC to find out if the conversion is complete.
 
-Like the ADC input, the DAC output cannot represent all values. For an n-bit DAC, there are 2n distinct values. A digital value of n zeros usually represents an analog conversion of 0 V. A digital value of all ones usually represents an analog conversion of the reference voltage ($$ V_{REF} $$). If treated as an n-bit integer, each increment results in an approximately $$ V_{REF} / 2^n $$ V increase in output voltage.
-
-
+Like the ADC input, the DAC output cannot represent all values. For an n-bit DAC, there are 2n distinct values. A digital value of n zeros usually represents an analog conversion of 0 V. A digital value of all ones usually represents an analog conversion of the reference voltage: 
+($$ V_{REF} $$). 
+If treated as an n-bit integer, each increment results in an approximately: 
+$$ V_{REF} / 2^n $$ 
+volt increase in output voltage.
+a
 For the final step of this lab exercise, you'll configure the DAC and an ISR to create and mix sine waves with arbitrary frequency. 
 
 ### 7.1 Configuring the STM32F0 DAC
