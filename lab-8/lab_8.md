@@ -394,9 +394,9 @@ Because the boxcar is 32 samples wide, and because new samples are only taken te
 A digital-to-analog converter (DAC) is similar to analog-to-digital conversion in reverse. An n-bit digital quantity is written to a data register, the conversion is triggered, and the quantized analog value appears on an output pin. One significant difference is that, since the conversion mechanism uses only a resistor network, the conversion is nearly instant. There is no need to continually check a DAC to find out if the conversion is complete.
 
 Like the ADC input, the DAC output cannot represent all values. For an n-bit DAC, there are 2n distinct values. A digital value of n zeros usually represents an analog conversion of 0 V. A digital value of all ones usually represents an analog conversion of the reference voltage: 
-($$ V_{REF} $$). 
+[$$ V_{REF} $$] 
 If treated as an n-bit integer, each increment results in an approximately: 
-$$ V_{REF} / 2^n $$ 
+[$$ V_{REF} / 2^n $$] 
 volt increase in output voltage.
 a
 For the final step of this lab exercise, you'll configure the DAC and an ISR to create and mix sine waves with arbitrary frequency. 
