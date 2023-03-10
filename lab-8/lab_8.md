@@ -1,7 +1,7 @@
 # Lab 8: DMA, DAC, and ADC
 
-#### This is where things begin to get... I wouldn't say complicated, but application heavy. Documentation reading really is a requirement at this point. Make sure that you're reading the background of this lab in full, as it'll point you to where you need to look. We do ease the burden a little with with some supporting functions that we give you. We've reconstructed this lab to be in a more linear fashion, so background is given on a task-by task basis. Hopefully this helps things make sense.
-
+#### This is where things begin to get... I wouldn't say complicated, but application heavy. Documentation reading really is a requirement at this point. Make sure that you're reading the background of this lab in full, as it'll point you to where you need to look. We do ease the burden a little with with some supporting functions that we give you. We've reconstructed this lab to be in a more linear fashion, so background is given on a task-by task basis. Hopefully this helps you a little bit.
+<!===
 - [Lab 8: Analog I/O](#lab-8-analog-io)
   - [1. Introduction](#1-introduction)
   - [2. Instructional Objectives](#2-instructional-objectives)
@@ -44,6 +44,7 @@
       - [4.4.6 When it doesn't work](#446-when-it-doesnt-work)
       - [4.4.7 Demo time](#447-demo-time)
   - [5. Interrupt Priorities](#5-interrupt-priorities)
+==>
 
 ## 1. Introduction
 
