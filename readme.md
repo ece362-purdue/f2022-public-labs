@@ -32,3 +32,8 @@
    - you could download the [lab 7 template](https://github.com/ece362-purdue/f2022-lab-7):
      - `git clone git@github.com:ece362-purdue/f2022-lab-7.git`
      - or with [zipped file](https://github.com/ece362-purdue/f2022-lab-7/archive/refs/heads/main.zip)
+10. [Lab 8 DMA, ADC, DAC](./lab-8/lab_8.md) (Due in week of 3/20 of your lab section)
+   - you could download the [lab 8 template](https://github.com/ece362-purdue/f2022-lab-8):
+     - `git clone git@github.com:ece362-purdue/f2022-lab-8.git`
+     - or with [zipped file](https://github.com/ece362-purdue/f2022-lab-8/archive/refs/heads/main.zip)
+
