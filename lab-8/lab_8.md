@@ -80,6 +80,7 @@ You will use potentiometers to connected between 3V and Gnd with the center tap 
 ![wiring](./images/Schematic.PNG)
 
 >**Note:** The output capacitor on the buffer can be either 10 or 100uF. I just don't have a great way to get that accross in a schematic.
+
 >**NOTE:** **DO NOT** Give anything else aside from the output buffer 5V power. You will kill your development board. The transistors inside the LM324 will saturate and give incorrect output signals if you give it only 3V, which is why in needs 5V. 
 
 ### 3.2 enable_ports() (5 points)
