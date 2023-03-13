@@ -93,6 +93,7 @@ Fill out the subroutine `enable_ports()` with the following configurations:
 - Configures pins PC4 – PC7 to have **output type open-drain** (using the `OTYPER` registers)
 - Configures pins PC0 – PC3 to be inputs
 - Configures pins PC0 – PC3 to be internally **pulled high**
+
 **As usual, you should not alter the configuration for any other pins. For instance, if you were to improperly alter the `MODER` setting for `PC12`, the serial port would stop working.**
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ## 4. DMA Transfer to 7-Segment Displays (20 Points Total)
@@ -199,7 +200,8 @@ Your LEDs should scrolling the `Hello...Hello...` string now.
 
 ### 4.6 How does it work?
 
-Look at the code for `print()` in the `support.c` file. It copies one byte at a time into the `msg[]` array. For historical reasons, every ASCII character is defined by the lower seven bits of the byte. That let us use the most significant bit to indicate that the dot on a character should be set or not. This will be used in the code to show key events in the next section.
+**Look at the code for `print()` in the `support.c` file. It copies one byte at a time into the `msg[]` array. For historical reasons, every ASCII character is defined by the lower seven bits of the byte. That let us use the most significant bit to indicate that the dot on a character should be set or not. This will be used in the code to show key events in the next section.**
+
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ## 5. Boucing, Debouncing, and Keypad Implementation (15 Points Total)
 
