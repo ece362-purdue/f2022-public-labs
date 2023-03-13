@@ -71,13 +71,16 @@ Fundamentally, this course is not a programming class, *per se*. For this lab, y
 
 ### 3.1 Wiring for this lab
 
-For this lab we will keep the wiring from lab 7 and add some other circuitry related to ADC and DAC. In addition, you will use an oscilloscope to observe the output of the DAC. If you haven't learned how to use an oscilloscope yet, you can use an AD2 or read the guide on how to use the lab equipment in the Brightspace.
+>**Note:** Don't kill your board.
+
+For this lab we will keep the wiring from lab 7 and add some other circuitry related to ADC and DAC. In addition, you will use an oscilloscope to observe the output of the DAC. If you haven't learned how to use an oscilloscope yet, you can use an AD2 or read the guide on how to use the lab equipment in the Brightspace (as of 3/13 has not been posted, but will sometime soon).
 
 You will use potentiometers to connected between 3V and Gnd with the center tap acting as a voltage divider. The center tap of the potentiometer will be connected to an analog input. As long as you are certain to connect the potentiometers only between **3V and Gnd**, no damage to the analog inputs is possible.
 
 ![wiring](./images/Schematic.PNG)
 
-**Note:** The output capacitor on the buffer can be either 10 or 100uF. I just don't have a great way to get that accross in a schematic.
+>**Note:** The output capacitor on the buffer can be either 10 or 100uF. I just don't have a great way to get that accross in a schematic.
+>**NOTE:** **DO NOT** Give anything else aside from the output buffer 5V power. You will kill your development board. The transistors inside the LM324 will saturate and give incorrect output signals if you give it only 3V, which is why in needs 5V. 
 
 ### 3.2 enable_ports() (5 points)
 
@@ -89,8 +92,7 @@ Fill out the subroutine `enable_ports()` with the following configurations:
 - Configures pins PC4 – PC7 to have **output type open-drain** (using the `OTYPER` registers)
 - Configures pins PC0 – PC3 to be inputs
 - Configures pins PC0 – PC3 to be internally **pulled high**
-
-As usual, you should not alter the configuration for any other pins. For instance, if you were to improperly alter the `MODER` setting for `PC12`, the serial port would stop working.
+**As usual, you should not alter the configuration for any other pins. For instance, if you were to improperly alter the `MODER` setting for `PC12`, the serial port would stop working.**
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ## 4. DMA Transfer to 7-Segment Displays (20 Points Total)
 
@@ -120,23 +122,28 @@ There are, of course, other things that you can do with this. For now, let's sti
 <!---
 Under normal circumstances, when moving a number of words of memory (indicated by the CNDTR register) to or from a single peripheral address (in the CPAR register), the register that points to the memory address (CMAR) will be incremented by the size of the word. This increment is optional and must be set with the MINC bit of the channel’s CCR register. A DMA request is activated by setting the EN bit of the channel’s CCR register. Once the requested number of words has been moved, the EN bit for that channel is cleared. Each DMA channel can be configured for circular operation by setting the CIRC bit in the CCR register. In circular mode, the DMA channel moves the specified number of words (CNDTR) between the addresses in CMAR and CPAR, incrementing these registers as requested, but when finished, instead of disabling the EN bit, the CMAR, CPAR, and CNDTR registers are reset to their original values, and the channel request is restarted. A circular request is one that continually moves words between a region of memory and a peripheral register.-->
 
-Last, each DMA channel can give updates on its progress by invoking interrupts. Three interrupts are possible. First, the Transfer Complete interrupt indicates that all words of the DMA request have been moved. Second, the Half Transfer interrupt indicates that half of the words of the DMA request have been moved. (This is useful when using a circular buffer to indicate that the first half of the buffer is ready, like when you're playing a song out of the micro) Finally, a Transfer Error interrupt indicates that an access was attempted to a memory location that was not permitted for the type of operation requested.
+Last, each DMA channel can give updates on its progress by invoking interrupts. Three interrupts are possible:
+- 'TCI:' The Transfer Complete Interrupt indicates that all datums of the DMA request have been moved. 
+- 'HTI:' The Half Transfer Interrupt indicates that half of the datums of the DMA request have been moved.
+- 'TEI:' a Transfer Error interrupt indicates that an access was attempted to a memory location that was not permitted for the type of operation requested.
+
+These are not required for this lab, or any others for that matter. However, they're useful in practice as watchdog handlers, or for monitoring large data transfers. For example, playing a song with the micro requires a surprisingly large amount of data, and you need to refill the buffer consistently. Normally, you use a HTI flag to refill a buffer before it ends to make sure the song plays continuously.
 
 ### 4.2 Configure DMA transfers (10 points) 
 
-Here, you will set up a circular DMA transfer to the `GPIOB` peripheral's `ODR` register. The trigger will be triggered whenever `TIM15` has an update event. As soon as the timer reaches the `ARR` value, the DMA channel will be triggered to write a new value into the data register.
+Here, you will set up a circular DMA transfer to the `GPIOB` peripheral's `ODR` register to drive the seven-segment LEDs. The trigger will be triggered whenever `TIM15` has an update event. As soon as the timer reaches the `ARR` value, the DMA channel will be triggered to write a new value into the data register.
 
-Remember that `TIM15` works with *one particular channel of the DMA1 controller*. You will use that default channel.
+Remember that `TIM15` works with *one particular channel of the DMA1 controller*. You will find and use that default channel.
 
 Have you determined which DMA channel Timer 15 can trigger? Good. Implement the C subroutine named `setup_dma()` that does the following things:
 
 - Enables the RCC clock to the DMA controller and configures the following channel parameters:
-  - **Turn off the enable bit for the channel.**
+  - **Turn off the enable bit for the channel, like with every other peripheral.**
   - Set `CPAR` to the address of the `GPIOB_ODR` register.
-  - Set `CMAR` to the msg array base address
-  - Set `CNDTR` to 8
+  - Set `CMAR` to the address of the msg array.
+  - Set `CNDTR` to 8. (the amount of LEDs)
   - Set the `DIR`ection for copying from-memory-to-peripheral.
-  - Set the `MINC` to increment the CMAR for every transfer.
+  - Set the `MINC` to increment the CMAR for every transfer. (Each LED will have something different on it)
   - Set the memory datum size to 16-bit.
   - Set the peripheral datum size to 16-bit.
   - Set the channel for `CIRC`ular operation.
@@ -149,7 +156,9 @@ There is a lot of variation in students' work. On occasions when we use autotest
 
 ### 4.4 `init_tim15()` (10 points)
 
-Fill out the subroutine `init_tim15()` to enable TIM15's clock in `RCC` and trigger a DMA request at a rate of `1 kHz`. Do that by setting the `UDE` bit in the `DIER`. *Do not set the `UIE` bit in the `DIER` this time*. There is no ISR to invoke for this timer this time. The timer will trigger the DMA channel directly. The DMA operation will do the copying that you had to do in the ISR in lab 5.
+Fill out the subroutine `init_tim15()` to enable TIM15's clock in `RCC` and trigger a DMA request at a rate of 1 kHz. Do that by setting the `UDE` bit in the `DIER`, while not setting 'UIE'. In this case, 'UDE' triggers DMA requests. 'UIE', which we've used in the past, causes interrupts. You may have noticed that we've not asked you to make an ISR for TIM15, because there is no ISR to invoke for this timer this time. The timer will trigger the DMA channel directly. 
+
+This whole operation amounts to the DMA operation will do the copying that you had to do in the ISR in lab 5.
 
 Once you implement these subroutines `main()`, you should see "ECE 362" on the 7-seg LED array. The interesting thing to notice here is that the circular DMA operation continually and automatically copies the buffer array msg to the display. This creates the illusion that the memory is mapped into the display.
 
@@ -203,7 +212,7 @@ When I zoom in really far, it looks something like this:
 
 ![bounce2](./images/Zoomed_In_Good_Bounce.PNG)
 
-You'll notice that I put in a red cursor that shows where the logic line is. This is a better bounce because it's a nicer switch, and it doesn't cross back over the logic line. What happens when I use a switch that I found on my floor?
+You'll notice that I put in a red cursor that shows where the logic line is. This is a better bounce because it's a nicer switch, and it doesn't cross back over the logic line, so the input won't oscillate. What happens when I use a switch that I found on my floor?
 
 ![bounce3](./images/Zoomed_In_Bad_Bounce.PNG)
 
@@ -211,9 +220,9 @@ That looks like **garbage,** right? Notice that I have two red cursors on the sc
 
 ![bounce4](./images/Zoomed_in_Debounce.PNG)
 
-That looks a lot more decisive than the last picture. However, this isn't the point of the lab, and I'm just including it so you can see exactly what this is, as we haven't in the past. 
+That looks a lot more decisive than the last picture. However, this isn't the point of the lab, and I'm just including it so you can see exactly what this is in a hardware implementation, as we haven't in the past. 
 
-Software debouncing is, which is in this next section. 
+Software debouncing is the point here, which is in this next section. 
 
 ### 5.2 Software Debouncing a Keypad
 
@@ -229,7 +238,7 @@ Each time a button is pressed or released, an entry will be placed in a circular
 
 The subroutine to wait on keys and return their value will sleep waiting on interrupts and check the queue every time it wakes up. If there is something in the queue to indicate a button press, it will note what it is, translate it into the ASCII character representation, clear the queue entry, and advance to watching the next entry in the queue. By clearing each queue item after it is read, subsequent reads of the queue can recognize the presence of a new button press by looking for a non-empty queue entry.
 
-> Note: In this lab, you will be using pins on Port C for the keypad. This means you will modify the GPIOC_MODER configuration. Remember that, if you modify the configuration for pin PC12, you will disable the serial port. Double-check your MODER updates to make sure they will not change pin 12. We won't use the serial port for this lab, but this kind of double check will be useful for future lab exercises when we use it again.
+> **Note:** In this lab, you will be using pins on Port C for the keypad. This means you will modify the GPIOC_MODER configuration. Remember that, if you modify the configuration for pin PC12, you will disable the serial port. Double-check your MODER updates to make sure they will not change pin 12. We won't use the serial port for this lab, but this kind of double check will be useful for future lab exercises when we use it again.
 
 ### 5.3 Timer 7 ISR (10 points) 
 
@@ -271,9 +280,13 @@ If you press and hold the '1' key, the display should show '1.' (a '1' with the 
 
 The interesting thing about using open-drain configuration to scan the keypad is that you can register a second button press without having to release the first one. Try pressing and holding the '1' and '2' keys. Release one at a time. See the results on the seven-segment display.
 
-#### 5.6 How does it work?
+### 5.6 How does it work?
 
 Look at the `update_history()` subroutine in support.c file. It uses the `push_queue()` subroutine to put new event entries in the two-entry `msg[]` queue. Then, look at the `get_key_event()` function. It checks the two-entry queue to wait for a non-zero value. It removes that value, using `pop_queue` and returns it. As an efficiency improvement, it embeds a `WFI` instruction so that it does not continually run. A button event can only happen as a result of an interrupt, so it doesn't miss anything by waiting for the `WFI` to complete.
+
+### 5.7 Why would I ever do this instead of hardware debouncing?
+
+Mostly, cost. It's cheaper to have an intern code this once into your software than to pay someone to assemble hundreds of extra resistors and capacitors.
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ## 6 Analog-to-Digital Conversion (30 Points Total)
@@ -288,6 +301,8 @@ There are several ways to lay out a toplogiy scheme for an ADC. Below is an exam
 
 ![ADCTop](./images/ADC_Topology.jpg)
 
+If this is something you're interested in designing, you'll need to do a little further reading elsewhere. Design of an ADC is an art, and we do not have the time to cover it in this course.
+
 In this section, you will set up the analog-to-digital converter (`ADC`) and repeatedly check it to update a global variable. Since there is always some amount of noise, you will smooth out the readings by creating a boxcar averaging mechanism and using that average to update a variable.
 
 ### 6.1 Configuring the STM32F0 ADC
@@ -298,7 +313,9 @@ Before any ADC configuration can be done, a few initializations must be done. Fi
 
 Next, the inputs which are to be configured as analog I/O must be configured for analog mode in the corresponding `GPIOx_MODER` register. This is described in further detail in section 9.3.2, *"I/O pin alternate function multiplexer and mapping"*, of the STM32F0 family reference manual.
 
-Prior to performing any configuration of the ADC, the peripheral must first be enabled. **ADC activation must take place before any other ADC configurations are performed; failure to follow this order may result in the ADC entering an unknown state, at which point the ADC must be disabled and restarted.** Enabling the ADC requires writing '1' to the ADC enable bit, `ADEN`, in the ADC control register, `ADC_CR`. Once this is done, software must wait until the ADC is in a ready state, indicated by the bit `ADRDY` (located in the ADC status register, `ADC_ISR`) being read as '1' to software.
+Prior to performing any configuration of the ADC, the peripheral must first be enabled. **ADC activation must take place before any other ADC configurations are performed; failure to follow this order may result in the ADC entering an unknown state, at which point the ADC must be disabled and restarted.** This is backwards t how it's normally done, which may not seem intuitive right away. That's because it's not.
+
+Enabling the ADC requires writing '1' to the ADC enable bit, `ADEN`, in the ADC control register, `ADC_CR`. Once this is done, software must wait until the ADC is in a ready state, indicated by the bit `ADRDY` (located in the ADC status register, `ADC_ISR`) being read as '1' to software.
 
 For the purposes of this experiment, we are interested in configuring the microcontroller ADC for single conversion, using the "software-driven mode." This means that the ADC will perform a single conversion, initiated in software. The ADC will then await the next software trigger before another conversion is initiated. This is the default operating mode of the ADC, and no special configurations will be needed within the ADC peripheral. In the event that special operating conditions (DMA, continuous conversion mode, etc.) need to be performed by the ADC, operating modes can be specified via the ADC configuration registers: `ADC_CFGR1` and `ADC_CFGR2`.
 
@@ -312,7 +329,7 @@ In some situations, particularly when disabling the ADC, it may be desirable to 
 
 Once an analog-to-digital conversion has been completed, the converted data can be read from the ADC data register, `ADC_DR`. Data will be right-aligned or left-aligned, depending on configuration settings (right-aligned by default).
 
-> **Note:** It is worth reiterating that, when an external pin is configured for analog operation, it puts delicate internal circuitry at risk. If you expose an external pin to greater than 4.0 V even for a fraction of a second, it will permanently, irreparably damage either the pin or the entire microcontroller. Disconnect your microcontroller from power when you are wiring circuits. Don't connect anything to the 5 V power pin of the microcontroller. Check your circuitry before applying power to your development board. There is some "optional" wiring you can do in section 3.9 that involves connecting 5V to an external chip. If you elect to do that, you should be careful.
+> **Note:** It is worth reiterating that, when an external pin is configured for analog operation, it puts delicate internal circuitry at risk. If you expose an external pin to greater than 4.0 V even for a fraction of a second, it will permanently, irreparably damage either the pin or the entire microcontroller. Disconnect your microcontroller from power when you are wiring circuits. Don't connect anything to the 5 V power pin of the microcontroller. Check your circuitry before applying power to your development board. 
 
 > **Note:** In this lab, you will be using pins on Port A for analog operations. This means you will modify the `GPIOA_MODER` configuration. Remember that, **if you modify the configuration for pins PA13 or PA14, you will lose the ability to debug or even re-program the microcontroller**. Double-check your `MODER` updates to make sure they will not change pins 13 or 14. Some of the newer TAs will not recognize this issue right away, and it will consume an hour of your time.
 >
@@ -386,7 +403,7 @@ Use the System Workbench I/O Register Debugger to diagnose the problem:
 
 Re-comment the `#define SHOW_KEY_EVENTS` above and uncomment the `#define SHOW_VOLTAGE` stanza. This will enable code that continually calls `printfloat()` for a calculation that estimates the voltage on the `ADC_IN` pin.
 
-Because the boxcar is 32 samples wide, and because new samples are only taken ten times per second, it will take about three seconds to converge on any new value. If you start the code with the potentiometer on full, it will gradually display values between zero and (approximately) 2.9. If you change the potentiometer, it will take another three seconds to converge on the new value. 
+Because the boxcar is 32 samples wide, and because new samples are only taken ten times per second, it will take about three seconds to converge on any new value. If you start the code with the potentiometer on full, it will gradually display values between zero and (approximately) 2.9. If you change the potentiometer, it will take another three seconds to converge on the new value. You can speed this up or slow it down by changing how quickly the timer refreshes. Remember, the ADC supports only up to 100kHz.
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ## 7 Digital-to-Analog Conversion (30 Points Total)
@@ -398,7 +415,7 @@ Like the ADC input, the DAC output cannot represent all values. For an n-bit DAC
 If treated as an n-bit integer, each increment results in an approximately: 
 [$$ V_{REF} / 2^n $$] 
 volt increase in output voltage.
-a
+
 For the final step of this lab exercise, you'll configure the DAC and an ISR to create and mix sine waves with arbitrary frequency. 
 
 ### 7.1 Configuring the STM32F0 DAC
@@ -419,7 +436,7 @@ It is important to understand that writing to any of the channel 1 holding regis
 - Writing 0x0000**0d70** to DAC_DHR12R1 or...
 - Writing 0x000000**d7** to DAC_DHR8R1
 
-will deposit the 12-bit value `0xd70` into the 12-bit hardware register waiting to be converted by the DAC.
+will deposit the 12-bit value `0xd70` into the 12-bit hardware register waiting to be converted by the DAC. They're all equivalent cases. In normal operation, you just want to use the one that works best with your calculations.
 
 ### 7.3 Initialize a Wavetable
 
