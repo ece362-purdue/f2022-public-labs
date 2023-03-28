@@ -36,4 +36,8 @@
    - you could download the [lab 8 template](https://github.com/ece362-purdue/f2022-lab-8):
      - `git clone git@github.com:ece362-purdue/f2022-lab-8.git`
      - or with [zipped file](https://github.com/ece362-purdue/f2022-lab-8/archive/refs/heads/main.zip)
+11. [Lab 9 PWM](./lab-9/lab_9.md) (Due in week of 4/3 of your lab section)
+   - you could download the [lab 9 template](https://github.com/ece362-purdue/f2022-lab-9):
+     - `git clone git@github.com:ece362-purdue/f2022-lab-9.git`
+     - or with [zipped file](https://github.com/ece362-purdue/f2022-lab-9/archive/refs/heads/main.zip)
 
