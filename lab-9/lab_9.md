@@ -48,11 +48,11 @@ Under most circumstances, we would want to include limiting resistors in series 
 
 ## 2 Pulse-Width Modulation (PWM) (25 Points)
 
-Consider a digital logic circuit which outputs a repeating, periodic signal over a known time period, $$t_{S}$$. Within the signal period, the circuit can output logic '1' for a subinterval, $$t_{H}$$, and for the remaining time, outputs a logic '0'. This is illustrated in the figure below:
+Consider a digital logic circuit which outputs a repeating, periodic signal over a known time period, $t_{S}$. Within the signal period, the circuit can output logic '1' for a subinterval, $t_{H}$, and for the remaining time, outputs a logic '0'. This is illustrated in the figure below:
 
 ![sq wave](./images/square-wave.png)
 
-Expanding on the output above, suppose the circuit can be made to vary the logic '1' interval $$t_{H}$$ to any value between 0 and $$t_{S}$$. A variety of potential outputs could result:
+Expanding on the output above, suppose the circuit can be made to vary the logic '1' interval $t_{H}$ to any value between 0 and $t_{S}$. A variety of potential outputs could result:
 
 ![pwm wave](./images/pwm-wave.png)
 
