@@ -69,7 +69,7 @@ Each timer peripheral that supports PWM on the STM32F0 features 4 independent ch
 You will use three PWM channels to control an RGB LED, a device where the human visual model already acts as a low-pass filter. You will use a fourth PWM channel as an analog synthesizer output similar to that of the DAC in lab experiment 8.
 In this lab experiment, you will configure timer 1 for autonomous PWM operation. Other timers will invoke interrupts that read from the keypad, update the 7-segment display, and update the PWM duty cycle.
 
-### (25 points) 2.2 Preliminary Experiments with Timer 3
+### 2.2 Preliminary Experiments with Timer 3
 
 Complete the `setup_tim3` subroutine to visualize what PWM channels look like. The code should do the following:
 
