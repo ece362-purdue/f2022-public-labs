@@ -1,5 +1,5 @@
 # Lab 10: SPI and DMA
-
+<!---
 - [Lab 10: SPI and DMA](#lab-10-spi-and-dma)
   - [1. Introduction](#1-introduction)
   - [2. Instructional Objectives](#2-instructional-objectives)
@@ -35,31 +35,22 @@
       - [(15 points) 4.5.2 `spi1_enable_dma()`](#15-points-452-spi1_enable_dma)
       - [4.5.3 Demonstrate your work](#453-demonstrate-your-work)
   - [3. Play the game](#3-play-the-game)
+--->
 
-## 1. Introduction
+## 1: Introduction
 
 The Serial Peripheral Interface (SPI) is a widely-used method for communicating with digital devices with an economy of wires and connections. It is possible to control such devices by "bit-banging" the protocol using GPIO, but your microcontroller has high-level support for SPI devices that simplifies the use of such interfaces. This support also allows for the use of Direct Memory Access (DMA) to automatically transfer a region of memory to the device. In this lab, you will gain experience using SPI and DMA with display devices. 
 
-## 2. Instructional Objectives
+### 1.1: Instructional Objectives (100 points total)
 
-
+- To replicate Serial Peripheral Interface via software emulation.
 - To understand the Serial Peripheral Interface format
 - To use and observe an SPI device
 - To use DMA to automatically transfer data to an SPI device
 
-## 3. Background
+### 1.2: Hardware Background 
 
-### 3.1 Serial Peripheral Interface (SPI)
-
-When communication speed is not high priority, it is helpful to minimize wiring by using a serial communication protocol. It is named so because bits are sent one at a time, one after another. The Serial Peripheral Interface (SPI) is a common way of doing so. SPI turns words into a stream of bits and vice-versa. To send an entire word through the serial output, a programmer need only write the word into the SPI data register, and the hardware takes care of converting into a bit stream.
-
-SPI is a synchronous protocol, so it requires a clock signal to indicate when each bit of data sent should be latched-in to the receiver. SPI defines devices that act in two distinct rôles: A master device is responsible for directing operations by asserting a slave select line, driving the clock, sending data on a MOSI (master out, slave in) pin, and optionally listening to input on a MISO (master in, slave out) pin. A slave device responds to operations when its slave select pin ($\bar{SS}$ or NSS) is asserted, reads data on the MOSI pin, and sends data on the MISO pin on each clock pulse. Because SPI is synchronous, there is no need for devices to agree, in advance, on a particular baud rate to communicate with each other. As long as the master device does not drive the clock at a frequency that is higher than a slave device can tolerate, data will be received correctly.
-
-The SPI driver in the STM32 can be configured for several different modes of operation. For instance, the clock output can be configured to latch data on the rising edge or falling edge. Also, the NSS output can be set to automatically pulse low for each word written, but only when the clock is in a specific configuration. NSS pulse generation is generally not useful in situations where multiple slave devices share the same MOSI, MISO, and SCK pins. For that, you would want to control multiple individual $\bar{SS}$ pins. Since we are using a single device, and since that device demands that NSS go high after every word written to it, we will use the NSSP feature.
-
-The baud rate (another name for the rate at which bits are sent) for an STM32 SPI channel can be set to a fraction of the system clock. The `SPIx_CR1` register has a BR field that defines a prescale divisor for the clock. The size of the word to be sent and received by an STM32 SPI channel is set with the `SPIx_CR2` DS field. This 4-bit field is unique among other I/O registers in that ‘0000’ is not a legal value. An attempt to clear this field before setting it to something new will result in it being reset to ‘0111’ which defines an 8-bit word size. For this lab experiment, we will connect a SOC1602A OLED LCD display which communicates in bytes with two extra bits to indicate a register selection and read/write selection–10 bits total. To set the DS field to a 10-bit word, it is necessary to write the bit pattern directly without clearing the DS field first. This should be the first thing done to the CR2 register. Thereafter, other bits can be ‘OR’ed to CR2. 
-
-### 3.2 Shift Registers and 7-Segment Display
+#### 1.2.1: Shift Registers and 7-Segment Display
 
 In Lab 7, you built an eight-character display out of multiplexed 7-segment LED displays. Since then, you have been using it through a parallel interface — you need to output 11 bits on Port B at the same time in order to display a character at a particular position. To reduce the number of STM32F091RC pins needed to drive your display, it is possible to use external shift registers as a *serial interface* for it.
 
@@ -71,19 +62,7 @@ The output pins of each 74HC595 shift register are gated by an internal storage 
 
 ![74](./images/74hc595_internal.png)
 
-The schematic for this setup is shown below. 
-
-![sch](./images/shift-regs-wiring.png)
-
-### 3.3 OLED Hardware Configuration
-
-Page 4 of the datasheet for the [SOC1602A OLED LCD display](https://engineering.purdue.edu/ece362/refs/SOC1602A.pdf) describes the pins for the serial interfaces. Like many SPI devices, the documented pin names differ from the canonical description of the SPI protocol. Pin 12 (SCL) is the SPI clock. Pin 14 (SDI) is the MOSI signal. Pin 16 (/CS) is a "negated chip select", which is connected to NSS. Figure 3 describes the connection to the STM32F091 development board. 
-
-![oled sch](./images/oled-wiring.png)
-
-![oled](./images/oled-wiring.jpg)
-
-### 3.4 SPI Protocol for OLED LCD Display
+#### 1.2.2: SPI Protocol for OLED LCD Display
 
 A controlling computer uses three pins to send data to the SOC1602A LCD. First, for any communication to take place, the /CS pin must be asserted low. This corresponds to the NSS (negative slave select) line of the STM32. Since we are using only one SPI slave device, the STM32 will be the master device for all SPI protocol operations, and we can use automatic NSS protocol to control the display. Data is sent to the display on its SDI pin, and it is "clocked in" on the rising edge of the signal on the SCL pin. Each transfer must be terminated by deasserting (setting high) the /CS pin.
 
@@ -118,7 +97,20 @@ SPI2->DR = 0x200 + 'A';
 
 To understand why 0x41 is the same thing as 'A', you should consult the ASCII manual. 
 
-## (100 points) 4. Experiment
+### 1.3: OLED Hardware Configuration
+
+The schematic for this setup is shown below. 
+
+![sch](./images/shift-regs-wiring.png)
+
+Page 4 of the datasheet for the [SOC1602A OLED LCD display](https://engineering.purdue.edu/ece362/refs/SOC1602A.pdf) describes the pins for the serial interfaces. Like many SPI devices, the documented pin names differ from the canonical description of the SPI protocol. Pin 12 (SCL) is the SPI clock. Pin 14 (SDI) is the MOSI signal. Pin 16 (/CS) is a "negated chip select", which is connected to NSS. Figure 3 describes the connection to the STM32F091 development board. 
+
+![oled sch](./images/oled-wiring.png)
+
+![oled](./images/oled-wiring.jpg)
+
+-----------------------------------------
+## 2: Software Emulation Using Bit-Banging (35 Points total)
 
 For this experiment, you will write the subroutines to write to the shift registers to drive the 7-segment LED displays and to initialize and write to the SOC1602A OLED LCD display through the SPI interface and using DMA. 
 
@@ -126,21 +118,21 @@ Download the template folder from lab website and import it into SystemWorkbench
 
 Several subroutines you write will be copied directly from those you wrote in labs 6 and 7. Be sure that you implemented them correctly. 
 
-### (25 points) 4.1 Driving an SPI interface by "bit-banging"
+### 2.1: Driving an SPI interface by "bit-banging"
 
 The SPI interface is simple enough that it can be driven by setting individual GPIO pins high and low — a process known as bit-banging. This is a common method for using SPI with most microcontrollers because no specialized hardware is needed to do so. For our first implementation, we will bit bang the SPI protocol for the shift registers connected to the 7 segment LED array. 
 
-#### (10 points) 4.1.1 `setup_bb()`
+### 2.2: `setup_bb()` (10 points)
 
 Write a C subroutine named setup_bb() that configures GPIO Port B for bit-banging the 7 segment LED displays. To do so, set pins PB12 (NSS), PB13 (SCK), and PB15 (MOSI) for general purpose output (not an alternate function). Initialize the ODR so that NSS is high and SCK is low. It does not matter what MOSI is set to. 
 
-#### 4.1.2 `small_delay()`
+### 2.3: `small_delay()`
 
 A C subroutine named `small_delay()` that calls the `nano_wait()` subroutine is provided for you in `main.c`. When you are starting out bit-banging an interface, it is helpful to have a uniform small delay that can be made arbitrarily large. The parameter for `nano_wait()` is number of nanoseconds to spend spinning in a loop. Having `small_delay()` allows you to always call `nano_wait()` with the same value. If things do not work, it helps to slow down all elements of the protocol. You can make the value very large so that you can debug it. We start out with a large value like 50000000 (50 ms). In practice, you would gradually reduce it to see what works, but you will find that, when driving the 7-segment LED array with the shift registers, you will not need any delay at all. Once the circuitry and software is working you can comment out the `nano_wait()` call in small delay.
 
 Consider what the SPI protocol does. The delays are to be inserted between transitions of NSS-MOSI-SCK-MOSI-SCK-...-NSS. The SPI interface will certainly work at extremely low speeds. When starting to develop any hardware interface, it is helpful to be able to see things happening in slow-motion. Once it works, increase the speed. 
 
-#### (7 points) 4.1.3 `bb_write_bit()`
+### 2.4: `bb_write_bit()` (7 points)
 
 Write a C subroutine named `bb_write_bit()` that accepts a single integer parameter, which should always be either 0 or non-zero, and does the following steps:
 
@@ -150,7 +142,7 @@ Write a C subroutine named `bb_write_bit()` that accepts a single integer parame
 - `small_delay();`
 - Set the SCK pin to low.
 
-#### (8 points) 4.1.4 `bb_write_halfword()`
+### 2.5: `bb_write_halfword()` (8 points)
 
 Write a C subroutine named `bb_write_halfword()` that accepts a single integer parameter and does the following steps:
 
@@ -163,19 +155,12 @@ Write a C subroutine named `bb_write_halfword()` that accepts a single integer p
 
 If you're new at this, remember that you can use the `>>` operator to shift values to the right by an arbitrary amount. Then use the `&` operator to AND the result with a 1 to isolate one bit. If you don't feel like expressing this with a loop, you may make sixteen separate calls to `bb_write_bit()` in the proper sequence. 
 
-#### 4.1.5 Debug Bit Banging
+### 2.6: Demonstrate Bit Banging (25 Points)
 
 Uncomment the `#define BIT_BANG` stanza in `main.c`. This will invoke your `setup_bb()` subroutine to configure the pins as outputs and then call your `bb_write_halfword()` repeatedly to show the entire array.
 
 The display should say "ECE 362", though it will iterate through each display element very slowly. Make sure that each digit displays correctly. Then reduce the number of nanoseconds that small_delay waits until the display is smooth. 
-
-If your display is not working, check:
-- Make sure that each pin is set to output mode on the debugger (0x01 per each pin)
-- Make sure that you're using the correct ODR (or BSRR) pins. You can check this by stepping through each line in your code with the debugger and seeing what pins change on the ODR.
-- Set up your AD2 in a similar fashion as the next task. Do not use the value trigger, instead clock on the box to the right of DIO 1 to initialize a simple trigger. Zoom in/out until you can see the individual codes being sent out on each line. Is the NSS pin being deasserted when data is being sent, and reasserted after the frame completes? Is the SCK pin sending out a clock signal properly? Is the MOSI line outputting the expected data frames? If any of these are not true, then chances are the ODR is not being set correctly. There is a slight chance that your for loop is not passing the correct data, in which case you will need to step into the function with the debugger and look at the variable tab to find what variables are being passed in.
-
-#### 4.1.6 Demonstrate Bit Banging
-
+<!--
 Comment out the `nano_wait()` call and use your AD2 to capture a trace of the SPI protocol. To do so,
 
 - Invoke the "Logic Tool" and add a new SPI bus in the signal list.
@@ -193,22 +178,38 @@ While your program is running, capture a single trace of the protocol transactio
 ![ad2](./images/ad2capture.png)
 
 Create a snapshot of the output of the AD2 by clicking `File -> Export` and save it as a PNG file. Ensure that your device, serial number, and creation time are shown in the image.
+-->
 
 **Have a TA check you off for this step** (TA Instructions: Confirm that the bit-bang subroutines are being called in `main()`. Check that display flashes one digit at a time. Ask the student to comment the `nano_wait()` call in `small_delay()` and confirm that the display is smooth. Enter numbers on the keypad, and ensure they are displayed on the 7-segment displays.) 
 
-### (25 points) 4.2 Using the hardware SPI channel
+#### 2.6.1: Debug Bit Banging
 
-The STM32 has two SPI channels that do the work of the subroutines you just wrote in hardware instead of software. Implement the following subroutines to initialize and use the SPI2 interface.
+If your display is not working, check:
+- Make sure that each pin is set to output mode on the debugger (0x01 per each pin)
+- Make sure that you're using the correct ODR (or BSRR) pins. You can check this by stepping through each line in your code with the debugger and seeing what pins change on the ODR.
+- Set up your AD2 in a similar fashion as the next task. Do not use the value trigger, instead clock on the box to the right of DIO 1 to initialize a simple trigger. Zoom in/out until you can see the individual codes being sent out on each line. Is the NSS pin being deasserted when data is being sent, and reasserted after the frame completes? Is the SCK pin sending out a clock signal properly? Is the MOSI line outputting the expected data frames? If any of these are not true, then chances are the ODR is not being set correctly. There is a slight chance that your for loop is not passing the correct data, in which case you will need to step into the function with the debugger and look at the variable tab to find what variables are being passed in.
 
+## 3: Hardware-Based Serial Peripheral Interface (SPI)
+The STM32 has two SPI channels that do the work of the subroutines you just wrote in a hardware format instead of a software format, which saves valuable processing time. Implement the following subroutines to initialize and use the SPI2 interface.
+
+### 3.1: Background (50 points total)
 You should now comment out `BIT_BANG` stanza and and uncomment the lines below it for the `SPI_LEDS` stanza. 
 
-#### (10 points) 4.2.1 `init_tim15()` and TIM157 ISR
+When communication speed is not high priority, it is helpful to minimize wiring by using a serial communication protocol. It is named so because bits are sent one at a time, one after another. The Serial Peripheral Interface (SPI) is a common way of doing so. SPI turns words into a stream of bits and vice-versa. To send an entire word through the serial output, a programmer need only write the word into the SPI data register, and the hardware takes care of converting into a bit stream.
+
+SPI is a synchronous protocol, so it requires a clock signal to indicate when each bit of data sent should be latched-in to the receiver. SPI defines devices that act in two distinct rôles: A master device is responsible for directing operations by asserting a slave select line, driving the clock, sending data on a MOSI (master out, slave in) pin, and optionally listening to input on a MISO (master in, slave out) pin. A slave device responds to operations when its slave select pin ($\bar{SS}$ or NSS) is asserted, reads data on the MOSI pin, and sends data on the MISO pin on each clock pulse. Because SPI is synchronous, there is no need for devices to agree, in advance, on a particular baud rate to communicate with each other. As long as the master device does not drive the clock at a frequency that is higher than a slave device can tolerate, data will be received correctly.
+
+The SPI driver in the STM32 can be configured for several different modes of operation. For instance, the clock output can be configured to latch data on the rising edge or falling edge. Also, the NSS output can be set to automatically pulse low for each word written, but only when the clock is in a specific configuration. NSS pulse generation is generally not useful in situations where multiple slave devices share the same MOSI, MISO, and SCK pins. For that, you would want to control multiple individual $\bar{SS}$ pins. Since we are using a single device, and since that device demands that NSS go high after every word written to it, we will use the NSSP feature.
+
+The baud rate (another name for the rate at which bits are sent) for an STM32 SPI channel can be set to a fraction of the system clock. The `SPIx_CR1` register has a BR field that defines a prescale divisor for the clock. The size of the word to be sent and received by an STM32 SPI channel is set with the `SPIx_CR2` DS field. This 4-bit field is unique among other I/O registers in that ‘0000’ is not a legal value. An attempt to clear this field before setting it to something new will result in it being reset to ‘0111’ which defines an 8-bit word size. For this lab experiment, we will connect a SOC1602A OLED LCD display which communicates in bytes with two extra bits to indicate a register selection and read/write selection–10 bits total. To set the DS field to a 10-bit word, it is necessary to write the bit pattern directly without clearing the DS field first. This should be the first thing done to the CR2 register. Thereafter, other bits can be ‘OR’ed to CR2. 
+
+### 3.2: `init_tim15()` and TIM15 ISR  (10 points)
 
 Copy the `init_tim15()`, `setup_dma()`, and `enable_dma()` from lab 8 or lab 9. You must make one change: `setup_dma()` should configure the DMA channel to write to `SPI2->DR` instead of `GPIOB->ODR`. 
 
 Also copied the `TIM7` setup (`init_tim7()`) and ISR function to `main.c` to read the keypad.
 
-#### (15 points) 4.2.2 `init_spi2()`
+### 3.3: `init_spi2()` (15 points)
 
 Write a C subroutine named `init_spi2()` that initializes the SPI2 subsystem and connects its NSS, SCK, and MOSI signals to pins PB12, PB13, and PB15, respectively. You should set these pins to use the alternate functions to do this (remember to enable the GPIOB in RCC). 
 
@@ -226,11 +227,11 @@ The subroutine should then configure the SPI2 channel as follows:
 
 In labs 8 and 9, you used DMA to copy 16-bit words into an 11-bit GPIO ODR to drive the 7-segment displays. Now you've moved the 7-segment driver to a synchronous serial interface. Since there is a built-in peripheral that serializes bits, you can now do the same thing, with the same software. The only things you had to change were the initialization code to set up the SPI peripheral instead of parallel GPIO lines, and the output target of the DMA channel. 
 
-#### 4.2.3 Demonstrate SPI2 and 7-Segment Display
+### 3.4: Demonstrate SPI2 and 7-Segment Display
 
 **Have a TA check you off for this section** (TA Instructions: Check that the correct functions are commented/uncommented in main and that the display and keyboard work normally). 
 
-#### 4.2.4 Debugging the SPI2 Channel
+#### 3.4.1: Debugging the SPI2 Channel
 If your display is not working, check these items inside of the debugger:
 - Are you setting the respective pins to Alternate Function mode? If you check inside of the debugger, each used pin should read 0x10.
 - Because we are setting alternate functions in these pins, the AFRH (AFR[1]) should be reading the alternate function that can be used for these pins. These can be found in the STM32F0 datasheet, not the family reference manual.
@@ -238,7 +239,7 @@ If your display is not working, check these items inside of the debugger:
 - Are you turning off the SPE bit before configuration and turning it back on after?
 - Are your CR1 and CR2 registers coming out to expected values? Make sure to put a breakpoint after your code, run the debugger to that breakpoint, and check the values in those registers. CR1 initializes to 0x0700 and CR2 initializes to 0x0000, so most of the things that are turned on are bits that you turn on in your code. If they are coming out different than what you expext, check through your code to make sure you are correctly setting and clearing bits.
 
-### (15 points) 4.3 Trigger DMA with SPI_TX
+## 4: Trigger DMA with SPI_TX (15 points) 
 
 An SPI peripheral can be configured to trigger the DMA channel all by itself. No timer is needed! It just so happens that the SPI2 transmitter triggers the same DMA channel that Timer 15 triggers. (See the entry in Table 32 for SPI2_TX.) The only additional work to do is to configure the SPI peripheral to trigger the DMA. Subroutine to do this are provided for you. They are named `spi2_setup_dma()` and `spi2_enable_dma()`. They call the code you wrote in `setup_dma()` and `enable_dma()`.
 
