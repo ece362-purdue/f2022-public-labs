@@ -178,7 +178,7 @@ Make the following changes outlined in the background section:
 > - Split the `sample = ((sample * volume)>>18) + 1200;` into multiple statements so that a signed value is shifted rather than the unsigned product.
 > - `AND` the final computed (sample * volume) with `0xfff` to limit it to a 12-bit positive value. That way it will work with `CCR4` as well as it did with `DHR12R1`.
 
-**NOTE:** A common problem we see that students choose to do all of these statements, which breaks their code. **To reiterate,** you only need to pick one of the above three statements. They provide the same output.
+> **NOTE:** A common problem we see that students choose to do all of these statements, which breaks their code. **To reiterate,** you only need to pick one of the above three statements. They provide the same output.
 
 Once these steps are done, comment the `#define TEST_TIM1` stanza in main() and uncomment the `#define MIX_TONES` to demo your work for this step. You can use the keypad as previous lab to set the frequency. To view the waveform, connect the oscilloscope probe to the `LOW-PASS` signal.
 
@@ -189,6 +189,8 @@ Notice that the more slowly-changing waves in the center appear to be *thicker* 
 The center of the jagged wave represents the desired signal and the jagged edges represents the noise signal. The size of the deviation from the desired signal is significant. If this were an application where such deviations would affect the operation of a piece of equipment, filtering could be used to further diminish the 20 kHz content of the waves. For instance, if you could substitute a 10 KΩ resistor for the 1 KΩ resistor, you will see a much smoother waveform even at high magnification.
 
 If the end result is to produce an audible waveform, the 20 kHz noise content will not be audible to human ears. Dogs and cats will be greatly bothered by it. It may also cause greater power dissipation in an amplification system.
+
+> **NOTE:** A common thing that's forgotten about is that we have that potentiometer on the board. Remember these from lab 8? They adjust the amplitude of your output waveform. If you're getting a signal that's sitting at around 1.5V, your potentiometer is probably turned down to zero, and you need to turn it up.
 
 **Have a TA check you off for this step.** (TA Instructions: Student should demonstrate a sine wave output on PA11 using the oscilloscope or AD2 that is adjustable from the keypad by pressing `A 440 #` (440 Hz sine wave))
 
