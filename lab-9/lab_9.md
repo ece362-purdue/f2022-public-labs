@@ -145,7 +145,7 @@ Once these steps are done, comment the `#define TEST_TIMER3` stanza in main() an
 
 With low-pass filtering of the PWM output, the PWM duty cycle forms an analog output. The duty cycle is determined by the `TIMn_CCRx` value divided by the `TIMn_ARR+1`. As long as at least one full PWM cycle passes for every change in duty cycle, it will work as well as a DAC. A higher PWM frequency means a shorter period, which means fewer cycles in which to vary the duty cycle. This means there is a trade-off between the PWM *frequency* and the PWM duty cycle *resolution*.
 
-**NOTE:** If you're in 301 or have completed 301, you'll probably see why we can do this. If you haven't made it that far yet, savor those moments where you don't have PTSD. High frequency patterns make low frequency signals. Low pass filters remove the high frequency patterns, so you have the low frequency noise leftover.
+**NOTE:** If you're in 301 or have completed 301, you'll probably see why we can do this. If you haven't made it that far yet, you'll be there soon enough. High frequency patterns make low frequency signals. Low pass filters remove the high frequency patterns, so you have the low frequency output leftover.
 
 In lab experiment 8, we updated the DAC output 20000 times per second with 12-bit resolution (0 – 4095). If we wanted to update the PWM duty cycle 20000 times per second, with the highest resolution, we would take the following steps:
 
