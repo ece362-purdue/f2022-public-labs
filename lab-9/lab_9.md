@@ -117,6 +117,8 @@ Copy the implementation of following subroutines from your lab 8 `main.c` to you
 
 Implement the C subroutine named `setup_tim1()` that configures Timer 1 for PWM operation and routes the output to the external pins used for `TIM1_CH1`, `TIM1_CH2`, `TIM1_CH3`, and `TIM1_CH4`. (These are distinct from `TIM1_CH1N`, `TIM1_CH2N`, etc, which are the negated version of the same functions.) By now, you should know how to look up which physical pins can be used for these "functions". Looking those up will also inform you how to set the alternate function configurations. Your subroutine should do the following:
 
+>**WARNING:** IF you accidentally overwrite the GPIOA AFRH (usually, using an `=` sign instead of an `|=` or `&=`) you will turn off the programming port, which resides in port A. You will start getting "device not found" or "wrong device detected" messages. To recfify this mistake, you need to hold the reset button and run (not debug) your program. For more details, see [this](https://piazza.com/class/lcmb4r2lt4z4w7/post/435) piazza article.
+
 - Activate the RCC clock to GPIO Port A.
 - Configure the `MODER` for the four pins to set them for alternate function use.
 - Set the alternate function register to route the timer function to the external pins. The alternate function register is actually an array of two registers (`GPIOA->AFR[0]` and `GPIOA->AFR[1]`). You will have to choose the correct array element to update.
@@ -171,6 +173,8 @@ Make the following changes outlined in the background section:
   - `sample = ((sample * volume)>>18) + 1200;`
 - Instead of writing sample to the DAC `DHR12R1` register, write it to Timer 1 `CCR4`.
 
+> **WARNING:** A common thing that's forgotten about is that we have that potentiometer on the board. Remember these from lab 8? They adjust the amplitude of your output waveform. If you're getting a signal that's sitting at around 1.5V, your potentiometer is probably turned down to zero, and you need to turn it up.
+
 > Note: You may see an interesting problem if you do the `sample` update in one statement. The `volume` definition we gave you is a `uint32_t`. That means that it is a 32-bit unsigned integer. The expression `(sample * volume)` is a signed type times an unsigned type, which is promoted to an unsigned type. When the offset is in the negative part of the wavetable, that product should be interpreted as negative. Hmm. When shifting a negative number as a signed type right, the most significant bit (a one) is duplicated. When shifting an unsigned type right, the most significant bit is always made zero. That means that a negative value is being turned into a very large positive value. When you add 1200 to it, it gets even larger.
 > This math worked fine when we were assigning it to the 12-bit `DHR12R1` register in lab 8. Now, the CCR4 register is a 16-bit register. Those upper 4 bits are not chopped off. This will manifest itself as a value written to CCR4 that is much larger than 2400. So the value will be clipped at 100% duty cycle for about half the the sine wave.
 > When you see this behavior, there are three ways to fix it. Choose one:
@@ -189,8 +193,6 @@ Notice that the more slowly-changing waves in the center appear to be *thicker* 
 The center of the jagged wave represents the desired signal and the jagged edges represents the noise signal. The size of the deviation from the desired signal is significant. If this were an application where such deviations would affect the operation of a piece of equipment, filtering could be used to further diminish the 20 kHz content of the waves. For instance, if you could substitute a 10 KΩ resistor for the 1 KΩ resistor, you will see a much smoother waveform even at high magnification.
 
 If the end result is to produce an audible waveform, the 20 kHz noise content will not be audible to human ears. Dogs and cats will be greatly bothered by it. It may also cause greater power dissipation in an amplification system.
-
-> **NOTE:** A common thing that's forgotten about is that we have that potentiometer on the board. Remember these from lab 8? They adjust the amplitude of your output waveform. If you're getting a signal that's sitting at around 1.5V, your potentiometer is probably turned down to zero, and you need to turn it up.
 
 **Have a TA check you off for this step.** (TA Instructions: Student should demonstrate a sine wave output on PA11 using the oscilloscope or AD2 that is adjustable from the keypad by pressing `A 440 #` (440 Hz sine wave))
 
