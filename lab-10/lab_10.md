@@ -128,9 +128,9 @@ The SPI interface is simple enough that it can be driven by setting individual G
 ### 2.2: `setup_bb()` (10 points)
 
 Write a C subroutine named setup_bb() that configures GPIO Port B for bit-banging the 7 segment LED displays. To do so, set these pins in their respective ways:
--PB12 (NSS)
--PB13 (SCK)
--PB15 (MOSI) 
+- PB12 (NSS)
+- PB13 (SCK)
+- PB15 (MOSI) 
 for general purpose output (not an alternate function). Initialize the ODR so that NSS is high and SCK is low. It does not matter what MOSI is set to. 
 
 
@@ -234,15 +234,15 @@ The SPI driver in the STM32 can be configured for several different modes of ope
 The baud rate (another name for the rate at which bits are sent. You'll see this again in lab 11) for an STM32 SPI channel can be set to a fraction of the system clock. The `SPIx_CR1` register has a BR field that defines a prescale divisor for the clock. The size of the word to be sent and received by an STM32 SPI channel is set with the `SPIx_CR2` DS field. This 4-bit field is unique among other I/O registers in that ‘0000’ is not a legal value. An attempt to clear this field before setting it to something new will result in it being reset to ‘0111’ which defines an 8-bit word size. For this lab experiment, we will connect a SOC1602A OLED LCD display which communicates in bytes with two extra bits to indicate a register selection and read/write selection–10 bits total. To set the DS field to a 10-bit word, it is necessary to write the bit pattern directly without clearing the DS field first. This should be the first thing done to the CR2 register. Thereafter, other bits can be ‘OR’ed to CR2. 
 
 To have a more concise definition, here are the important registers and bit fields for this lab  listed out:
-- `SPIx->CR1:` 
--   `SPE:' The enable bit for the SPI peripheral.
--   'BR[2:0]:` Baud rate selection field.  
-- `SPIx->CR2:`
--   `DS[3:0]:` The data size field.
--   `TXEIE:' Transmitter empty interrupt enable.
--   `RXNEIE:` Receiver not empty interrupt enable.
--   `TXDMAEN:` Transmitter DMA request enable.
--   `RXDMAEN:` Receiver DMA request enable.
+`SPIx->CR1:` 
+- `SPE:` The enable bit for the SPI peripheral.
+- `BR[2:0]:` Baud rate selection field.  
+`SPIx->CR2:`
+- `DS[3:0]:` The data size field.
+- `TXEIE:' Transmitter empty interrupt enable.
+- `RXNEIE:` Receiver not empty interrupt enable.
+- `TXDMAEN:` Transmitter DMA request enable.
+- `RXDMAEN:` Receiver DMA request enable.
 
 >**WARNING:** As mentioned above, if you set the DS[3:0] field to 0x000 (i.e. clear it out, reset, etc.), it will default back to it's normal value. 
 
