@@ -312,7 +312,10 @@ Once you have some experience configuring an SPI peripheral for one purpose, it 
 Write a C subroutine named `init_spi1()` to configure the SPI1 peripheral. The configuration for SPI1 is similar to SPI2 from before with a few key differences: 
 
 - Configure NSS, SCK, MISO and MOSI signals of SPI1 to pins PA15, PA5, PA6, and PA7, respectively.
-- 10-bit word size
+- Configure the SPI registers 10-bit word size.
+- Enable it.
+
+>**WARNING:** Similarly with last lab, if you configure Port A's AFR incorectly, you can turn the programming pin off. 
 
 ### 5.2 `spi_cmd()`
 
