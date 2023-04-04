@@ -131,6 +131,7 @@ Write a C subroutine named setup_bb() that configures GPIO Port B for bit-bangin
 - PB12 (NSS)
 - PB13 (SCK)
 - PB15 (MOSI) 
+
 for general purpose output (not an alternate function). Initialize the ODR so that NSS is high and SCK is low. It does not matter what MOSI is set to. 
 
 
