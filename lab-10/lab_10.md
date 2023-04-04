@@ -64,7 +64,7 @@ The output pins of each 74HC595 shift register are gated by an internal storage 
 
 #### 1.2.2: SPI Protocol for OLED LCD Display
 
-A controlling computer uses three pins to send data to the SOC1602A LCD. First, for any communication to take place, the /CS pin must be asserted low. This corresponds to the NSS (negative slave select) line of the STM32. Since we are using only one SPI slave device, the STM32 will be the master device for all SPI protocol operations, and we can use automatic NSS protocol to control the display. Data is sent to the display on its SDI pin, and it is "clocked in" on the rising edge of the signal on the SCL pin. Each transfer must be terminated by deasserting (setting high) the /CS pin.
+A controlling computer uses three pins to send data to the SOC1602A LCD. First, for any communication to take place, the CS pin must be asserted low. This corresponds to the NSS (negative slave select) line of the STM32. Since we are using only one SPI slave device, the STM32 will be the master device for all SPI protocol operations, and we can use automatic NSS protocol to control the display. Data is sent to the display on its SDI pin, and it is "clocked in" on the rising edge of the signal on the SCL pin. Each transfer must be terminated by deasserting (setting high) the CS pin.
 
 Most SPI devices use a 4-, 8-, or 16-bit word size. The SOC1602A uses a 2+8-bit word size to send two bits of configuration information plus an 8-bit character on each transfer. The first two bits are, respectively, the register selection and read/write. Since we will always be writing data to the display and never reading it, we will always make the second bit a '0'. The register selection determines whether a write is intended as a command or a character to write to the display. Commands are needed to, for instance, initialize the display, configure the communication format, clear the screen, move the cursor to a new position on the screen, etc. The SOC1602A implements an old and well-known LCD protocol. You may see it in many other two-line LCD modules. There are many commands that can be used to implement complex operations on the SOC1602A that we will not use for this lab experiment. For the sake of this lab, we will be concerned only with the initialization sequence, moving the cursor, and writing characters to display.
 
@@ -124,7 +124,12 @@ The SPI interface is simple enough that it can be driven by setting individual G
 
 ### 2.2: `setup_bb()` (10 points)
 
-Write a C subroutine named setup_bb() that configures GPIO Port B for bit-banging the 7 segment LED displays. To do so, set pins PB12 (NSS), PB13 (SCK), and PB15 (MOSI) for general purpose output (not an alternate function). Initialize the ODR so that NSS is high and SCK is low. It does not matter what MOSI is set to. 
+Write a C subroutine named setup_bb() that configures GPIO Port B for bit-banging the 7 segment LED displays. To do so, set these pins in their respective ways:
+-PB12 (NSS)
+-PB13 (SCK)
+-PB15 (MOSI) 
+for general purpose output (not an alternate function). Initialize the ODR so that NSS is high and SCK is low. It does not matter what MOSI is set to. 
+
 
 ### 2.3: `small_delay()`
 
