@@ -41,6 +41,10 @@
 
 The Serial Peripheral Interface (SPI) is a widely-used method for communicating with digital devices with an economy of wires and connections. It is possible to control such devices by "bit-banging" the protocol using GPIO, but your microcontroller has high-level support for SPI devices that simplifies the use of such interfaces. This support also allows for the use of Direct Memory Access (DMA) to automatically transfer a region of memory to the device. In this lab, you will gain experience using SPI and DMA with display devices. 
 
+When communication speed is not high priority, it is helpful to minimize wiring by using a serial communication protocol. It is named so because bits are sent one at a time, one after another. The Serial Peripheral Interface (SPI) is a common way of doing so. SPI turns words into a stream of bits and vice-versa. To send an entire word through the serial output, a programmer need only write the word into the SPI data register, and the hardware takes care of converting into a bit stream.
+
+SPI is a synchronous protocol, so it requires a clock signal to indicate when each bit of data sent should be latched-in to the receiver. SPI defines devices that act in two distinct rôles: A master device is responsible for directing operations by asserting a slave select line, driving the clock, sending data on a MOSI (master out, slave in) pin, and optionally listening to input on a MISO (master in, slave out) pin. A slave device responds to operations when its slave select pin ($\bar{SS}$ or NSS) is asserted, reads data on the MOSI pin, and sends data on the MISO pin on each clock pulse. Because SPI is synchronous, there is no need for devices to agree, in advance, on a particular baud rate to communicate with each other. As long as the master device does not drive the clock at a frequency that is higher than a slave device can tolerate, data will be received correctly.
+
 ### 1.1: Instructional Objectives (100 points total)
 
 - To replicate Serial Peripheral Interface via software emulation.
@@ -109,7 +113,6 @@ Page 4 of the datasheet for the [SOC1602A OLED LCD display](https://engineering.
 
 ![oled](./images/oled-wiring.jpg)
 
------------------------------------------
 ## 2: Software Emulation Using Bit-Banging (35 Points total)
 
 For this experiment, you will write the subroutines to write to the shift registers to drive the 7-segment LED displays and to initialize and write to the SOC1602A OLED LCD display through the SPI interface and using DMA. 
@@ -139,26 +142,52 @@ Consider what the SPI protocol does. The delays are to be inserted between trans
 
 ### 2.4: `bb_write_bit()` (7 points)
 
-Write a C subroutine named `bb_write_bit()` that accepts a single integer parameter, which should always be either 0 or non-zero, and does the following steps:
+Write a C subroutine named `bb_write_bit()` that accepts a single integer parameter, which should always be either 0 or non-zero, and implements the following pseudocode:
 
+```C
+void bb_write_bit(int out)
+{
+  // Set MOSI to 0 or 1 based on out
+  small_delay();
+  // Set SCK to 1
+  small_delay();
+  // Set SCK to 0
+}
+
+```
+<!--
 - Set the MOSI pin to low if the value of the parameter is zero. (Otherwise, set it to high.)
 - `small_delay();`
 - Set the SCK pin to high.
 - `small_delay();`
 - Set the SCK pin to low.
-
+-->
 ### 2.5: `bb_write_halfword()` (8 points)
 
-Write a C subroutine named `bb_write_halfword()` that accepts a single integer parameter and does the following steps:
+Write a C subroutine named `bb_write_halfword()` that accepts a single integer parameter and implements the following pseudocode:
 
+>**NOTE:** You do not have to do this sequentially. You could do it in a loop form.
+```C
+void bb_write_halfword(int message)
+{
+  // Set NSS to 0
+  // Call bb_write_bit() for bit 15
+  // Call bb_write_bit() for bit 14
+  ...
+  // Call bb_write_bit() for bit 0
+  // Set NSS to 1
+}
+```
+<!--
 - Deassert the NSS pin
 - Call `bb_write_bit()` with bit 15 of the argument.
 - Call `bb_write_bit()` with bit 14 of the argument.
 - ...
 - Call `bb_write_bit()` with bit 0 of the argument.
 - Assert the NSS pin
+-->
 
-If you're new at this, remember that you can use the `>>` operator to shift values to the right by an arbitrary amount. Then use the `&` operator to AND the result with a 1 to isolate one bit. If you don't feel like expressing this with a loop, you may make sixteen separate calls to `bb_write_bit()` in the proper sequence. 
+>**NOTE:** If you're new at this, remember that you can use the `>>` operator to shift values to the right by an arbitrary amount. Then use the `&` operator to AND the result with a 1 to isolate one bit. If you don't feel like expressing this with a loop, you may make sixteen separate calls to `bb_write_bit()` in the proper sequence. 
 
 ### 2.6: Demonstrate Bit Banging (25 Points)
 
@@ -194,25 +223,39 @@ If your display is not working, check:
 - Make sure that you're using the correct ODR (or BSRR) pins. You can check this by stepping through each line in your code with the debugger and seeing what pins change on the ODR.
 - Set up your AD2 in a similar fashion as the next task. Do not use the value trigger, instead clock on the box to the right of DIO 1 to initialize a simple trigger. Zoom in/out until you can see the individual codes being sent out on each line. Is the NSS pin being deasserted when data is being sent, and reasserted after the frame completes? Is the SCK pin sending out a clock signal properly? Is the MOSI line outputting the expected data frames? If any of these are not true, then chances are the ODR is not being set correctly. There is a slight chance that your for loop is not passing the correct data, in which case you will need to step into the function with the debugger and look at the variable tab to find what variables are being passed in.
 
-## 3: Hardware-Based Serial Peripheral Interface (SPI)
+## 3: Hardware-Based Serial Peripheral Interface (SPI) (25 points total)
 The STM32 has two SPI channels that do the work of the subroutines you just wrote in a hardware format instead of a software format, which saves valuable processing time. Implement the following subroutines to initialize and use the SPI2 interface.
 
-### 3.1: Background (50 points total)
+### 3.1: Background 
 You should now comment out `BIT_BANG` stanza and and uncomment the lines below it for the `SPI_LEDS` stanza. 
-
-When communication speed is not high priority, it is helpful to minimize wiring by using a serial communication protocol. It is named so because bits are sent one at a time, one after another. The Serial Peripheral Interface (SPI) is a common way of doing so. SPI turns words into a stream of bits and vice-versa. To send an entire word through the serial output, a programmer need only write the word into the SPI data register, and the hardware takes care of converting into a bit stream.
-
-SPI is a synchronous protocol, so it requires a clock signal to indicate when each bit of data sent should be latched-in to the receiver. SPI defines devices that act in two distinct rôles: A master device is responsible for directing operations by asserting a slave select line, driving the clock, sending data on a MOSI (master out, slave in) pin, and optionally listening to input on a MISO (master in, slave out) pin. A slave device responds to operations when its slave select pin ($\bar{SS}$ or NSS) is asserted, reads data on the MOSI pin, and sends data on the MISO pin on each clock pulse. Because SPI is synchronous, there is no need for devices to agree, in advance, on a particular baud rate to communicate with each other. As long as the master device does not drive the clock at a frequency that is higher than a slave device can tolerate, data will be received correctly.
 
 The SPI driver in the STM32 can be configured for several different modes of operation. For instance, the clock output can be configured to latch data on the rising edge or falling edge. Also, the NSS output can be set to automatically pulse low for each word written, but only when the clock is in a specific configuration. NSS pulse generation is generally not useful in situations where multiple slave devices share the same MOSI, MISO, and SCK pins. For that, you would want to control multiple individual $\bar{SS}$ pins. Since we are using a single device, and since that device demands that NSS go high after every word written to it, we will use the NSSP feature.
 
-The baud rate (another name for the rate at which bits are sent) for an STM32 SPI channel can be set to a fraction of the system clock. The `SPIx_CR1` register has a BR field that defines a prescale divisor for the clock. The size of the word to be sent and received by an STM32 SPI channel is set with the `SPIx_CR2` DS field. This 4-bit field is unique among other I/O registers in that ‘0000’ is not a legal value. An attempt to clear this field before setting it to something new will result in it being reset to ‘0111’ which defines an 8-bit word size. For this lab experiment, we will connect a SOC1602A OLED LCD display which communicates in bytes with two extra bits to indicate a register selection and read/write selection–10 bits total. To set the DS field to a 10-bit word, it is necessary to write the bit pattern directly without clearing the DS field first. This should be the first thing done to the CR2 register. Thereafter, other bits can be ‘OR’ed to CR2. 
+The baud rate (another name for the rate at which bits are sent. You'll see this again in lab 11) for an STM32 SPI channel can be set to a fraction of the system clock. The `SPIx_CR1` register has a BR field that defines a prescale divisor for the clock. The size of the word to be sent and received by an STM32 SPI channel is set with the `SPIx_CR2` DS field. This 4-bit field is unique among other I/O registers in that ‘0000’ is not a legal value. An attempt to clear this field before setting it to something new will result in it being reset to ‘0111’ which defines an 8-bit word size. For this lab experiment, we will connect a SOC1602A OLED LCD display which communicates in bytes with two extra bits to indicate a register selection and read/write selection–10 bits total. To set the DS field to a 10-bit word, it is necessary to write the bit pattern directly without clearing the DS field first. This should be the first thing done to the CR2 register. Thereafter, other bits can be ‘OR’ed to CR2. 
+
+To have a more concise definition, here are the important registers and bit fields for this lab  listed out:
+- `SPIx->CR1:` 
+-   `SPE:' The enable bit for the SPI peripheral.
+-   'BR[2:0]:` Baud rate selection field.  
+- `SPIx->CR2:`
+-   `DS[3:0]:` The data size field.
+-   `TXEIE:' Transmitter empty interrupt enable.
+-   `RXNEIE:` Receiver not empty interrupt enable.
+-   `TXDMAEN:` Transmitter DMA request enable.
+-   `RXDMAEN:` Receiver DMA request enable.
+
+>**WARNING:** As mentioned above, if you set the DS[3:0] field to 0x000 (i.e. clear it out, reset, etc.), it will default back to it's normal value. 
 
 ### 3.2: `init_tim15()` and TIM15 ISR  (10 points)
 
-Copy the `init_tim15()`, `setup_dma()`, and `enable_dma()` from lab 8 or lab 9. You must make one change: `setup_dma()` should configure the DMA channel to write to `SPI2->DR` instead of `GPIOB->ODR`. 
+Copy:
+-`init_tim15()` 
+-`setup_dma()` 
+-`enable_dma()` 
 
-Also copied the `TIM7` setup (`init_tim7()`) and ISR function to `main.c` to read the keypad.
+from lab 8 or lab 9. You must make one change: `setup_dma()` should configure the DMA channel to write to `SPI2->DR` instead of `GPIOB->ODR`. 
+
+Also copy the `TIM7` setup (`init_tim7()`) and ISR function to `main.c` to read the keypad.
 
 ### 3.3: `init_spi2()` (15 points)
 
@@ -246,31 +289,31 @@ If your display is not working, check these items inside of the debugger:
 
 ## 4: Trigger DMA with SPI_TX (15 points) 
 
-An SPI peripheral can be configured to trigger the DMA channel all by itself. No timer is needed! It just so happens that the SPI2 transmitter triggers the same DMA channel that Timer 15 triggers. (See the entry in Table 32 for SPI2_TX.) The only additional work to do is to configure the SPI peripheral to trigger the DMA. Subroutine to do this are provided for you. They are named `spi2_setup_dma()` and `spi2_enable_dma()`. They call the code you wrote in `setup_dma()` and `enable_dma()`.
+An SPI peripheral can be configured to trigger the DMA channel all by itself. No timer is needed! It just so happens that the SPI2 transmitter triggers the same DMA channel that Timer 15 triggers. (See the entry in Table 32 for SPI2_TX.) The only additional work to do is to configure the SPI peripheral to trigger the DMA. The subroutines to do this are provided for you. They are named `spi2_setup_dma()` and `spi2_enable_dma()`. They call the code you wrote in `setup_dma()` and `enable_dma()`.
 
 Consider what you've achieved here...
 
 You now have a system that can automatically transfer 16-bit chunks from an 8-entry array to the LED displays. Instead of needing a timer to trigger the DMA channel, the SPI peripheral does that automatically. As soon as one word is transferred, it requests the next word. The SPI system can run fast enough that words can be transferred 1500000 times per second. That would make the digits change faster than the 74HC138 could settle, and the letters would blur together. By setting the SPI clock rate as low as possible, 187.5 kHz, it means that each 16-bit word is delivered 187500/16 = 11719 times per second. You may notice that this makes the digits a little dimmer than they were when driven by the timer. 
 
-#### 4.3.1 Demonstrate Trigger DMA with SPI_TX
+#### 4.1 Demonstrate Trigger DMA with SPI_TX
 
 Comment the `SPI_LEDS` stanza and uncomment the `SPI_LEDS_DMA` stanza. **Have a TA check you off for this section** (TA Instructions: Run this in the System Workbench debugger and confirm that Timer 15 is not initialized.) 
 
-#### 4.3.2 Debugging the DMA
+#### 4.2 Debugging the DMA
 This task is a very similar task to what we've done in the past with the course. You can copy and paste on of the previous DMA setup code blocks that you've written, change the channel to the one needed for SPI2TX, and update the CMAR, CPAR, and CNDTR to the new needed values for the SPI DR, msg array, and msg array size.
 
-### (10 points) 4.4 Using SPI to drive the OLED LCD
+## 5 Using SPI to drive the OLED LCD (10 points total)
 
 Once you have some experience configuring an SPI peripheral for one purpose, it is easy to set up another. We will now use the SPI1 peripheral to drive the LCD OLED display. This will not interfere with the operation of the SPI2 peripheral. You can use them both, simultaneously, for different devices. 
 
-#### (10 points) 4.4.1 `init_spi1()`
+### 5.1 `init_spi1()`
 
 Write a C subroutine named `init_spi1()` to configure the SPI1 peripheral. The configuration for SPI1 is similar to SPI2 from before with a few key differences: 
 
 - Configure NSS, SCK, MISO and MOSI signals of SPI1 to pins PA15, PA5, PA6, and PA7, respectively.
 - 10-bit word size
 
-#### 4.4.2 `spi_cmd()`
+### 5.2 `spi_cmd()`
 
 A C subroutine named `spi_cmd()` is provided for you. It accepts a single integer parameter and does the following:
 
@@ -279,12 +322,12 @@ A C subroutine named `spi_cmd()` is provided for you. It accepts a single intege
 
 That's all you need to do to write 10 bits of data to the SPI channel. The hardware does all the rest.
 
-#### 4.4.3 `spi_data()`
+### 5.3 `spi_data()`
 
 A C subroutine named `spi_data()` is provided for you. It accepts a single integer parameter, and does the same thing as spi_cmd(), except that it ORs the value 0x200 with the parameter before it copies it to the SPI_DR. This will set the RS bit to 1 for the 10-bit word sent. For instance, if you call the subroutine with the argument 0x41, it should send the 10-bit value 0x241 to the SPI_DR. This will perform a character write to the OLED LCD. 
 
 
-#### 4.4.4 `spi1_init_oled()`
+### 5.4 `spi1_init_oled()`
 
 A C subroutine named `spi1_init_oled()` is provided for you. It performs each operation of the OLED LCD initialization sequence:
 
@@ -297,14 +340,14 @@ A C subroutine named `spi1_init_oled()` is provided for you. It performs each op
 - `cmd(0x02);` // move the cursor to the home position
 - `cmd(0x0c);` // turn the display on
 
-#### 4.4.5 `spi1_display1()`
+### 5.5 `spi1_display1()`
 
 A C subroutine named `spi1_display1()` is provided for you. It accepts a `const char *` parameter (also known as a string) and does the following:
 
 - `cmd(0x02);` // move the cursor to the home position
 - Call `data()` for each non-NUL character of the string.
 
-#### 4.4.6 `spi1_display2()`
+### 5.6 `spi1_display2()`
 
 A C subroutine named `spi1_display2()` is provided for you. It accepts a `const char *` parameter (also known as a string) and does the following:
 
@@ -313,13 +356,13 @@ A C subroutine named `spi1_display2()` is provided for you. It accepts a `const 
 
 The display hardware allows for scroll buffers for each line, so the beginning of the second line is actually position 64 (0x40). That offset is combined with the "Set DDRAM address" command (0x80) to position the cursor. 
 
-#### 4.4.7 Demonstrate the SPI OLED Display
+### 5.7 Demonstrate the SPI OLED Display (10 points)
 
 At this point, you should be able to comment and previous stanzas and uncomment the `SPI_OLED` stanza. It uses the `init_spi1()` you wrote along with the support code to initialize and write things to the OLED display.
 
 **Have a TA check you off for this part** (TA Instructions: the OLED display should display "Hello again,\n[Their login]")
 
-#### 4.4.8 Debugging the SPI1 Channel
+#### 5.7.1 Debugging the SPI1 Channel
 If your OLED isnt working right away, check these things:
 - Are you setting your GPIOA pins to alternate function mode (0x10)? A common problem here is accidentally editing PA13 and PA14. If you edit these, it will make your debugger stop working. If your debugger suddenly is saying "device not detected," then you are accidentally changing PA13 and PA14. Fix your code, and hold the reset button while you're programming it. 
 - Are you turning on the RCC clock to SPI1?
@@ -327,17 +370,17 @@ If your OLED isnt working right away, check these things:
 - If your code looks correct, your data size is set to ten bits, and it looks like everything is working on the AD2, you may need to reset your OLED display. These are pretty cheap displays that aren't very smart, so it's easy to confuse them and make them quit working. This can be fixed by unplugging its wiring and plugging it back in.
 - I've noticed that there are some edge cases where the OLED will not work with this task, but it will work with the next task. This is only happening with a small amount of students, so don't immediately assume it's your problem. Anyways, I'm chalking this specific problem up to the quality of the OLED displays. If you're confident that your SPI1 bus is working correctly, the output on the AD2 is correct, and your wiring is correct, skip to the next task and it might start working. If it still does not work after the next task, something went wrong that you missed here, and you'll need to look over this section again.
 
-### (25 points) 4.5 Trigger SPI1 DMA
+## 6 Trigger SPI1 DMA (25 points total)
 
 After going through the initialization process for the OLED display, it is able to receive new character data and cursor placement commands at the speed of SPI. In this step, we will configure SPI1 for DMA. Instead of using the `spi1_display1()` and `spi1_display2()` subroutines to place the cursor and write characters, they will be continually copied from a circular buffer named `display[].` It consists of 34 16-bit entries. Element 0 of the array holds the 10-bit command to set the display cursor at position 0 (the beginning of the top line) of the display. This is the "home command" for the display. The next 16 entries are characters that are copied into the first line of the display. Element 17 of the array holds the 10-bit command to set the cursor position to the beginning of the second line. It is followed by 16 more characters. (Remember that each character must be sent with the 0x200 prefix.) 
 
-#### (10 points) 4.5.1 `spi1_setup_dma()`
+### 6.1 `spi1_setup_dma()` (10 points)
 
 Write a subroutine named `spi1_setup_dma()`. It should circularly copy the 16-bit entries from the `display[]` array to the `SPI1->DR` address. You should also configure the SPI1 device to trigger a DMA operation when the transmitter is empty.
 
 Which DMA channel should you use for this step? You know how to determine this.
 
-#### (15 points) 4.5.2 `spi1_enable_dma()`
+### 6.2 `spi1_enable_dma()` (15 points)
 
 Write a subroutine named `spi1_enable_dma()`. The only thing it should do is enable the DMA channel for operation.
 
@@ -345,14 +388,14 @@ The array is set up, and circular DMA transfer is triggered by `SPI1_TX` to writ
 
 An example of subroutines to update the `display[]` array is provided in the `support.c` file. Two subroutines named `spi1_dma_display1()` and `spi1_dma_display2()` do the work of converting a string of at most 16 characters to 16-bit entries at the right location in the `display[]` array. These are used for the game at the end of the lab experiment. 
 
-#### 4.5.3 Demonstrate your work
+### 6.3 Demonstrate your work
 
 Uncomment the `SPI_OLED_DMA` stanza and comment all other stanzas. You should see the message encoded into the `display[]` array. (TA instructions: Once this works, try commenting all stanzas so that the game is invoked.) 
 
-#### 4.5.4 Debugging the DMA
+### 6.3.1 Debugging the DMA
 This task is a very similar task to what we've done in the past with the course. You can copy and paste on of the previous DMA setup code blocks that you've written, change the channel to the one needed for SPI1TX, and update the CMAR, CPAR, and CNDTR to the new needed values for the SPI DR, display array, and display array size.
 
-## 3. Play the game
+## 7. Play the game
 
 If you have properly implemented all of your subroutines, you should be able to comment all of the test stanzas and play the game provided for you. This game provides several examples:
 
