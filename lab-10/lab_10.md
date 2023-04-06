@@ -107,6 +107,8 @@ The schematic for this setup is shown below.
 
 ![sch](./images/shift-regs-wiring.png)
 
+>**NOTE:** These are intended to replace the GPIO pins on your development board. You can treat PB0-PB7 as QA-QH on the rightmost 595 chip, and then PB8-PB10 as QA-QC on the leftomost 595 chip.
+
 Page 4 of the datasheet for the [SOC1602A OLED LCD display](https://engineering.purdue.edu/ece362/refs/SOC1602A.pdf) describes the pins for the serial interfaces. Like many SPI devices, the documented pin names differ from the canonical description of the SPI protocol. Pin 12 (SCL) is the SPI clock. Pin 14 (SDI) is the MOSI signal. Pin 16 (/CS) is a "negated chip select", which is connected to NSS. Figure 3 describes the connection to the STM32F091 development board. 
 
 ![oled sch](./images/oled-wiring.png)
