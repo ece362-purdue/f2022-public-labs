@@ -436,7 +436,7 @@ This will be the code structure that we use to do things with the LCD.
 ### 8.2: Wiring the LCD
 At this point, the LCD can go anywhere on your breadboard. This is the last thing we will place in the main portion of this course. Here is the wiring diagram:
 
-![LCD](./images/lcd.PNG)
+![LCD](./images/LCD.PNG)
 
 
 ### 8.3: `setup_LCD()`
