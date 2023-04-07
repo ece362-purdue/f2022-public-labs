@@ -439,7 +439,7 @@ At this point, the LCD can go anywhere on your breadboard. This is the last thin
 ![LCD](./images/LCD.PNG)
 
 
-### 8.3: `setup_LCD()`
+### 8.3: `init_lcd_display`
 
 You will want to use the SPI1 peripheral. You might notice that SPI1 is already attached to something. For now, let's just ignore it. Inside the lcd.c file, the first function that you'll find is`init_lcd_display.` In that function, do these things:
 - Configure PB8 to an output.
