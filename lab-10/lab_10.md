@@ -412,3 +412,58 @@ If you have properly implemented all of your subroutines, you should be able to 
 - A critical section is set up where all interrupts are temporarily disabled when a key is pressed. In this way, the display array can be safely updated rather than have two things modify it in an overlapping fashion.
 
 It is an easy game to play. Use the A and B keys to move the '>' character on the left of the display. Use it to hit as many 'x' characters as you can. Each time you hit an 'x', you gain a point. Each time an 'x' goes by you, you lose a point. As your score gets higher, the game goes faster. If you can reach 100 points, you win. 
+
+## 8: Using the LCD (extra credit, 25 points. Must complete the rest of the lab to complete this.)
+
+In your lab kit, you will find an extra LCD screen. Coincidentally, this also uses an SPI communication protocol. Unfortunately, we haven't been able to work this into the curriculum in the new version of the course, but it's still a fun thing to learn how to use, and I believe I have thought of an interesting way to incorperate it into this lab. Unfortunately, we will not include the SD card reader into our curriculum as we do not have time. **However,** I have been giving the old lab that uses the SD card to the senior design courses, so you will be able to explore it then, if you so choose.
+
+### 8.1: Setting Up
+First thing you should do is download the lcd.c and lcd.h files from the Brightspace, and put both of them into the `inc` folder in your lab10 project directory. After, we want to make a couple of different functions to demonstrate this to your TA. After the `SPI_OLED_DMA` section, but before the `game()` function, insert this code snippet:
+
+```C
+
+// LCD
+//#define LCD
+#if defined(LCD)
+  LCD_Setup();
+  clear_LCD(0x0000); // If the screen turns black, that means it's working.
+  // Insert your picture code here...
+  
+#endif
+```
+This will be the code structure that we use to do things with the LCD.
+
+### 8.2: Wiring the LCD
+At this point, the LCD can go anywhere on your breadboard. This is the last thing we will place in the main portion of this course. Here is the wiring diagram:
+
+![LCD](./images/lcd.PNG)
+
+
+### 8.3: `setup_LCD()`
+
+You will want to use the SPI1 peripheral. You might notice that SPI1 is already attached to something. For now, let's just ignore it. Inside the lcd.c file, the first function that you'll find is`init_lcd_display.` In that function, do these things:
+- Configure PB8 to an output.
+- Configure PB11 to an output.
+- Configure PB14 to an output.
+- Configure PB5 to SPI1 MOSI.
+- Configure PB3 to SPI1 SCK.
+- Enable SPI1 in the RCC.
+- Disable the SPI1 SPE bit.
+- Set the SPI1 baud rate divisor to the smallest possible.
+- Set SPI1 into Master Mode.
+- Set the SPI1 word size to 8-bit.
+- Set the Software Slave Management bit.
+- Set the Internal Slave Select bit.
+- Set the DS field to 8-bit words.
+- Set the SPE bit.
+
+### 8.4: Draw us a picture!
+
+If you have gotten this far, you should have a LCD screen that briefly turns white, and then turns black. That means it's working! Now, check out some of the commands inside of lcd.c. There's tons of stuff in there that draw basic shapes. We'd like you to either draw a picture for us, or create a short animation, or figure out how to import a real picture into the microcontroller and display it on the LCD. The requirements to get credit for this:
+- If you choose the picture option, it must contain at least ten shapes.
+- If you choose the animation option, it must contain at least 5 shapes as background, and then 3 shapes that move around. The animation must run for at least five seconds.
+- If you choose the picture option, you must draw a 240x320 pixel picture on Microsoft Paint (or similar application) with 16-bit encoding, convert it to a C array, and then have the micro draw it using one of the provided functions.
+
+>**NOTE** If you do this, keep the LCD on your breadboard for lab 11. You'll need it for an extra credit opportunity there.
+
+Have fun! :)
