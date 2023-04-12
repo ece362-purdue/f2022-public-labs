@@ -44,4 +44,8 @@
    - you could download the [lab 10 template](https://github.com/ece362-purdue/f2022-lab-10):
      - `git clone git@github.com:ece362-purdue/f2022-lab-10.git`
      - or with [zipped file](https://github.com/ece362-purdue/f2022-lab-10/archive/refs/heads/main.zip)
+13. [Lab 11 USART](./lab-11/lab_11.md) (Due in week of 4/17 of your lab section)
+   - you could download the [lab 11 template](https://github.com/ece362-purdue/f2022-lab-11):
+     - `git clone git@github.com:ece362-purdue/f2022-lab-11.git`
+     - or with [zipped file](https://github.com/ece362-purdue/f2022-lab-11/archive/refs/heads/main.zip)
 
