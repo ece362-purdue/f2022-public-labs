@@ -130,9 +130,9 @@ The SPI interface is simple enough that it can be driven by setting individual G
 ### 2.2: `setup_bb()` (10 points)
 
 Write a C subroutine named setup_bb() that configures GPIO Port B for bit-banging the 7 segment LED displays. To do so, set these pins in their respective ways:
-- PB12 (NSS)
-- PB13 (SCK)
-- PB15 (MOSI) 
+- PB12 (Represents NSS)
+- PB13 (Represents SCK)
+- PB15 (Represents MOSI) 
 
 for general purpose output (not an alternate function). Initialize the ODR so that NSS is high and SCK is low. It does not matter what MOSI is set to. 
 
@@ -451,7 +451,6 @@ You will want to use the SPI1 peripheral. You might notice that SPI1 is already 
 - Disable the SPI1 SPE bit.
 - Set the SPI1 baud rate divisor to the smallest possible.
 - Set SPI1 into Master Mode.
-- Set the SPI1 word size to 8-bit.
 - Set the Software Slave Management bit.
 - Set the Internal Slave Select bit.
 - Set the DS field to 8-bit words.
