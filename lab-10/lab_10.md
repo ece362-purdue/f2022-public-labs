@@ -197,7 +197,7 @@ void bb_write_halfword(int message)
 Uncomment the `#define BIT_BANG` stanza in `main.c`. This will invoke your `setup_bb()` subroutine to configure the pins as outputs and then call your `bb_write_halfword()` repeatedly to show the entire array.
 
 The display should say "ECE 362", though it will iterate through each display element very slowly. Make sure that each digit displays correctly. Then reduce the number of nanoseconds that small_delay waits until the display is smooth. 
-<!--
+<!---
 Comment out the `nano_wait()` call and use your AD2 to capture a trace of the SPI protocol. To do so,
 
 - Invoke the "Logic Tool" and add a new SPI bus in the signal list.
