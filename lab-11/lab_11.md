@@ -1,4 +1,4 @@
-# Lab 11: UART
+# Lab 11: USART
 <!--
 - [Lab 11: UART](#lab-11-uart)
   - [1. Introduction](#1-introduction)
