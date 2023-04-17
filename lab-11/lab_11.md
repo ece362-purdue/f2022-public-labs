@@ -54,7 +54,7 @@ Your STM32 development system contains **eight** independent USART channels, eac
 - The `USART_ICR` register is used to clear bits in the ISR. Usually, only error flags must be manually cleared using this register. Normal flags used to indicate receiver and transmitter readiness are automatically cleared by input/output operations as described below.
 - The `USART_RDR` register is used to read a new byte from the receiver. Reading from this register will automatically clear the RXNE bit of the ISR.
 - The `USART_TDR` register is used to write a new byte into the transmitter. Writing to this register will automatically clear the TXE bit of the ISR.
-
+<!---
 ### 3.3 Viewing an asynchronous serial transaction
 
 The AD2 or ADALM2K logic analyzer has a built-in protocol display for a UART. Add a display in a similar manner as you did for I2C. Make sure that one of the ground wires of the USB logic analyzer is shared with the STM32. Connect DIO 0 to the STM32 pin set up for "Rx". Connect DIO 1 to the STM32 pin set up for "Tx". Since each UART analyzer looks at only half of a bidirectional connection, you will need to set up two analyzers.
@@ -62,8 +62,8 @@ The AD2 or ADALM2K logic analyzer has a built-in protocol display for a UART. Ad
 Press the "Run" button in the Logic tool and, while continuous serial communication is in operation (e.g. press and hold a key in a serial terminal), watch the Logic tool trace. Zoom in on one of the waveforms. If you press the "Single" button controls, you will freeze the display after one snapshot of the communication. The receiver and transmitter are shown in different signals and interpreted. If you run a program on the STM32 that continually reads bytes from the USART and immediately writes them back, you would see something like this on the Logic tool trace. (h2F is the hexadecimal code for an ASCII slash [/]. Notice that the binary value 00101111 is sent in reverse order.) 
 
 ![space character](./images/analyzer-trace.png)
-
-### 3.4 Using a serial terminal emulator program
+-->
+### 3.3 Using a serial terminal emulator program
 
 Decades ago, most mainframe computing equipment was large and was usually centralized in special rooms. Devices called serial terminals, like the one pictured below, were used to interact with the computers from a distance. The only function of these terminals was to take characters typed on a keyboard and send them through an asynchronous serial connection to the computer and receive characters back through the serial connection and display them on the screen. They were often called dumb terminals because they did not constitute a programmable computer system by themselves. All programmable computation happened on the remote computer. 
 
