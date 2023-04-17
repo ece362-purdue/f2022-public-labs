@@ -1,5 +1,5 @@
 # Lab 11: UART
-
+<!--
 - [Lab 11: UART](#lab-11-uart)
   - [1. Introduction](#1-introduction)
   - [2. Instructional Objectives](#2-instructional-objectives)
@@ -19,6 +19,7 @@
       - [4.4.4 Interrupt Service Routine for USART5](#444-interrupt-service-routine-for-usart5)
       - [4.4.5 Adjust `main()` to enable interrupts and DMA](#445-adjust-main-to-enable-interrupts-and-dma)
       - [4.4.6 Test and Demo](#446-test-and-demo)
+-->
 
 ## 1. Introduction
 
@@ -76,9 +77,7 @@ Sadly, your personal computer (likely) does not have RS-232 serial connectors. E
 
 We will continue to use USART5 and the same microcontroller pins for the serial adapter as we have used all semester. There's only one pin for GPIO Port D, and only so many things we can do with it. For this lab experiment, use PC12 for the STM32 Tx and PD2 for the STM32 Rx. These should be cross-connected to the Rx and Tx pins on the FT232RL. Again, this is the configuration you have been using all semester. Use it again this week. 
 
-## (100 points) 4. Experiment
-
-### (35 points) 4.1 Initialize the USART
+## 4 Initialize the USART (35 points)
 
 Implement the function named `init_usart5()`. It should do the following things: 
 
@@ -109,7 +108,7 @@ Once you are finished, uncomment the `#define STEP41` in the `main.c` to test th
 
 **To demo this step**, connect your AD2 to the serial port as described above. Set it for a [Single] capture, and type the first letter of your ECN login. Show this to your TA. (**TA Instructions**: Confirm the signal trace of the first letter of the login, and then confirm that the student can type characters that are echoed, backspace with [Ctrl]-H, issue a carriage-return with [Enter], send a linefeed with [Ctrl]-J, and move around using the cursor keys.) 
 
-### (25 points) 4.2 Support for `printf()` and `fgets()`
+### 5 Support for `printf()` and `fgets()` (25 points)
 
 For this lab experiment, it is most convenient to comment out entire blocks of code where each one might have multiple functions. Disable the `main()` function for Step 4.1 by commenting the `#define STEP41` statement and uncomment `#define STEP42`.
 
@@ -156,7 +155,7 @@ After that, you can still type any characters, but each one will appear twice. T
 Ask a TA to check your work. (TA instructions: Browse the functions to ensure they are implemented, then start the program. Type a name when prompted, make sure it is echoed. Complete it by typing [Enter]. Check that the next two lines are printed with carriage returns as well as linefeeds.
 
 
-### (20 points) 4.3 Basic line editing
+## 5 Basic line editing (20 Points)
 
 Even though the work in Step 4.2 allows characters to be echoed, you would still need to type carefully. Think about how many times per day you press the [Backspace] key when you make a mistake. It doesn't work here. Let's fix that problem.
 
@@ -182,7 +181,7 @@ This is the start of a system known as a device driver. It constitutes the softw
 
 Show your work to your TA. (TA instructions: Make sure that the input and output work as before, but now the name entered can be edited by pressing [Backspace].) 
 
-### (20 points) 4.4 Interrupt and DMA driven serial I/O
+## 6 Interrupt and DMA driven serial I/O (20 Points)
 
 A final remaining deficiency with our serial terminal interface is that, if the CPU is busy doing something other than reading characters, multiple characters might be received by the USART. These characters will be lost. We can use the interrupt features of the USART to enable event-driven update of the input FIFO.
 
@@ -196,7 +195,7 @@ The general solution to the overrun problem with the STM32 USART is to use DMA f
 
 Comment the `#define STEP43` and uncomment the `#define STEP44` Make sure it is the only block enabled for compilation. Implement the following data structures and subroutines. 
 
-#### 4.4.1 DMA data structures
+### 6.1 DMA data structures
 
 Create a global array of characters named `serfifo` and an offset counter named `seroffset` like so:
 
@@ -208,7 +207,7 @@ int seroffset = 0;
 
 The first will be the circular buffer that DMA deposits characters into. The second will keep track of the offset in the buffer of the next character read from it. 
 
-#### 4.4.2 `enable_tty_interrupt()`
+### 6.2 `enable_tty_interrupt()`
 
 Construct a subroutine named `enable_tty_interrupt()` that configures `USART5` to do two things each time a character is received:
 
@@ -244,7 +243,7 @@ Then, configure DMA2_Channel2 for the following:
 - Set the Priority Level to highest.
 - Finally, make sure that the channel is enabled for operation.
 
-#### 4.4.3 `interrupt_getchar()`
+### 6.3 `interrupt_getchar()`
 
 Create a subroutine named `interrupt_getchar()` that works like `line_buffer_getchar()`, except that it should neither check or clear the `ORE` flag, nor wait on new characters to be received by the USART. In fact, it should not touch the USART at all. All it needs to do is check if the `input_fifo` contains a newline. While it does not, it should do an inline assembly WFI:
 
@@ -256,7 +255,7 @@ If it does contain a newline, it should remove the first character from the fifo
 
 Update `__io_getchar()` to call `interrupt_getchar()` instead of `line_buffer_getchar()`. 
 
-#### 4.4.4 Interrupt Service Routine for USART5
+### 6.4 Interrupt Service Routine for USART5
 
 To fill the `input_fifo`, construct an interrupt handler for USART5. (You remember how to look up the name of an interrupt handler, right? You definitely want to copy and paste the name of that ISR.)
 
@@ -280,11 +279,11 @@ There is no need to manually acknowledge USART5. When the DMA reads from the `RD
 
 You should be able to follow the progression of characters through the system by setting a breakpoint on the ISR.
 
-#### 4.4.5 Adjust `main()` to enable interrupts and DMA
+### 6.5 Adjust `main()` to enable interrupts and DMA
 
 In `main()` add a call to `enable_tty_interrupt()` just after the call to `init_usart5()`
 
-#### 4.4.6 Test and Demo
+### 6.6 Test and Demo
 
 **Test it**
 
@@ -297,3 +296,127 @@ There is a great deal of things going on here. How should you debug it when it d
 **Demonstrate it**
 
 Show your work to your TA. (TA instructions: Look over the code to ensure that it looks correct. Run the code to make sure that the input can be edited and printing is correct. 
+
+
+## 5 Command Line Interpreter (25 Points Extra Credit)
+At this point, we have the structure to get and interpret lines. Now, what do we do with it? Last semester, this question went unanswered, so this time around I'd like to leave you with something useful. At this point, you've seen our Autotest suite do its work with testing your circuit. Usually this turns on indivudal functions, checks registers to make sure that they're set correctly, and other things that happen in the background not worth mentioning. You probably won't use this for *that* specific functionality, but it's something useful to know how to do if you'd like to debug things from your terminal in the future. First, download the `commands.c` and `commands.h` files from the BrightSpace and include them into your Lab 11 project directory. Drop `commands.c` into the `src` folder and `commands.h` into the `inc` folder. Make sure to to include these at the top of your main.c file with a `#include` statement.
+
+### 5.1: Parsing Commands
+This is a tougher concept. Inside of the `commands.c` file, there's a function declared as `void parse_command(char *c).` In all hoensty, *I'm not even sure how this works entirely,* but I know that this works, so I'll give the script below. The previous 362 instructor, Rick, wrote this as well as the rest of the functions here.
+
+```C
+void parse_command(char *c)
+{
+    char *argv[20];
+    int argc=0;
+    int skipspace=1;
+    for(; *c; c++) {
+        if (skipspace) {
+            if (*c != ' ' && *c != '\t') {
+                argv[argc++] = c;
+                skipspace = 0;
+            }
+        } else {
+            if (*c == ' ' || *c == '\t') {
+                *c = '\0';
+                skipspace=1;
+            }
+        }
+    }
+    if (argc > 0) {
+        argv[argc] = "";
+        exec(argc, argv);
+    }
+}
+```
+
+We will follow a similar pattern of "I kind of understand how this works, but I don't wan't to give you guys the wrong idea on accident, so I'm giving you the code" for the next few steps.
+
+#### What do I think this does?
+This function takes in an argument as a character array. Inside, it checks through the character until it hits a space (" ") that's not generated by a tab ("\t"). While it's doing this, it is filling the `argv` array with everything that it finds to not be a space. Once it hits that point, it fills the rest of the array with null characters ("\0"). After, if the arguement is nonzero (in other words, is a string), the program turns the whole arguement into *a pointer to a different pointer,* which is where my understanding drops off a little bit. This is passed off into the next function.
+
+### 5.2 Executing Commands
+Inside of the `comands.c` file, there's a function declared as `void exec(int argc, char *argv[])` that we must fill in to get commands from our inputs. Insert this code snippet here:
+
+```C
+void exec(int argc, char *argv[])
+{
+    //for(int i=0; i<argc; i++)
+    //    printf("%d: %s\n", i, argv[i]);
+    for(int i=0; usercmds[i].cmd != 0; i++)
+        if (strcmp(usercmds[i].cmd, argv[0]) == 0) {
+            usercmds[i].fn(argc, argv);
+            return;
+        }
+    for(int i=0; i<sizeof cmds/sizeof cmds[0]; i++)
+        if (strcmp(cmds[i].cmd, argv[0]) == 0) {
+            cmds[i].fn(argc, argv);
+            return;
+        }
+    printf("%s: No such command.\n", argv[0]);
+}
+```
+
+#### What do I think this does?
+This is taking the pointer to a pointer from the previous function, and checking if it means anything. If you scroll a little further up, you'll find the `commands_t` structure. In a roundabout way, this function compares your parsed command to see if it means anything. First, it checks through the user_commands structure. Although, at the moment, this does nothing because it's defined as a `weak` object. We didn't learn how these work this year, but it's essentially something that tells the compiler "define me as this if nothing else defines me." For example, if you check through your startup file that contains the ISR names, all of them are defined as weak, meaning they don't do anthing until you overwrite them. After, it checks through the currently defined structure, commands_t.
+
+If it matches up with a predefined command (initially, only dino), then it will execute that command. If it doesn't, it'll print an error line and return to the command shell, which we will define next.
+
+### 5.3 The Command Shell
+This is the simplest of the three. You can probably guess how this one works. It just gives a `>` line prompt where you can type a command, waits for a user input, and then passes it off to the parser. Some of these functions are `stdio` functions, which are in a predefined library that you can call from any machine running C.
+
+```C
+void command_shell(void)
+{
+  char line[100];
+  int len = strlen(line);
+  puts("This is the STM32 command shell.");
+  for(;;) {
+      printf("> ");
+      fgets(line, 99, stdin);
+      line[99] = '\0';
+      len = strlen(line);
+      if (line[len-1] == '\n'
+          line[len-1] = '\0';
+      parse_command(line);
+  }
+}
+```
+
+### 5.4 Try it! Not a demo yet. 
+In your main.c file, create a new test case called `shell` at the end of the main function. At this point, you should be able to do this, or be able to figure out how to do it (hint: just copy an old test case and change it to what we need). Inside of it, just call `command_shell().` When you run this, you should get the shell prompt. Type `dino` and click the enter key. At this point, you should see a dino.
+
+### 5.5 Adding Your Own Functions
+At this point, you have a working command shell. Now, we can add other things to it! For example, let's add `add` command, a `muls` command, and a `bird` command. In order to do this, go back into your `commands.c` file. Find the `user_cmds[]` structure. Directly below, add in this code snippet:
+
+```C
+void add(int argc, char *argv[])
+{
+  int sum = 0;
+  for(int i=2; i < argc; i++) {
+      sum += strtol(argv[i], 0, 0);
+  }
+  printf("The sum is %d\n", sum);
+}
+
+void mul(int argc, char *argv[])
+{
+  int prod = 1;
+  for(int i=2; i < argc; i++) {
+    prod *= strtol(argv[i], 0, 0);
+  }
+  printf("The product is %d\n", prod);
+}
+
+// Define your bird command function here
+
+struct commands_t usercmds[] = {
+  { "add",    add },
+  { "mul",    mul },
+  // define the bird command pointer here
+}
+```
+**Heres the catch,** this part is tricky. The compiler wants these special structures described in the same before. Make sure when you define this function and structure, it looks like the rest of the associated function and structures. They should have the same input arguements and the same order, as the compiler arranges them in that order and with those specific arguements and pointers. For the `bird` function, we just want you to write a function that prints `/\_/\` in the middle of the screen. If you need help figuring out how to print a picture on the terminal, see the `dino` command in the `commands.c` file.
+
+### Demo it!
+Show us `dino,` `bird,` `add 3 5 7,` and `muls 3 4 5.` If this works, you get the credit.
