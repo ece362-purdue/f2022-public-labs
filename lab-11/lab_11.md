@@ -108,7 +108,7 @@ Once you are finished, uncomment the `#define STEP41` in the `main.c` to test th
 
 **To demo this step** Show this to your TA. (**TA Instructions**: confirm that the student can type characters that are echoed, backspace with [Ctrl]-H, issue a carriage-return with [Enter], send a linefeed with [Ctrl]-J, and move around using the cursor keys.) 
 
-### 5 Support for `printf()` and `fgets()` (25 points)
+## 5 Support for `printf()` and `fgets()` (25 points)
 
 For this lab experiment, it is most convenient to comment out entire blocks of code where each one might have multiple functions. Disable the `main()` function for Step 4.1 by commenting the `#define STEP41` statement and uncomment `#define STEP42`.
 
