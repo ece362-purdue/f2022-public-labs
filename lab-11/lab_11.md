@@ -418,5 +418,7 @@ struct commands_t usercmds[] = {
 ```
 **Heres the catch,** this part is tricky. The compiler wants these special structures described in the same before. Make sure when you define this function and structure, it looks like the rest of the associated function and structures. They should have the same input arguements and the same order, as the compiler arranges them in that order and with those specific arguements and pointers. For the `bird` function, we just want you to write a function that prints `/\_/\` in the middle of the screen. If you need help figuring out how to print a picture on the terminal, see the `dino` command in the `commands.c` file.
 
+>**NOTE:** An issue that's popping up is that for some people, the compiler won't redefine the weak definition. I am not sure why, as you're doing something similar in each task in the main lab. It could be that it's located in the same file, and the compiler might not like that. Either way, comment out the previous definition of `usercmds[]` before running if you're having trouble.
+
 ### Demo it!
-Show us `dino,` `bird,` `add 3 5 7,` and `muls 3 4 5.` If this works, you get the credit.
+Show us `dino,` `bird,` `add 3 5 7,` and `mul 3 4 5.` If this works, you get the credit.
