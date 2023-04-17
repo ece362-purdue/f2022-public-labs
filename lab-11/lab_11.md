@@ -106,7 +106,7 @@ Once you are finished, uncomment the `#define STEP41` in the `main.c` to test th
 - Press [Ctrl]-H (ASCII code 8) to send a backspace character that moves the cursor left one space. You can then type a [Space] to overwrite the character written there. Sending one more [Ctrl]-H accomplishes a deleting backspace operation that you expect to happen when you are editing a command line. I.e., to delete the last character typed, issue backspace-space-backspace. (Note that the [Backspace] key you see on your keyboard may not really send a backspace code. More likely, it sends a DEL (code 0x7F) byte. Meanwhile, the [Delete] key on your keyboard probably sends the four-byte sequence Escape `[ 3 ~`. We apologize that the world is so complicated.) You might confirm this by capturing the signal trace using the AD2.
 - Press the arrow keys to move the cursor around on the screen. Each of these keys sends a multi-byte code that acts as a cursor command.
 
-**To demo this step**, connect your AD2 to the serial port as described above. Set it for a [Single] capture, and type the first letter of your ECN login. Show this to your TA. (**TA Instructions**: Confirm the signal trace of the first letter of the login, and then confirm that the student can type characters that are echoed, backspace with [Ctrl]-H, issue a carriage-return with [Enter], send a linefeed with [Ctrl]-J, and move around using the cursor keys.) 
+**To demo this step** Show this to your TA. (**TA Instructions**: confirm that the student can type characters that are echoed, backspace with [Ctrl]-H, issue a carriage-return with [Enter], send a linefeed with [Ctrl]-J, and move around using the cursor keys.) 
 
 ### 5 Support for `printf()` and `fgets()` (25 points)
 
