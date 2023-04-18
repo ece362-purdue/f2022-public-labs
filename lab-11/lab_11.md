@@ -376,7 +376,7 @@ void command_shell(void)
       fgets(line, 99, stdin);
       line[99] = '\0';
       len = strlen(line);
-      if (line[len-1] == '\n'
+      if (line[len-1]) == '\n'
           line[len-1] = '\0';
       parse_command(line);
   }
@@ -393,7 +393,7 @@ At this point, you have a working command shell. Now, we can add other things to
 void add(int argc, char *argv[])
 {
   int sum = 0;
-  for(int i=2; i < argc; i++) {
+  for(int i=1; i < argc; i++) {
       sum += strtol(argv[i], 0, 0);
   }
   printf("The sum is %d\n", sum);
@@ -402,7 +402,7 @@ void add(int argc, char *argv[])
 void mul(int argc, char *argv[])
 {
   int prod = 1;
-  for(int i=2; i < argc; i++) {
+  for(int i=1; i < argc; i++) {
     prod *= strtol(argv[i], 0, 0);
   }
   printf("The product is %d\n", prod);
@@ -414,7 +414,7 @@ struct commands_t usercmds[] = {
   { "add",    add },
   { "mul",    mul },
   // define the bird command pointer here
-}
+};
 ```
 **Heres the catch,** this part is tricky. The compiler wants these special structures described in the same before. Make sure when you define this function and structure, it looks like the rest of the associated function and structures. They should have the same input arguements and the same order, as the compiler arranges them in that order and with those specific arguements and pointers. For the `bird` function, we just want you to write a function that prints `/\_/\` in the middle of the screen. If you need help figuring out how to print a picture on the terminal, see the `dino` command in the `commands.c` file.
 
