@@ -133,5 +133,56 @@ Once this is done, implement the following setup code for the I2C1 bus:
 
 ## 5: Helper Functions
 
-### 5.1: i2c_waitidle()
-Implement a subroutine that 
+```C
+// Initialize I2C1 to 400 kHz
+void i2c_init(void) {
+  RCC->AHBENR |= RCC_AHBENR_GPIOBEN;
+  GPIOB->MODER |= 2<<(2*6) | 2<<(2*7);
+  GPIOB->AFR[0] |= 1<<(4*6) | 1<<(4*7);
+  
+  RCC->APB1ENR |= RCC_APB1ENR_I2C1EN;
+  //RCC->CFGR3 |= RCC_CFGR3_I2C1SW; // to set for 48MHz sysclk
+  // default is 8MHz "HSI" clk
+  
+  // I2C CR1 Config
+  I2C1->CR1 &= ~I2C_CR1_PE; // Disable to perform reset.
+  I2C1->CR1 &= ~I2C_CR1_ANFOFF; // 0: Analog noise filter on.
+  I2C1->CR1 &= ~I2C_CR1_ERRIE; // Error interrupt disable
+  I2C1->CR1 &= ~I2C_CR1_NOSTRETCH; // Enable clock stretching
+  
+  // From table 83. p642 of FRM. Set for 400 kHz with 8MHz clock.
+  I2C1->TIMINGR = 0;
+  I2C1->TIMINGR &= ~I2C_TIMINGR_PRESC;// Clear prescaler
+  I2C1->TIMINGR |= 0 << 28; // Set prescaler to 0
+  I2C1->TIMINGR |= 3 << 20; // SCLDEL
+  I2C1->TIMINGR |= 1 << 16; // SDADEL
+  I2C1->TIMINGR |= 3 << 8; // SCLH
+  I2C1->TIMINGR |= 9 << 0; // SCLL
+  
+  // I2C "Own address" 1 register (I2C_OAR1)
+  I2C1->OAR1 &= ~I2C_OAR1_OA1EN; // Disable own address 1
+  I2C1->OAR1 = I2C_OAR1_OA1EN | 0x2;// Set 7-bit own address 1
+  I2C1->OAR2 &= ~I2C_OAR2_OA2EN; // Disable own address 2
+  I2C1->CR2 &= ~I2C_CR2_ADD10; // 0 = 7-bit mode; 1 = 10-bit
+  I2C1->CR2 |= I2C_CR2_AUTOEND; // Enable the auto end
+  I2C1->CR2 |= I2C_CR2_NACK; // For slave mode: set NACK
+  I2C1->CR1 |= I2C_CR1_PE; // Enable I2C1
+}
+```
+```C
+void i2c_start(uint32_t devaddr, uint8_t size, uint8_t dir) {
+ // dir: 0 = master requests a write transfer
+ // dir: 1 = master requests a read transfer
+ uint32_t tmpreg = I2C1->CR2;
+ tmpreg &= ~(I2C_CR2_SADD | I2C_CR2_NBYTES |
+ I2C_CR2_RELOAD | I2C_CR2_AUTOEND |
+ I2C_CR2_RD_WRN | I2C_CR2_START | I2C_CR2_STOP);
+ if (dir == 1)
+ tmpreg |= I2C_CR2_RD_WRN; // Read from slave
+ else
+ tmpreg &= ~I2C_CR2_RD_WRN; // Write to slave
+ tmpreg |= ((devaddr<<1) & I2C_CR2_SADD) | ((size << 16) & I2C_CR2_NBYTES);
+ tmpreg |= I2C_CR2_START;
+ I2C1->CR2 = tmpreg;
+}
+```
