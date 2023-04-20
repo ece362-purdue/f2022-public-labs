@@ -19,7 +19,7 @@ I2C communication protocol is generally used for creating large busses that incl
 
 Further, every device uses an open-drain interface, meaning that each device can only pull down. Consequently, both of the lines must be pulled up with a strong pull-up resistor, meaning stronger than what the STM32 (and most other chips available) has internally. In general, there is actually a very careful set of mathematical measurements and calculations involved with designing a proper I2C bus. You may remember from 2k1 that RC circuits have a charge constant associated with how quickly the circuit rises and falls. In general, for every circuit out there, there's a resistive, capacitive, and inductive component out there, although the resistive and capacitive components are incredibly small, and the inductive component is usually even smaller! For general use, you can reuse the formula:
 
-$$ V_{C} = V_{1}(1-e^{frac{-t}{\tau})}$$
+$$ V_{C} = V_{1}(1-e^{\frac{-t}{\tau}})$$
 
  - and -
 
