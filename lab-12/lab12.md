@@ -132,6 +132,11 @@ Once this is done, implement the following setup code for the I2C1 bus:
 **Checkoff:** TA's, just make sure they have this subroutine completed correctly.
 
 ## 5: Helper Functions
+We didn't get around to showing this sort of code structure this semester. When you go on to do personal projects, senior design, and/or industry work, it's *sometimes* good to structure your code in a way that abstracts the hardware out for general use. This methodology is called a Hardware Abstraction Layer, and most of the time they're garbage.
+
+The problem with HALs is they're usually written with a specific purpose in mind (carrying data from one specific type of peripheral to/from the micro is a good example), and they use data structures and functions that are tailored to that purpose. Most of the time, it feels like interns write these because the actual engineers are busy doing something else. TI's MSP and STM's HALs are ones that I tend to encounter in the wild a lot, and they're almost completely useless, especially since you can't see the source code, so you don't know what's going on.
+
+Here, I am providing most of a HAl for your I2C. Look carefully at what's happening. All of this is similar to things that you've done in class, just instead of writing it yourself, a lot of it is prewritten. Some of it is not, and you must fill in a couple of marked-out gaps in this code. When you're done with this, these functions are useable and you don't have to mess with the code on the low-level side. Create a file in the `src` folder named `i2c.c.` Copy these functions into there. 
 <!---
 ```C
 // Initialize I2C1 to 400 kHz
@@ -175,8 +180,11 @@ void i2c_start(uint32_t targadr, uint8_t size, uint8_t dir) {
   // dir: 1 = master requests a read transfer
   
   // Take current contents. Remove items that may not be applicable.
+  // ---------------------- THERE ARE EXTRA ITEMS HERE THAT YOU DON't NEED.----------------------------------------------------
+  // -----------------------------------------REMOVE THEM.---------------------------------------------------------------------
   uint32_t tmpreg = I2C1->CR2;
   tmpreg &= ~(I2C_CR2_SADD | I2C_CR2_NBYTES | I2C_CR2_RELOAD | I2C_CR2_AUTOEND | I2C_CR2_RD_WRN | I2C_CR2_START | I2C_CR2_STOP);
+  // ----------------------------------------END PROBLEM-----------------------------------------------------------------------
   
   // Set read/write direction.
   if (dir == 1) tmpreg |= I2C_CR2_RD_WRN; // Read from slave
@@ -194,33 +202,37 @@ void i2c_start(uint32_t targadr, uint8_t size, uint8_t dir) {
 ```C
 void i2c_stop(void) 
 {
-  if (I2C1->ISR & I2C_ISR_STOPF)
-  return;
+  // If transaction has already been stopped, break from function if so.
+  if (I2C1->ISR & I2C_ISR_STOPF) return;
+  
   // Master: Generate STOP bit after current byte has been transferred.
   I2C1->CR2 |= I2C_CR2_STOP;
+  
   // Wait until STOPF flag is reset
-  while( (I2C1->ISR & I2C_ISR_STOPF) == 0);
+  while((I2C1->ISR & I2C_ISR_STOPF) == 0);
+  
   I2C1->ICR |= I2C_ICR_STOPCF; // Write to clear STOPF flag
 }
 ```
+
 ```C
 void i2c_waitidle(void) 
 {
-  while ( (I2C1->ISR & I2C_ISR_BUSY) == I2C_ISR_BUSY); // while busy, wait.
+  while ((I2C1->ISR & I2C_ISR_BUSY) == I2C_ISR_BUSY); // while busy, wait.
 }
 ```
+
 ```C
-int8_t i2c_senddata(uint8_t devaddr, void *pdata, uint8_t size) 
+int8_t i2c_senddata(uint8_t targadr, void *data, uint8_t size) 
 {
   int i;
   if (size <= 0 || pdata == 0) return -1;
   
-  uint8_t *udata = (uint8_t*)pdata;
+  uint8_t *udata = (uint8_t*)data;
   
   i2c_waitidle();
   
-  // Last argument is dir: 0 = sending data to the slave device.
-  i2c_start(devaddr, size, 0);
+  i2c_start(targadr, size, 0);
   for(i=0; i<size; i++) 
   {
     // TXIS bit is set by hardware when the TXDR register is empty and the
@@ -229,14 +241,20 @@ int8_t i2c_senddata(uint8_t devaddr, void *pdata, uint8_t size)
 
     // The TXIS flag is not set when a NACK is received.
     int count = 0;
-    while( (I2C1->ISR & I2C_ISR_TXIS) == 0) 
+    
+    // This stanza breaks from the function if nothing responds.
+    while((I2C1->ISR & I2C_ISR_TXIS) == 0) 
     {
       count += 1;
       if (count > 1000000) return -1;
-      if (i2c_checknack()) { i2c_clearnack(); i2c_stop(); return -1;
-    }
+      if (i2c_checknack()) 
+      { 
+        i2c_clearnack(); 
+        i2c_stop(); 
+        return -1;
+      }
   
-    // TXIS is cleared by writing to the TXDR register.
+    // TXIS is then cleared by writing to the TXDR register.
     I2C1->TXDR = udata[i] & I2C_TXDR_TXDATA;
   }
   
@@ -249,17 +267,18 @@ int8_t i2c_senddata(uint8_t devaddr, void *pdata, uint8_t size)
   return 0; 
 }
 ```
+
 ```C
-int i2c_recvdata(uint8_t devaddr, void *pdata, uint8_t size) {
+int i2c_recvdata(uint8_t targadr, void *data, uint8_t size) {
   int i; // Counter for later for loop.
   
-  if (size <= 0 || pdata == 0) return -1;
+  if (size <= 0 || data == 0) return -1;
   
-  uint8_t *udata = (uint8_t*)pdata;
+  uint8_t *udata = (uint8_t*)data;
   i2c_waitidle();
   
   // Last argument is dir: 1 = receiving data from the slave device.
-  i2c_start(devaddr, size, 1);
+  i2c_start(targadr, size, 1);
   for(i=0; i<size; i++) 
   {
     int count = 0;
@@ -297,6 +316,6 @@ void i2c_clearnack(void)
 ```C
 void i2c_checknack(void)
 {
-  // This is simple. Just check if NACK flag is set. Return a 1 if so.
+  // This is simple. Just check if NACK flag is set in the ISR. Return a 1 if so.
 }
 ```
