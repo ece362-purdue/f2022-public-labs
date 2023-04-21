@@ -58,36 +58,6 @@ The MCP23008 is structurally similar to the GPIO ports of the STM32. One registe
 
 >**NOTE:** There is a hidden register in the MCP23008 that keeps track of the register address. Every I2C byte written to a register or read from a register causes this hidden register to be incremented. In this way, one could write to all eleven registers by selecting register address 0 followed by 11 data values. The selected register would be advanced for each successive data value.
 
-### 3.3: 24AA32AF (EEPROM) I2C Protocol
-The 24AA32AF I2C EEPROM is operationally similar to the MCP23008 except that it has 4096 register addresses rather than eleven. An internal register keeps track of the selected address. It is incremented with each data read and write. Because there are so many storage locations, two bytes of data are needed to specify the storage location to start reading from or writing to. Read streams are distinct from write streams and they may be merged together by omitting the Stop bit and issuing another Start.
-
-Two write into the storage cells at a particular (12-bit) location, the stream of bytes written to the I2C channel looks like:
-
-        Start
-        {7-bit device ID} Wr Ack        1st byte
-        {Storage loc (4 MSB)} Ack       2nd byte
-        {Storage loc (8 LSB)} Ack       3nd byte
-        {Data to store} Ack             4rd byte
-        ...
-        Stop
-      
-Bytes can be written into sequential storage locations by sending multiple {Data to store} bytes.
-Reading from the EEPROM involves issuing a write stream to specify the storage location with zero bytes of data, followed by a read stream:
-
-        Start
-        {7-bit device ID} Wr Ack        1st byte
-        {Storage loc (4 MSB)} Ack       2nd byte
-        {Storage loc (8 LSB)} Ack       3nd byte
-        Stop (optional)
-        Start
-        {7-bit device ID} Rd Ack        1st byte
-        {Data to store} Ack             2rd byte
-        ...
-        Stop
-      
-And many sequential storage locations can be read by continuing to read.
-Since the 24AA32AF EEPROM is built using Flash memory, it takes some time to conduct an erase-rewrite cycle. Specifically, it is much slower than the I2C protocol can write to the device. In order to avoid writing faster than the device can tolerate, the writer should never write more than one 32-byte-aligned group of storage locations (e.g. 0x000 - 0x020) at a time. Thereafter, the device must be polled to determine when the write operation has completed. To do so, a new zero-byte write operation can be initiated. The device will not respond with an Ack (it is viewed as a Nack) until the prior write has completed.
-
 ### 3.4: I2C Registers and Useful Bits
 - `CR1:` First generic control register. There's a ton of stuff in here, and we're only going to use a small amount:
 -     `PE:` Peripheral enable. Enables and disables the peripheral.
@@ -105,31 +75,6 @@ Since the 24AA32AF EEPROM is built using Flash memory, it takes some time to con
 -     `ADD10:` Flips between 7-bit and 10-bit addressing mode.
 -     `AUTOEND:` As it sounds, it automatically ends a transaction. 
 - 
-
-## 4: `init_i2c()` (20 Points)
-Write a C subroutine named `init_i2c()` that:
-- Enables `GPIOB.`
-- PB6 to SCL. 
-- PB7 to SDA.
-- Enables `I2C1`
-
-Once this is done, implement the following setup code for the I2C1 bus:
-- Disable `PE` in `CR1.`
-- Disable `ANFOFF` in `CR1.`
-- Disable `ERRIE` in `CR1.`
-- Disable `NOSTRETCH` in `CR1.`
-- Set `PRESC` to 0 in `TIMINGR.`
-- Set `SCLDEL` to 3 in `TIMINGR.`
-- Set `SDADEL` to 1 in `TIMINGR.`
-- Set `SCLH` to 3 in `TIMINGR.`
-- Set `SCLL` to 9 in `TIMINGR.`
-- Disable the "own address" feature in `OAR1.`
-- Disable the "own address" feature in `OAR2.`
-- Configure `ADD10` in `CR2` for 7-bit mode.
-- Enable `AUTOEND` in `CR2.`
-- Enable `PE.`
-
-**Checkoff:** TA's, just make sure they have this subroutine completed correctly.
 
 ## 5: Helper Functions
 We didn't get around to showing this sort of code structure this semester. When you go on to do personal projects, senior design, and/or industry work, it's *sometimes* good to structure your code in a way that abstracts the hardware out for general use. This methodology is called a Hardware Abstraction Layer, and most of the time they're garbage.
@@ -319,3 +264,40 @@ void i2c_checknack(void)
   // This is simple. Just check if NACK flag is set in the ISR. Return a 1 if so.
 }
 ```
+
+### 5.1: `init_i2c()` (20 Points)
+Write a C subroutine named `init_i2c()` in `i2c.c` that:
+- Enables `GPIOB.`
+- PB6 to SCL. 
+- PB7 to SDA.
+- Enables `I2C1`
+
+Once this is done, implement the following setup code for the I2C1 bus:
+- Disable `PE` in `CR1.`
+- Disable `ANFOFF` in `CR1.`
+- Disable `ERRIE` in `CR1.`
+- Disable `NOSTRETCH` in `CR1.`
+- Set `PRESC` to 0 in `TIMINGR.`
+- Set `SCLDEL` to 3 in `TIMINGR.`
+- Set `SDADEL` to 1 in `TIMINGR.`
+- Set `SCLH` to 3 in `TIMINGR.`
+- Set `SCLL` to 9 in `TIMINGR.`
+- Disable the "own address" feature in `OAR1.`
+- Disable the "own address" feature in `OAR2.`
+- Configure `ADD10` in `CR2` for 7-bit mode.
+- Enable `AUTOEND` in `CR2.`
+- Enable `PE.`
+
+### 5.2: Include `lcd.h`
+
+As it sounds, `include "lcd.h"` into your `lcd.c' file.
+
+**Checkoff:** TA's, just make sure they have this subroutine completed correctly, and everything is dropped into the i2c.c and i2c.h folders.
+
+### 5.2: Creating a .h File
+Create a file in the `inc` folder with the name `i2c.h.` Use the structure near the bottom of `lcd.h` from lab 10 as a guide. You must:
+- Declare all of the functions in `i2c.c` 
+- Include `lcd.h' in your `main.c` file.
+
+## 6: Using the I2C
+Now that your file structures are included into your `main.c` file, you should be able to call them from it. Try calling `i2c_init()` in main, building it, and seeing if it throws any errors. If it does, check back and make sure you defined all of your functions properly in `i2c.h` and included the correct files in `i2c.c` and `main.c.`
