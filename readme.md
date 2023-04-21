@@ -49,4 +49,4 @@
    - you could download the [lab 11 template](https://github.com/ece362-purdue/f2022-lab-11):
      - `git clone git@github.com:ece362-purdue/f2022-lab-11.git`
      - or with [zipped file](https://github.com/ece362-purdue/f2022-lab-11/archive/refs/heads/main.zip)
-14. [Lab 12 (Extra Credit) I2C](./lab-12/lab_12.md) (Due in week of 4/24 of your lab section)
+14. [Lab 12 (Extra Credit) I2C](./lab-12/lab12.md) (Due in week of 4/24 of your lab section)
