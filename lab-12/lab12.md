@@ -176,14 +176,14 @@ void i2c_waitidle(void)
 int8_t i2c_senddata(uint8_t targadr, void *data, uint8_t size) 
 {
   int i;
-  if (size <= 0 || pdata == 0) return -1;
-  
+  if (size <= 0 || data == 0) return -1;
+
   uint8_t *udata = (uint8_t*)data;
-  
+
   i2c_waitidle();
-  
+
   i2c_start(targadr, size, 0);
-  for(i=0; i<size; i++) 
+  for(i=0; i<size; i++)
   {
     // TXIS bit is set by hardware when the TXDR register is empty and the
     // data to be transmitted must be written in the TXDR register. It is
@@ -191,67 +191,68 @@ int8_t i2c_senddata(uint8_t targadr, void *data, uint8_t size)
 
     // The TXIS flag is not set when a NACK is received.
     int count = 0;
-    
+
     // This stanza breaks from the function if nothing responds.
-    while((I2C1->ISR & I2C_ISR_TXIS) == 0) 
+    while((I2C1->ISR & I2C_ISR_TXIS) == 0)
     {
       count += 1;
       if (count > 1000000) return -1;
-      if (i2c_checknack()) 
-      { 
-        i2c_clearnack(); 
-        i2c_stop(); 
+      if (i2c_checknack())
+      {
+        i2c_clearnack();
+        i2c_stop();
         return -1;
       }
-  
+
     // TXIS is then cleared by writing to the TXDR register.
     I2C1->TXDR = udata[i] & I2C_TXDR_TXDATA;
+    }
   }
-  
+
   // Wait until TC flag is set or the NACK flag is set.
   while((I2C1->ISR & I2C_ISR_TC) == 0 && (I2C1->ISR & I2C_ISR_NACKF) == 0);
   if ((I2C1->ISR & I2C_ISR_NACKF) != 0) return -1;
-  
+
   i2c_stop();
-  
-  return 0; 
+
+  return 0;
 }
 ```
 
 ```C
 int i2c_recvdata(uint8_t targadr, void *data, uint8_t size) {
-  int i; // Counter for later for loop.
-  
+int i; // Counter for later for loop.
+
   if (size <= 0 || data == 0) return -1;
-  
+
   uint8_t *udata = (uint8_t*)data;
   i2c_waitidle();
-  
+
   // Last argument is dir: 1 = receiving data from the slave device.
   i2c_start(targadr, size, 1);
-  for(i=0; i<size; i++) 
+  for(i=0; i<size; i++)
   {
     int count = 0;
-    while( (I2C1->ISR & I2C_ISR_RXNE) == 0) 
+    while( (I2C1->ISR & I2C_ISR_RXNE) == 0)
     {
       count += 1;
       if (count > 1000000) return -1;
       if (i2c_checknack()) // If NACK, stop conversion and break from function.
-      { 
-        i2c_clearnack(); 
-        i2c_stop(); 
-        return -1; 
+      {
+        i2c_clearnack();
+        i2c_stop();
+        return -1;
       }
     }
     udata[i] = I2C1->RXDR;
   }
-  
+
   // Wait until TC flag is set or the NACK flag is set.
   while((I2C1->ISR & I2C_ISR_TC) == 0 && (I2C1->ISR & I2C_ISR_NACKF) == 0);
-  
+
   // If NACK, break from function.
   if ( (I2C1->ISR & I2C_ISR_NACKF) != 0) return -1;
-  
+
   i2c_stop();
   return 0;
 }
