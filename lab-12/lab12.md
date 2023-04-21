@@ -1,5 +1,8 @@
 # Lab 12: I2C (Non-mandatory, counts as extra credit)
 
+## NOTE: Not Finished Yet
+I'm still building and verifying that some of the later tasks work. Should be out Friday night. Will remove this note when it's done, but you can start working through the first part.
+
 ## 1: Introduction
 The STM32 is capable of several different protocols, making it a relatively versatile tool in the world of embedded system design. However, other off-the-shelf microcontrollers may not quite have everything the STM32 series does, such as the ATMEL chips that Arduinos are based off of. One peripheral communication protocol seems to persist is most controllers, even the cheaper ones, and that's I2C.
 
@@ -77,6 +80,8 @@ The MCP23008 is structurally similar to the GPIO ports of the STM32. One registe
 - 
 
 ## 5: Helper Functions
+**First, build a blank project like we did in lab 5.0. We won't be providing a template this time around.**
+
 We didn't get around to showing this sort of code structure this semester. When you go on to do personal projects, senior design, and/or industry work, it's *sometimes* good to structure your code in a way that abstracts the hardware out for general use. This methodology is called a Hardware Abstraction Layer, and most of the time they're garbage.
 
 The problem with HALs is they're usually written with a specific purpose in mind (carrying data from one specific type of peripheral to/from the micro is a good example), and they use data structures and functions that are tailored to that purpose. Most of the time, it feels like interns write these because the actual engineers are busy doing something else. TI's MSP and STM's HALs are ones that I tend to encounter in the wild a lot, and they're almost completely useless, especially since you can't see the source code, so you don't know what's going on.
