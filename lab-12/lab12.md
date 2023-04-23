@@ -277,7 +277,7 @@ void i2c_clearnack(void)
 }
 
 ```C
-void i2c_checknack(void)
+int i2c_checknack(void)
 {
   // This is simple. Just check if NACK flag is set in the ISR. Return a 1 if so.
 }
@@ -321,7 +321,9 @@ Create a file in the `inc` folder with the name `i2c.h.` Use the structure near 
 Now that your file structures are included into your `main.c` file, you should be able to call them from it. Try calling `i2c_init()` in main, building it, and seeing if it throws any errors. If it does, check back and make sure you defined all of your functions properly in `i2c.h` and included the correct files in `i2c.c` and `main.c.`
 
 ### 6.1: Turn on the GPIO port.
-Write an initialization script that turns on the GPIO port and sets it to an output. Normally how  is:
+**Before you do anything, paste in the updated code if you made your .h file before Sunday.**
+
+Write an initialization script that turns on the GPIO port in the MCP23008 and sets it to an output. Normally how  is:
 
 ```C 
 
