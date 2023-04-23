@@ -306,9 +306,9 @@ Once this is done, implement the following setup code for the I2C1 bus:
 - Enable `AUTOEND` in `CR2.`
 - Enable `PE.`
 
-### 5.2: Include `lcd.h`
+### 5.2: Include `i2c.h`
 
-As it sounds, `include "lcd.h"` into your `lcd.c' file.
+As it sounds, `include "i2c.h"` into your `i2c.c' file. It'll throw an error until you create i2c.h. This is fine.
 
 **Checkoff:** TA's, just make sure they have this subroutine completed correctly, and everything is dropped into the i2c.c and i2c.h folders.
 
