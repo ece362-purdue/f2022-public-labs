@@ -1,7 +1,7 @@
-# Lab 12: I2C (Non-mandatory, counts as extra credit)
+# Lab 12: I2C, Reading Datasheets (Non-mandatory, counts as extra credit)
 
-## NOTE: Not Finished Yet
-I'm still building and verifying that some of the later tasks work. Should be out Friday night. Will remove this note when it's done, but you can start working through the first part.
+## NOTE: Finished, but not what I wanted it to be.
+I can't tell if I'm having issues with my micro, my MCP is broken, or if I'm just dumb? Either way, this lab was intended to make you scan the keypad with the MCP chip. Instead, you'll be turning on an LED. To make up for the lost content, I'm not inserting in a wiring schematic. This should be pretty easy to figure out.
 
 ## 1: Introduction
 The STM32 is capable of several different protocols, making it a relatively versatile tool in the world of embedded system design. However, other off-the-shelf microcontrollers may not quite have everything the STM32 series does, such as the ATMEL chips that Arduinos are based off of. One peripheral communication protocol seems to persist is most controllers, even the cheaper ones, and that's I2C.
@@ -77,7 +77,19 @@ The MCP23008 is structurally similar to the GPIO ports of the STM32. One registe
 - `CR2:` Second generic control register. Similar to the above, we will use a small amount of what's in here:
 -     `ADD10:` Flips between 7-bit and 10-bit addressing mode.
 -     `AUTOEND:` As it sounds, it automatically ends a transaction. 
-- 
+
+### 3.5: Wiring the MCP23008
+[here](https://ww1.microchip.com/downloads/en/DeviceDoc/MCP23008-MCP23S08-Data-Sheet-20001919F.pdf) is a link to the datasheet for this chip. You should:
+- Connect VDD to 3V.
+- Connect VSS to GND.
+- Connect A0, A1, A2 to GND.
+- Connect PB6 to SCL.
+- Connect PB7 to SDA
+- Connect a weak pull-up resistor between 3V and PB6. (Something between 1.2k to 2.8k.)
+- Connect a weak pull-up resistor between 3V and PB7. (Something between 1.2k to 2.8k.)
+- Connect (not) reset to 3V.
+- Don't connect `INT` or the `NC` pin. 
+- Connect an LED (with a 150-ohm current limiting resistor, as usual) to one of the GPIO pins. Any one will work.
 
 ## 5: Helper Functions
 **First, build a blank project like we did in lab 5.0. We won't be providing a template this time around.**
@@ -125,25 +137,24 @@ void i2c_init(void) {
 ```
 -->
 ```C
-void i2c_start(uint32_t targadr, uint8_t size, uint8_t dir) {
-  // dir: 0 = master requests a write transfer
+// dir: 0 = master requests a write transfer
   // dir: 1 = master requests a read transfer
-  
+
   // Take current contents. Remove items that may not be applicable.
   // ---------------------- THERE ARE EXTRA ITEMS HERE THAT YOU DON't NEED.----------------------------------------------------
   // -----------------------------------------REMOVE THEM.---------------------------------------------------------------------
   uint32_t tmpreg = I2C1->CR2;
-  tmpreg &= ~(I2C_CR2_SADD | I2C_CR2_NBYTES | I2C_CR2_RELOAD | I2C_CR2_AUTOEND | I2C_CR2_RD_WRN | I2C_CR2_START | I2C_CR2_STOP);
+  tmpreg &= ~(I2C_CR2_SADD | I2C_CR2_NBYTES | I2C_CR2_RD_WRN | I2C_CR2_START | I2C_CR2_STOP);
   // ----------------------------------------END PROBLEM-----------------------------------------------------------------------
-  
+
   // Set read/write direction.
   if (dir == 1) tmpreg |= I2C_CR2_RD_WRN; // Read from slave
   else tmpreg &= ~I2C_CR2_RD_WRN; // Write to slave
-  
+
   // Set the target's address and the data size.
-  tmpreg |= ((devaddr<<1) & I2C_CR2_SADD) | ((size << 16) & I2C_CR2_NBYTES);
+  tmpreg |= ((targadr<<1) & I2C_CR2_SADD) | ((size << 16) & I2C_CR2_NBYTES);
   tmpreg |= I2C_CR2_START;
-  
+
   // Start conversion.
   I2C1->CR2 = tmpreg;
 }
@@ -152,15 +163,15 @@ void i2c_start(uint32_t targadr, uint8_t size, uint8_t dir) {
 ```C
 void i2c_stop(void) 
 {
-  // If transaction has already been stopped, break from function if so.
+// If transaction has already been stopped, break from function if so.
   if (I2C1->ISR & I2C_ISR_STOPF) return;
-  
+
   // Master: Generate STOP bit after current byte has been transferred.
   I2C1->CR2 |= I2C_CR2_STOP;
-  
+
   // Wait until STOPF flag is reset
-  while((I2C1->ISR & I2C_ISR_STOPF) == 0);
-  
+  while(!(I2C1->ISR & I2C_ISR_STOPF));
+
   I2C1->ICR |= I2C_ICR_STOPCF; // Write to clear STOPF flag
 }
 ```
@@ -176,9 +187,9 @@ void i2c_waitidle(void)
 int8_t i2c_senddata(uint8_t targadr, void *data, uint8_t size) 
 {
   int i;
-  if (size <= 0 || data == 0) return -1;
+  //if (size <= 0 || data == 0) return -1;
 
-  uint8_t *udata = (uint8_t*)data;
+  //uint8_t *udata = (uint8_t*)data;
 
   i2c_waitidle();
 
@@ -190,27 +201,28 @@ int8_t i2c_senddata(uint8_t targadr, void *data, uint8_t size)
     // cleared when the next data to be sent is written in the TXDR reg
 
     // The TXIS flag is not set when a NACK is received.
-    int count = 0;
+    //int count = 0;
 
     // This stanza breaks from the function if nothing responds.
-    while((I2C1->ISR & I2C_ISR_TXIS) == 0)
-    {
-      count += 1;
-      if (count > 1000000) return -1;
-      if (i2c_checknack())
-      {
-        i2c_clearnack();
-        i2c_stop();
-        return -1;
-      }
-
-    // TXIS is then cleared by writing to the TXDR register.
-    I2C1->TXDR = udata[i] & I2C_TXDR_TXDATA;
-    }
+    while(!(I2C1->ISR & I2C_ISR_TXE));
+//    { 
+//      count += 1;
+//      if (count > 1000000) return -1;
+//      if (i2c_checknack())              // I took this part out.
+//      {
+//        i2c_clearnack();
+//        i2c_stop();
+//        return -1;
+//      }
+//
+//   // TXIS is then cleared by writing to the TXDR register.
+//    }
+    I2C1->TXDR = data[i];
+    //I2C1->TXDR = ((udata>>(8*(i-1))) & I2C_TXDR_TXDATA);
   }
 
   // Wait until TC flag is set or the NACK flag is set.
-  while((I2C1->ISR & I2C_ISR_TC) == 0 && (I2C1->ISR & I2C_ISR_NACKF) == 0);
+  //while(!(I2C1->ISR & I2C_ISR_TC)); //== 0 && (I2C1->ISR & I2C_ISR_NACKF) == 0);
   if ((I2C1->ISR & I2C_ISR_NACKF) != 0) return -1;
 
   i2c_stop();
@@ -307,3 +319,38 @@ Create a file in the `inc` folder with the name `i2c.h.` Use the structure near 
 
 ## 6: Using the I2C
 Now that your file structures are included into your `main.c` file, you should be able to call them from it. Try calling `i2c_init()` in main, building it, and seeing if it throws any errors. If it does, check back and make sure you defined all of your functions properly in `i2c.h` and included the correct files in `i2c.c` and `main.c.`
+
+### 6.1: Turn on the GPIO port.
+Write an initialization script that turns on the GPIO port and sets it to an output. Normally how  is:
+
+```C 
+
+// Replace the for(;;) loop in main with this.
+uint8_t data1[0x00, config_byte] // Register address is 0x00. See page 8 on the datasheet for what you should set it to.
+uint8_t data2[0x09, output_byte] // "ODR" address is 0x09. See page 19 for what you should set it to.
+
+i2c_setup();
+i2c_waitidle();
+i2c_senddata(0x20, data1, 2); // General call for a whole transation.
+i2c_senddata(0x20, data2, 2); // 0x20 is chip address, datax is transaction
+                              // final number is number of bytes sent.
+```
+Doing this *should* turn that LED on, but for me it doesn't seem to work. I have to offset the memory addresses by a byte. There's more sophisticated ways you can go about this, but it doesn't matter to me for a code this short. If you're not able to get your output to work, try this:
+
+```C
+// Replace the for(;;) loop in main with this.
+uint8_t data0[0x00, 0x00];
+uint8_t data1[config_byte, 0x09]; 
+uint8_t data2[output_byte, 0x00]; 
+
+i2c_setup();
+i2c_waitidle();
+i2c_senddata[0x20, data0, 2);
+i2c_senddata(0x20, data1, 2); 
+i2c_senddata(0x20, data2, 2); 
+                              
+```
+
+### 6.2: Demo
+
+Show your TA the lightbulb turning on. If it turns on, you're done!
