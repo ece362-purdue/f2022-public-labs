@@ -189,7 +189,7 @@ int8_t i2c_senddata(uint8_t targadr, void *data, uint8_t size)
   int i;
   //if (size <= 0 || data == 0) return -1;
 
-  //uint8_t *udata = (uint8_t*)data;
+  uint8_t *udata = (uint8_t*)data;
 
   i2c_waitidle();
 
@@ -217,7 +217,7 @@ int8_t i2c_senddata(uint8_t targadr, void *data, uint8_t size)
 //
 //   // TXIS is then cleared by writing to the TXDR register.
 //    }
-    I2C1->TXDR = data[i];
+    I2C1->TXDR = udata[i];
     //I2C1->TXDR = ((udata>>(8*(i-1))) & I2C_TXDR_TXDATA);
   }
 
@@ -283,7 +283,7 @@ int i2c_checknack(void)
 }
 ```
 
-### 5.1: `init_i2c()` (20 Points)
+### 5.1: `i2c_setup()` (20 Points)
 Write a C subroutine named `init_i2c()` in `i2c.c` that:
 - Enables `GPIOB.`
 - PB6 to SCL. 
