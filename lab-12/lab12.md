@@ -3,6 +3,8 @@
 ## NOTE: Finished, but not what I wanted it to be.
 I can't tell if I'm having issues with my micro, my MCP is broken, or if I'm just dumb? Either way, this lab was intended to make you scan the keypad with the MCP chip. Instead, you'll be turning on an LED. To make up for the lost content, I'm not inserting in a wiring schematic. This should be pretty easy to figure out.
 
+You should read [this](https://piazza.com/class/lcmb4r2lt4z4w7/post/537) Piazza post if you haven't already.
+
 ## 1: Introduction
 The STM32 is capable of several different protocols, making it a relatively versatile tool in the world of embedded system design. However, other off-the-shelf microcontrollers may not quite have everything the STM32 series does, such as the ATMEL chips that Arduinos are based off of. One peripheral communication protocol seems to persist is most controllers, even the cheaper ones, and that's I2C.
 
