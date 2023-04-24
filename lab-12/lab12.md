@@ -1,4 +1,4 @@
-# Lab 12: I2C, Reading Datasheets (Non-mandatory, counts as extra credit)
+# Lab 12: I2C, Reading Datasheets (Non-mandatory, counts as 50 points extra credit)
 
 ## NOTE: Finished, but not what I wanted it to be.
 I can't tell if I'm having issues with my micro, my MCP is broken, or if I'm just dumb? Either way, this lab was intended to make you scan the keypad with the MCP chip. Instead, you'll be turning on an LED. To make up for the lost content, I'm not inserting in a wiring schematic. This should be pretty easy to figure out.
@@ -96,11 +96,11 @@ The MCP23008 is structurally similar to the GPIO ports of the STM32. One registe
 ## 5: Helper Functions
 **First, build a blank project like we did in lab 5.0. We won't be providing a template this time around.**
 
-We didn't get around to showing this sort of code structure this semester. When you go on to do personal projects, senior design, and/or industry work, it's *sometimes* good to structure your code in a way that abstracts the hardware out for general use. This methodology is called a Hardware Abstraction Layer, and most of the time they're garbage.
+We didn't get around to showing this sort of code structure this semester. When you go on to do personal projects, senior design, and/or industry work, it's *sometimes* good to structure your code in a way that abstracts the hardware out for general use. This methodology is called a Hardware Abstraction Layer, and most of the time if they're written by a company, they're garbage.
 
 The problem with HALs is they're usually written with a specific purpose in mind (carrying data from one specific type of peripheral to/from the micro is a good example), and they use data structures and functions that are tailored to that purpose. Most of the time, it feels like interns write these because the actual engineers are busy doing something else. TI's MSP and STM's HALs are ones that I tend to encounter in the wild a lot, and they're almost completely useless, especially since you can't see the source code, so you don't know what's going on.
 
-Here, I am providing most of a HAl for your I2C. Look carefully at what's happening. All of this is similar to things that you've done in class, just instead of writing it yourself, a lot of it is prewritten. Some of it is not, and you must fill in a couple of marked-out gaps in this code. When you're done with this, these functions are useable and you don't have to mess with the code on the low-level side. Create a file in the `src` folder named `i2c.c.` Copy these functions into there: 
+Here, I am providing most of a generic HAl for your I2C. Look carefully at what's happening. All of this is similar to things that you've done in class, just instead of writing it yourself, a lot of it is prewritten. Some of it is not, and you must fill in a couple of marked-out gaps in this code. When you're done with this, these functions are useable and you don't have to mess with the code on the low-level side. Create a file in the `src` folder named `i2c.c.` Wire a `#include "stm32f0xx.h" line at the top, if it's not written already. Copy these functions into there: 
 
 ```C
 void i2c_start(uint32_t targadr, uint8_t size, uint8_t dir)
@@ -109,11 +109,8 @@ void i2c_start(uint32_t targadr, uint8_t size, uint8_t dir)
   // dir: 1 = master requests a read transfer
 
   // Take current contents. Remove items that may not be applicable.
-  // ---------------------- THERE ARE EXTRA ITEMS HERE THAT YOU DON't NEED.----------------------------------------------------
-  // -----------------------------------------REMOVE THEM.---------------------------------------------------------------------
   uint32_t tmpreg = I2C1->CR2;
   tmpreg &= ~(I2C_CR2_SADD | I2C_CR2_NBYTES | I2C_CR2_RD_WRN | I2C_CR2_START | I2C_CR2_STOP);
-  // ----------------------------------------END PROBLEM-----------------------------------------------------------------------
 
   // Set read/write direction.
   if (dir == 1) tmpreg |= I2C_CR2_RD_WRN; // Read from slave
@@ -251,7 +248,7 @@ int i2c_checknack(void)
 }
 ```
 
-### 5.1: `i2c_setup()` (20 Points)
+### 5.1: `i2c_setup()`
 Write a C subroutine named `init_i2c()` in `i2c.c` that:
 - Enables `GPIOB.`
 - PB6 to SCL. 
