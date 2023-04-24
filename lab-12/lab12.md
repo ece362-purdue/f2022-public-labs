@@ -103,8 +103,10 @@ The problem with HALs is they're usually written with a specific purpose in mind
 Here, I am providing most of a HAl for your I2C. Look carefully at what's happening. All of this is similar to things that you've done in class, just instead of writing it yourself, a lot of it is prewritten. Some of it is not, and you must fill in a couple of marked-out gaps in this code. When you're done with this, these functions are useable and you don't have to mess with the code on the low-level side. Create a file in the `src` folder named `i2c.c.` Copy these functions into there. 
 <!---
 ```C
-// Initialize I2C1 to 400 kHz
-void i2c_init(void) {
+void i2c_start(uint32_t targadr, uint8_t size, uint8_t dir)
+{
+  // Initialize I2C1 to 400 kHz
+  void i2c_init(void) {
   RCC->AHBENR |= RCC_AHBENR_GPIOBEN;
   GPIOB->MODER |= 2<<(2*6) | 2<<(2*7);
   GPIOB->AFR[0] |= 1<<(4*6) | 1<<(4*7);
