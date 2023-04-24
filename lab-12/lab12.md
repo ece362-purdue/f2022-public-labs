@@ -100,44 +100,8 @@ We didn't get around to showing this sort of code structure this semester. When 
 
 The problem with HALs is they're usually written with a specific purpose in mind (carrying data from one specific type of peripheral to/from the micro is a good example), and they use data structures and functions that are tailored to that purpose. Most of the time, it feels like interns write these because the actual engineers are busy doing something else. TI's MSP and STM's HALs are ones that I tend to encounter in the wild a lot, and they're almost completely useless, especially since you can't see the source code, so you don't know what's going on.
 
-Here, I am providing most of a HAl for your I2C. Look carefully at what's happening. All of this is similar to things that you've done in class, just instead of writing it yourself, a lot of it is prewritten. Some of it is not, and you must fill in a couple of marked-out gaps in this code. When you're done with this, these functions are useable and you don't have to mess with the code on the low-level side. Create a file in the `src` folder named `i2c.c.` Copy these functions into there. 
-<!---
-```C
-  // Initialize I2C1 to 400 kHz
-  void i2c_init(void) {
-  RCC->AHBENR |= RCC_AHBENR_GPIOBEN;
-  GPIOB->MODER |= 2<<(2*6) | 2<<(2*7);
-  GPIOB->AFR[0] |= 1<<(4*6) | 1<<(4*7);
-  RCC->APB1ENR |= RCC_APB1ENR_I2C1EN;
-  //RCC->CFGR3 |= RCC_CFGR3_I2C1SW; // to set for 48MHz sysclk
-  // default is 8MHz "HSI" clk
-  
-  // I2C CR1 Config
-  I2C1->CR1 &= ~I2C_CR1_PE; // Disable to perform reset.
-  I2C1->CR1 &= ~I2C_CR1_ANFOFF; // 0: Analog noise filter on.
-  I2C1->CR1 &= ~I2C_CR1_ERRIE; // Error interrupt disable
-  I2C1->CR1 &= ~I2C_CR1_NOSTRETCH; // Enable clock stretching
-  
-  // From table 83. p642 of FRM. Set for 400 kHz with 8MHz clock.
-  I2C1->TIMINGR = 0;
-  I2C1->TIMINGR &= ~I2C_TIMINGR_PRESC;// Clear prescaler
-  I2C1->TIMINGR |= 0 << 28; // Set prescaler to 0
-  I2C1->TIMINGR |= 3 << 20; // SCLDEL
-  I2C1->TIMINGR |= 1 << 16; // SDADEL
-  I2C1->TIMINGR |= 3 << 8; // SCLH
-  I2C1->TIMINGR |= 9 << 0; // SCLL
-  
-  // I2C "Own address" 1 register (I2C_OAR1)
-  I2C1->OAR1 &= ~I2C_OAR1_OA1EN; // Disable own address 1
-  I2C1->OAR1 = I2C_OAR1_OA1EN | 0x2;// Set 7-bit own address 1
-  I2C1->OAR2 &= ~I2C_OAR2_OA2EN; // Disable own address 2
-  I2C1->CR2 &= ~I2C_CR2_ADD10; // 0 = 7-bit mode; 1 = 10-bit
-  I2C1->CR2 |= I2C_CR2_AUTOEND; // Enable the auto end
-  I2C1->CR2 |= I2C_CR2_NACK; // For slave mode: set NACK
-  I2C1->CR1 |= I2C_CR1_PE; // Enable I2C1
-}
-```
--->
+Here, I am providing most of a HAl for your I2C. Look carefully at what's happening. All of this is similar to things that you've done in class, just instead of writing it yourself, a lot of it is prewritten. Some of it is not, and you must fill in a couple of marked-out gaps in this code. When you're done with this, these functions are useable and you don't have to mess with the code on the low-level side. Create a file in the `src` folder named `i2c.c.` Copy these functions into there: 
+
 ```C
 void i2c_start(uint32_t targadr, uint8_t size, uint8_t dir)
 {
