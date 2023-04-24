@@ -293,8 +293,8 @@ Write an initialization script that turns on the GPIO port in the MCP23008 and s
 ```C 
 
 // Replace the for(;;) loop in main with this.
-uint8_t data1[0x00, config_byte] // Register address is 0x00. See page 8 on the datasheet for what you should set it to.
-uint8_t data2[0x09, output_byte] // "ODR" address is 0x09. See page 19 for what you should set it to.
+uint8_t data1[2] = {0x00, config_byte}; // Register address is 0x00. See page 8 on the datasheet for what you should set it to.
+uint8_t data2[2] = {0x09, output_byte}; // "ODR" address is 0x09. See page 19 for what you should set it to.
 
 i2c_setup();
 i2c_waitidle();
@@ -306,13 +306,13 @@ Doing this *should* turn that LED on, but for me it doesn't seem to work. I have
 
 ```C
 // Replace the for(;;) loop in main with this.
-uint8_t data0[0x00, 0x00];
-uint8_t data1[config_byte, 0x09]; 
-uint8_t data2[output_byte, 0x00]; 
+uint8_t data0[2] = {0x00, 0x00};
+uint8_t data1[2] = {config_byte, 0x09}; 
+uint8_t data2[2] = {output_byte, 0x00}; 
 
 i2c_setup();
 i2c_waitidle();
-i2c_senddata[0x20, data0, 2);
+i2c_senddata(0x20, data0, 2);
 i2c_senddata(0x20, data1, 2); 
 i2c_senddata(0x20, data2, 2); 
                               
