@@ -186,7 +186,7 @@ void i2c_waitidle(void)
 ```
 
 ```C
-int8_t i2c_senddata(uint8_t targadr, void *data, uint8_t size) 
+int8_t i2c_senddata(uint8_t targadr, uint8_t data[], uint8_t size)
 {
   int i;
   //if (size <= 0 || data == 0) return -1;
