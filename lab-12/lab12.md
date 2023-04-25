@@ -26,7 +26,7 @@ Further, every device uses an open-drain interface, meaning that each device can
 
 $$ V_{C} = V_{1}(1-e^{\frac{-t}{\tau}})$$
 
- - and -
+and
 
 $$ \tau = RC $$
 
@@ -249,7 +249,7 @@ int i2c_checknack(void)
 ```
 
 ### 5.1: `i2c_setup()`
-Write a C subroutine named `init_i2c()` in `i2c.c` that:
+Write a C subroutine named `i2c_setup()` in `i2c.c` that:
 - Enables `GPIOB.`
 - PB6 to SCL. 
 - PB7 to SDA.
