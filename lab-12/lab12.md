@@ -280,7 +280,7 @@ As it sounds, `include "i2c.h"` into your `i2c.c' file. It'll throw an error unt
 ### 5.2: Creating a .h File
 Create a file in the `inc` folder with the name `i2c.h.` Use the structure near the bottom of `lcd.h` from lab 10 as a guide. You must:
 - Declare all of the functions in `i2c.c` 
-- Include `lcd.h' in your `main.c` file.
+- Include `i2c.h' in your `main.c` file.
 
 ## 6: Using the I2C
 Now that your file structures are included into your `main.c` file, you should be able to call them from it. Try calling `i2c_init()` in main, building it, and seeing if it throws any errors. If it does, check back and make sure you defined all of your functions properly in `i2c.h` and included the correct files in `i2c.c` and `main.c.`
