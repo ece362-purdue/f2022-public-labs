@@ -283,7 +283,7 @@ Create a file in the `inc` folder with the name `i2c.h.` Use the structure near 
 - Include `i2c.h' in your `main.c` file.
 
 ## 6: Using the I2C
-Now that your file structures are included into your `main.c` file, you should be able to call them from it. Try calling `i2c_init()` in main, building it, and seeing if it throws any errors. If it does, check back and make sure you defined all of your functions properly in `i2c.h` and included the correct files in `i2c.c` and `main.c.`
+Now that your file structures are included into your `main.c` file, you should be able to call them from it. Try calling `i2c_setup()` in main, building it, and seeing if it throws any errors. If it does, check back and make sure you defined all of your functions properly in `i2c.h` and included the correct files in `i2c.c` and `main.c.`
 
 ### 6.1: Turn on the GPIO port.
 **Before you do anything, paste in the updated code if you made your .h file before Sunday.**
