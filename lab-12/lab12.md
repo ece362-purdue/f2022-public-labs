@@ -186,6 +186,8 @@ int8_t i2c_senddata(uint8_t targadr, uint8_t data[], uint8_t size)
     //I2C1->TXDR = ((udata>>(8*(i-1))) & I2C_TXDR_TXDATA);
   }
 
+  // Wait for current byte to send.
+  while(!(I2C1->ISR & I2C_ISR_TXE));
   // Wait until TC flag is set or the NACK flag is set.
   //while(!(I2C1->ISR & I2C_ISR_TC)); //== 0 && (I2C1->ISR & I2C_ISR_NACKF) == 0);
   if ((I2C1->ISR & I2C_ISR_NACKF) != 0) return -1;
@@ -292,6 +294,7 @@ Write an initialization script that turns on the GPIO port in the MCP23008 and s
 
 ```C 
 
+// ----------------NOTE: This should work now. I don't think we need the end script anymore, but I'll leave it in just in case.
 // Replace the for(;;) loop in main with this.
 uint8_t data1[2] = {0x00, config_byte}; // Register address is 0x00. See page 8 on the datasheet for what you should set it to.
 uint8_t data2[2] = {0x09, output_byte}; // "ODR" address is 0x09. See page 19 for what you should set it to.
@@ -305,6 +308,7 @@ i2c_senddata(0x20, data2, 2); // 0x20 is chip address, datax is transaction
 Doing this *should* turn that LED on, but for me it doesn't seem to work. I have to offset the memory addresses by a byte. There's more sophisticated ways you can go about this, but it doesn't matter to me for a code this short. If you're not able to get your output to work, try this:
 
 ```C
+// ----------------NOTE: This shouldn't be needed anymore.
 // Replace the for(;;) loop in main with this.
 uint8_t data0[2] = {0x00, 0x00};
 uint8_t data1[2] = {config_byte, 0x09}; 
@@ -320,4 +324,22 @@ i2c_senddata(0x20, data2, 2);
 
 ### 6.2: Demo
 
-Show your TA the lightbulb turning on. If it turns on, you're done!
+Show your TA the lightbulb turning on. If it turns on, you're done! Have a good summer!
+
+On a side note, I'll be around for questions on personal projects. You can email or come find me during the summer, if you'd like!
+
+### 6.3: In Case You're Wondering: What's Happening Here
+How an I2C transmission works:
+- To communicate to a device, you send its address and a read/write bit to let it know that you want to talk to it.
+- If it recognizes that you're calling it, it'll send an `ACK` bit to let you know it acknowledges your request. If it doesn't, you'll get a `NACK` bit.
+- After, it varies by device, but typically you send the address of an internal register, and then the address that you want to modify if it's a write.
+- If it's a read, you just send a `READ` request. You may have to send a register that you want to read, but typically I2C devices have a set register that they will send. Other, more complicated devices (like the EEPROM in your kit), will have you select the register.
+
+Further, I wanted to get the point across on code organization. It doesn't make a lot of sense to keep all of your functions in `main.c,` so it's usually good to put them into their own files for the purposes of reading. Having the singular main function inside of the `main.c` is a whole lot easier to look at, right?
+
+### 6.4: Debugging
+- Have you updated your code to the most recent functions? 4/25/23 at 11:15am is when the most recent update happened.
+- Are your pullup resistors valued between 1k and 3K? They won't work otherwise. Check with a DMM to be sure. 
+- Have you read the datasheet and confirmed the values you should be sending to the GPIO extender (MCP23008)?
+- Further, do you recognize that you're using the GPIO extender to turn on the LED, and not the devboards GPIO interface?
+- The pin that you pick should not matter, as long as you're setting up the correct pin with your code.
