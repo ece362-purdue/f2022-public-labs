@@ -240,7 +240,7 @@ int i; // Counter for later for loop.
 ```C
 void i2c_clearnack(void)
 {
-  // This is simple, just clear the NACK flag in the ISR.
+  // This is simple, just clear the NACK flag in the ICR.
 }
 
 ```C
