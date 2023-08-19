@@ -1,6 +1,6 @@
-# Lab 7: Timers
+# Lab 3: Timers
 
-- [Lab 7: Timers](#lab-7-timers)
+- [Lab 3: Timers](#lab-7-timers)
 - [1. Introduction](#1-introduction)
 - [2. Instructional Objectives](#2-instructional-objectives)
 - [3. Background and wiring](#3-background-and-wiring)
