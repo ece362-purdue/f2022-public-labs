@@ -413,6 +413,7 @@ If you have properly implemented all of your subroutines, you should be able to 
 
 It is an easy game to play. Use the A and B keys to move the '>' character on the left of the display. Use it to hit as many 'x' characters as you can. Each time you hit an 'x', you gain a point. Each time an 'x' goes by you, you lose a point. As your score gets higher, the game goes faster. If you can reach 100 points, you win. 
 
+<!---
 ## 8: Using the LCD (extra credit, 25 points. Must complete the rest of the lab to complete this.)
 
 In your lab kit, you will find an extra LCD screen. Coincidentally, this also uses an SPI communication protocol. Unfortunately, we haven't been able to work this into the curriculum in the new version of the course, but it's still a fun thing to learn how to use, and I believe I have thought of an interesting way to incorperate it into this lab. Unfortunately, we will not include the SD card reader into our curriculum as we do not have time. **However,** I have been giving the old lab that uses the SD card to the senior design courses, so you will be able to explore it then, if you so choose.
@@ -466,3 +467,4 @@ If you have gotten this far, you should have a LCD screen that briefly turns whi
 >**NOTE** If you do this, keep the LCD on your breadboard for lab 11. You'll need it for an extra credit opportunity there.
 
 Have fun! :)
+-->

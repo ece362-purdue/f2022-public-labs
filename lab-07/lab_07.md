@@ -297,7 +297,7 @@ There is a great deal of things going on here. How should you debug it when it d
 
 Show your work to your TA. (TA instructions: Look over the code to ensure that it looks correct. Run the code to make sure that the input can be edited and printing is correct. 
 
-
+<!---
 ## 8 Command Line Interpreter (25 Points Extra Credit)
 At this point, we have the structure to get and interpret lines. Now, what do we do with it? Last semester, this question went unanswered, so this time around I'd like to leave you with something useful. At this point, you've seen our Autotest suite do its work with testing your circuit. Usually this turns on indivudal functions, checks registers to make sure that they're set correctly, and other things that happen in the background not worth mentioning. You probably won't use this for *that* specific functionality, but it's something useful to know how to do if you'd like to debug things from your terminal in the future. First, download the `commands.c` and `commands.h` files from the BrightSpace and include them into your Lab 11 project directory. Drop `commands.c` into the `src` folder and `commands.h` into the `inc` folder. Make sure to to include these at the top of your main.c file with a `#include` statement.
 
@@ -422,3 +422,4 @@ struct commands_t usercmds[] = {
 
 ### Demo it!
 Show us `dino,` `bird,` `add 3 5 7,` and `mul 3 4 5.` If this works, you get the credit.
+-->
