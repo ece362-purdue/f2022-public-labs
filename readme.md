@@ -12,19 +12,19 @@
    - you could download the [lab 7 template](https://github.com/ece362-purdue/f2022-lab-7):
      - `git clone git@github.com:ece362-purdue/f2022-lab-7.git`
      - or with [zipped file](https://github.com/ece362-purdue/f2022-lab-7/archive/refs/heads/main.zip)
-5. [Lab 6 DMA, ADC, DAC](./lab-8/lab_8.md) (Due in week of 9/25 of your lab section)
+5. [Lab 4 DMA, ADC, DAC](./lab-8/lab_8.md) (Due in week of 9/25 of your lab section)
    - you could download the [lab 8 template](https://github.com/ece362-purdue/f2022-lab-8):
      - `git clone git@github.com:ece362-purdue/f2022-lab-8.git`
      - or with [zipped file](https://github.com/ece362-purdue/f2022-lab-8/archive/refs/heads/main.zip)
-6. [Lab 7 PWM](./lab-9/lab_9.md) (Due in week of 10/2 of your lab section)
+6. [Lab 5 PWM](./lab-9/lab_9.md) (Due in week of 10/2 of your lab section)
    - you could download the [lab 9 template](https://github.com/ece362-purdue/f2022-lab-9):
      - `git clone git@github.com:ece362-purdue/f2022-lab-9.git`
      - or with [zipped file](https://github.com/ece362-purdue/f2022-lab-9/archive/refs/heads/main.zip)
-7. [Lab 4 SPI](./lab-10/lab_10.md) (Due in week of 9/11 of your lab section)
+7. [Lab 6 SPI](./lab-10/lab_10.md) (Due in week of 9/11 of your lab section)
    - you could download the [lab 10 template](https://github.com/ece362-purdue/f2022-lab-10):
      - `git clone git@github.com:ece362-purdue/f2022-lab-10.git`
      - or with [zipped file](https://github.com/ece362-purdue/f2022-lab-10/archive/refs/heads/main.zip)
-8. [Lab 5 USART](./lab-11/lab_11.md) (Due in week of 9/18 of your lab section)
+8. [Lab 7 USART](./lab-11/lab_11.md) (Due in week of 9/18 of your lab section)
    - you could download the [lab 11 template](https://github.com/ece362-purdue/f2022-lab-11):
      - `git clone git@github.com:ece362-purdue/f2022-lab-11.git`
      - or with [zipped file](https://github.com/ece362-purdue/f2022-lab-11/archive/refs/heads/main.zip)
