@@ -1,5 +1,5 @@
 # Fall 2023 ECE 362 Lab reources
-1. [Lab 0 Microcontroller kit setup](./lab-00/lab_0.md) (Due in week of 8/21 of your lab section)
+1. [Lab 0 Microcontroller kit setup](./lab-00/lab_00.md) (Due in week of 8/21 of your lab section)
 2. [Lab 1 General Purpsose I/O](./lab-01/lab_01.md) (Due in week of 2/20 of your lab section)
    - you could download the [lab 01 template](https://github.com/ece362-purdue/f2022-lab-5):
      - `git clone git@github.com:ece362-purdue/f2022-lab-5.git`
