@@ -1,4 +1,4 @@
-# Lab 9: Pulse-Width Modulation
+# Lab 5: Pulse-Width Modulation
 <!---
 - [Lab 9: Pulse-Width Modulation](#lab-9-pulse-width-modulation)
   - [1. Introduction](#1-introduction)
