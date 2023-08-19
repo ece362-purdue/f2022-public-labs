@@ -1,4 +1,4 @@
-# Lab 10: SPI and DMA
+# Lab 6: SPI and DMA
 <!---
 - [Lab 10: SPI and DMA](#lab-10-spi-and-dma)
   - [1. Introduction](#1-introduction)
