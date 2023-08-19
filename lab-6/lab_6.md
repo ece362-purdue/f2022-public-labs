@@ -1,6 +1,6 @@
-# Lab 6: Interrupts
+# Lab 2: Interrupts
 
-- [Lab 6: Interrupts](#lab-6-interrupts)
+- [Lab 2: Interrupts](#lab-6-interrupts)
   - [1. Introduction](#1-introduction)
   - [2. Instructional Objectives](#2-instructional-objectives)
   - [3. Background: Interrupts and Event-Driven Programming](#3-background-interrupts-and-event-driven-programming)
