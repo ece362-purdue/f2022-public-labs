@@ -1,6 +1,5 @@
-# Lab 5.1: General Purpose I/O
-
-- [Lab 5: General Purpose I/O](#lab-5-general-purpose-io)
+# Lab 1: General Purpose I/O
+- [Lab 1: General Purpose I/O](#lab-5-general-purpose-io)
   - [1. Introduction](#1-introduction)
   - [2. Instructional Objectives](#2-instructional-objectives)
   - [3. Background](#3-background)
@@ -11,8 +10,7 @@
     - [4.4 (15 points) Read PORTB pin inputs](#44-15-points-read-portb-pin-inputs)
     - [4.5 (0 points) Wiring LEDs, Push Buttons, and Keypad](#45-0-points-wiring-leds-push-buttons-and-keypad)
     - [4.6 (20 points) Buttons and LEDs](#46-20-points-buttons-and-leds)
-    - [4.7 (20 points) Keypad and LEDs](#47-20-points-keypad-and-leds)
-
+    - [4.7 (20 points) Keypad and LEDs](#47-20-points-keypad-and-leds) 
 ## 1. Introduction
 
 In this experiment, you will learn how to connect simple input devices (push buttons and keypad) and simple output devices (LEDs) to an STM32 development board. You will learn how to configure the General Purpose Input/Output (GPIO) subsystems. You will read values from and write values to these pins.
