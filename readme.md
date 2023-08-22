@@ -1,4 +1,8 @@
 # Fall 2023 ECE 362 Lab reources
+
+Lab Checkoff/Help Link: https://engineering.purdue.edu/ece362/f22/lab/labutils/
+(Sign in with your Purdue email. Only works inside of EE069. Does not work on personal computers.)
+
 1. [Lab 0 Microcontroller kit setup](./lab-00/lab_00.md) (Due in week of 8/21 of your lab section)
 2. [Lab 1 General Purpsose I/O](./lab-01/lab_01.md) (Due in week of 2/20 of your lab section)
    - you could download the [lab 01 template](https://github.com/ece362-purdue/f2022-lab-5):
