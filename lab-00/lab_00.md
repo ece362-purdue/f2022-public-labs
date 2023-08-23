@@ -24,13 +24,16 @@ After plugging in the programming side to the devboard , you should see a red an
 For our course, the Eclipse IDE will be used, alongside of the SystemWorkbench for STM32 plugin. Eclipse is open source, so it may not seem like the most user-friendly when you are first using it. After extended use, you should be able to navigate it pretty well. Here are instructions on how to set it up on your machine, as well as on the lab computers.
 
 ## Step 2.1 Installation on the lab computers
-Fortunately for you, one of the past instructors created a setup package that you can invoke to (msotly) take care of this for you. Open a terminal window, and invoke this line of code:
+Fortunately for you, one of the past instructors created a setup package that you can invoke to (mostly) take care of this for you. Open a terminal window, and invoke this line of code:
 ```bash
 ~ece362/bin/setup
 ```
 After running this, you should see new icons appear on your desktop. One of them reruns the setup program, which you can use to update your configuration if any new applications are needed. Another icon is created for System Workbench, which is the main application that you will use.
 
 ## Step 2.2: Installation on a Linux system.
+
+> **Warning**  
+> Skip this step if you are on the lab machines.  You already set up SystemWorkbench via the setup command above.
 
 **NOTE:** I have cached the most recent installers into the Brightspace, so you can download them without going through the OpenSTM registration process now. There are Ubuntu and Windows installers. These are located in their own tab on the bottom of the tab list on Brightspace.
 
@@ -67,7 +70,7 @@ For this class, we will use the OpenSTM32 Standard Peripheral Library as the cor
 
 Once downloaded, moved the zip file into the their repective directory. If you chose the default locations, typically they're located in:
 ```bash
-.ac6/SW4STM32/firmwares
+~/.ac6/SW4STM32/firmwares
 ```
 for Linux, or
 ```bash
@@ -87,8 +90,6 @@ stm32f0_stdperiph_lib_v150.zip
 This is what your Firmwares folder should look like after:
 
 ![periph5](./img/img23.PNG)
-
-
 
 # Step 4: Configure SystemWorkbench
 Now that the software is installed, we can begin configuration. Start this by selecting the "Window" dropdown at the top of the screen, and selecting the "Settings" option. As you're doing this, make sure that you're changing the settings highlighted with the red Xs.
@@ -126,7 +127,7 @@ Time to test out our configuration! Ensure that your Devboard is plugged into th
 ## Step 5.1: Creating a New Assembly/C Project
 At the top of the screen, open the "File" dropdown. Select the "New" option, and then select the "Project" button. In the opened "Select a Wizard" dialog box, select "C project" and then hit "Next"
 
-![NewProj}(./img/img10.PNG)
+![NewProj](./img/img10.PNG)
 
 ## Step 5.2: C Project Dialog
 Select the "Ac6 STM32 MCU Project" button, and enter a project name as "Test," as this will be your test project to make sure the chip works as intended. Hit "Next." On the next "Select Configuration" dialog, just press "Next."
@@ -145,6 +146,9 @@ Select "Standard Peripheral Library (StdPeriph)." It will look for the standard 
 ![Library](./img/img14.PNG)
 
 After this, it should find your SPL. If it doesn't, refer to section 3 of this manual to make sure that you did it correctly. If it's still not working, call a TA over. Click "Finish," and the wizard will go about automatically creating your project.
+
+> **Note**  
+> If pre-caching the library doesn't work, don't panic.  Try the download button again, ensure that there's no change in the filenames for the ZIP file or the extracted folder, and that you made sure to place them in the right folder.
 
 # Step 6: Edit, Build, and Debug a Project
 Inside of your project, there will be a few top level directories. Here's what they contain:
