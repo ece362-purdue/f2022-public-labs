@@ -1,6 +1,7 @@
 # Fall 2023 ECE 362 Lab reources
 
 Lab Checkoff/Help Link: [https://engineering.purdue.edu/ece362/f22/lab/labutils/](https://engineering.purdue.edu/ece362/f22/lab/labutils/)
+Common Problems You May Run Into During this Course: [./common_problems/common_problems.md]
 
 (Sign in with your Purdue email. Only works inside of EE069. Does not work on personal computers.)
 
