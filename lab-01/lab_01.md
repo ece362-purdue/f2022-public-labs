@@ -162,4 +162,4 @@ In other words, write a function to just waste some time so that we could read i
 #### Keypad Process Clarification
 If you'd like a visualization of what's supposed to happen, we've inserted a set of diagrams below. Each key turns on one LED, and their associated positions are shown on the diagram.
 
-![keypad_diagram](Keypad_abridged.png)
+![keypad_diagram](./images/Keypad_abridged.png)
