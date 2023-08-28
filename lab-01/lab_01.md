@@ -19,7 +19,7 @@ In this experiment, you will learn how to connect simple input devices (push but
 
 **NOTE:** Past this point, wiring good practice rules are in effect. Please see the Brightspace resource on it. If your breadboard is not neat and not working, we will not help you to get it working.
 
-**NOTE:** Past this point, the 20-minute rule is in effect. If you show up more than 20-minutes late to your scheduled lab section, you will be asked to leave.
+**NOTE:** Past this point, the 20-minute rule is in effect.
 
 ## 2. Instructional Objectives
 
