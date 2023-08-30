@@ -101,7 +101,7 @@ In the template file `main.c`, implement the `togglexn` that accepts two paramet
 
 #### 4.2.4 Testing
 
-Once you have implemented each of the subroutines described so far, you should run your program to test that it works correctly. The program should slowly blink the blue LED (LD3) connected to PB9. The rate should be approximately .5 Hz. Use autotest to check that your GPIO configuration subroutines are implemented correctly.
+Once you have implemented each of the subroutines described so far, use autotest to check that your GPIO configuration subroutines are implemented correctly by typing 'gpio' to test initb, initc and togglexn.
 
 ### 4.3 (20 points) External interrupts
 
