@@ -171,9 +171,9 @@ The symbols `EXTI_IMR_MR0`, `EXTI_IMR_MR2`, `EXTI_IMR_MR3`, and `EXTI_IMR_MR4` a
 
 #### 4.4.5 (6 points) Initialize the ISER
 
-Finally, `init_exti` should write the interrupt numbers into the `NVIC->ISER` register for an event on pin 0-1.
+Finally, `init_exti` should write the interrupt numbers into the `NVIC->ISER` register for an event on pin 0-1.  You can look at the the Vector Table (Table 37) on the STM32F0x1 Family Reference to determine what bit position to write to for pins 0-1, or use the symbol to specify the bit position, eg. `EXTI0_1_IRQn`.
 
-The `init_exti` subroutine should also enable the interrupt that is raised for an event on pins 2 or 3 as well the interrupt for an event on pins 4 - 15.
+The `init_exti` subroutine should also enable the interrupt that is raised for an event on pins 2 or 3, as well the interrupt for an event on pins 4 - 15.  (Remember that you can use Ctrl-Click to jump to the definition of the symbol for the interrupt number.)
 
 > Note: The `NVIC->ISER` is an array and you will need to specify the index to access it, i.e. `NVIC->ISER[0]`.
 
