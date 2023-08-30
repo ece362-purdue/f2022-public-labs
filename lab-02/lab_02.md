@@ -210,7 +210,11 @@ Implement the SysTick_Handler interrupt service routine, whose basic skeleton ha
 In the previous lab, we had the microcontroller changing the energized column, polling the rows, and deciding which LED to light in the main loop. This is a waste of resources, taking up the micro's time when it could be doing more useful work (like calculating the gcd of two large numbers) or just sleeping and saving power. We will now move that logic to the `SysTick` ISR with a few changes.
 
 - First, since the subroutine is called every so often and then exits, there is no local variable for the current column we are energizing, so we will make this a global variable.
-- Second, instead of turning on the LED when a press is detected, we will use the togglexn subroutine. The constraint in the previous lab still holds where no two row-column pairs can use the same row or column (i.e.$\{(r_i, c_i) | r_i \neq r_j \forall i \neq j; c_i \neq c_j \forall i\neq j; i,j = 1...4\}$).
+- Second, instead of turning on the LED when a press is detected, we will use the togglexn subroutine. The constraint in the previous lab still holds where no two row-column pairs can use the same row or column, i.e:
+
+$${(r_i, c_i) \quad | \quad r_i \neq r_j \,\, \forall \,\, i \neq j; \quad c_i \neq c_j \,\, \forall \,\, i\neq j; \quad i,j = 1...4}$$
+
+> Note: $$\forall$$ means "for all".
 
 The pseudo-code is as follows:
 
