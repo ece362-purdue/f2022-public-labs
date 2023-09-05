@@ -255,7 +255,7 @@ Once the simple ISR for the SysTick interrupt is written, you can try using it. 
 - We want `SysTick->LOAD` (the Reload Value Register in StandardPeripheralLib, for some reasons it is not named as `STK->RVR`) set to a value that will cause the counter to reach zero in a small time so that the columns will be scanned rapidly. Each invocation of the `SysTick_Handler` ISR will scan one of the four rows. Set a Reload Value Register value (`SysTick->LOAD`) so that all four rows are scanned four times per second. (i.e., a new row is scanned once every sixteenth of a second.) What value should you compute to do this?
 - Write a value to the `SysTick->CTRL` register (SysTick Control and Status register) that turns on the `TICKINT` and `ENABLE` bits. For the `CLKSOURCE`, choose the 6 MHz clock derived from the ÷8 prescaled clock.
 
-The test code in main is already configured to invoke `init_systick`. When you run the program you've implemented so far, you should see the LEDs on PC6 (LD6) and PC7 (LD5) blink rapidly as it scans the columns. Once your code is working, use autotest to verify it is all correctly.
+The test code in main is already configured to invoke `init_systick`. When you run the program you've implemented so far, you should see the LEDs on PC6 (LD6) and PC7 (LD5) blink rapidly as it scans the columns. Once your code is working, use autotest to verify it is all working correctly.
 
 ## 5. (Bonus 20 points) Observations and Adjustments
 
