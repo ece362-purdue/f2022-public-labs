@@ -48,7 +48,7 @@
 
 In this lab, you'll learn to use three peripherals: DMA, DAC, and ADC. All three of these are critical components in most chips in some way, shape, or form. 
 
-Direct Memory Access (DMA) allows you to automatically transfer a region of memory to a peripheral, a different location in memory, or any memory mapped region of the device. In short, it sets up automatic memory transfers from one thing to another. These can be peripherals, variables, arrays, etc. Just not flash ROm. You may ask, how is this useful? Well, instead of taking up valuable CPU time and additional code structures to transfer data, you can just have one of the DMA coprocessors do it. They're independant and autonomous, so once you set them up, they just go. You'll see more interesting applications in lab 10 and 11. Here, you'll use it to collect ADC data.
+Direct Memory Access (DMA) allows you to automatically transfer a region of memory to a peripheral, a different location in memory, or any memory mapped region of the device. In short, it sets up automatic memory transfers from one thing to another. These can be peripherals, variables, arrays, etc. Just not flash ROM. You may ask, how is this useful? Well, instead of taking up valuable CPU time and additional code structures to transfer data, you can just have one of the DMA coprocessors do it. They're independent and autonomous, so once you set them up, they just go. You'll see more interesting applications in lab 10 and 11. Here, you'll use it to collect ADC data.
 
 Interfacing a microcontroller with real-world devices often means working with analog voltages that are not constrained by digital logic’s high/low dichotomy. In this lab, you will gain experience using the digital-to-analog converter and the analog-to-digital converter built in to your microcontroller. You will also practice writing code to manipulate the converted values as well as display them on an output device.
 
@@ -69,17 +69,19 @@ Fundamentally, this course is not a programming class, *per se*. For this lab, y
 
 ### 3.1 Wiring for this lab
 
->**Note:** Don't kill your board.
+>**Note:** Don't kill your board.  Be very careful about what pins you may accidentally bring in contact, and pay attention to the notes that follow.
 
 For this lab we will keep the wiring from lab 7 and add some other circuitry related to ADC and DAC. In addition, you will use an oscilloscope to observe the output of the DAC. If you haven't learned how to use an oscilloscope yet, you can use an AD2 or read the guide on how to use the lab equipment in the Brightspace (as of 3/13 has not been posted, but will sometime soon).
 
-You will use potentiometers to connected between 3V and Gnd with the center tap acting as a voltage divider. The center tap of the potentiometer will be connected to an analog input. As long as you are certain to connect the potentiometers only between **3V and Gnd**, no damage to the analog inputs is possible.
+You will use potentiometers to connected between 3V and GND with the center tap acting as a voltage divider. The center tap of the potentiometer will be connected to an analog input. As long as you are certain to connect the potentiometers only between **3V and GND**, no damage to the analog inputs is possible.
 
 ![wiring](./images/Schematic.PNG)
 
->**Note:** The output capacitor on the buffer can be either 10 or 100uF. I just don't have a great way to get that accross in a schematic.
+>**Note:** The output capacitor on the buffer can be either 10 or 100uF. I just don't have a great way to get that across in a schematic.
 
->**NOTE:** **DO NOT** Give anything else aside from the output buffer 5V power. You will kill your development board. The transistors inside the LM324 will saturate and give incorrect output signals if you give it only 3V, which is why in needs 5V. 
+>**NOTE:** **DO NOT** give anything else aside from the output buffer 5V power. You will kill your development board. The transistors inside the LM324 will saturate and give incorrect output signals if you give it only 3V, which is why in needs 5V. 
+
+>**NOTE:** **DO NOT** assume that the LM324 has the same pins for power and ground as your 74-series chip - they are not pins 7 and 14!  Look up the datasheet for an LM324 to identify the power and ground pins.
 
 ### 3.2 enable_ports() (5 points)
 
@@ -102,7 +104,7 @@ In this lab you'll do this again. Instead of using an ISR to set up the GPIO out
 
 ### 4.1 Direct Memory Access
 
-The STM32F09x family of microcontrollers have 2 Direct Memeory Access (DMA) controllers, each with 7 and 5 channels respectively, that can autonomously move one or more words of various sizes between memory and peripherals. Once values are written to a DMA channel’s configuration registers, the CPU can be used for other purposes while the transfer operations continue. Each incremental DMA operation can be triggered by a peripheral’s readiness to be written to or read from. Some microcontrollers allow DMA channels to be arbitrarily associated with peripheral devices, but the STM32F0 requires that each peripheral be used with only the specific DMA channel that it is wired to. Table 32 and 33 of the Family Reference Manual shows the peripheral-to-DMA channel mapping. **Find this table, as you'll need it later.**
+The STM32F09x family of microcontrollers have 2 Direct Memory Access (DMA) controllers, each with 7 and 5 channels respectively, that can autonomously move one or more words of various sizes between memory and peripherals. Once values are written to a DMA channel’s configuration registers, the CPU can be used for other purposes while the transfer operations continue. Each incremental DMA operation can be triggered by a peripheral’s readiness to be written to or read from. Some microcontrollers allow DMA channels to be arbitrarily associated with peripheral devices, but the STM32F0 requires that each peripheral be used with only the specific DMA channel that it is wired to. Table 32 and 33 of the Family Reference Manual shows the peripheral-to-DMA channel mapping. **Find this table, as you'll need it later.**
 
 A breakdown of how the DMA registers work:
 - `CNDTR:` A counter of sorts. You write the number of elements that you're trying to transfer here. If it's a singular variable, usually 1 is sufficient. If it's an array, you must write in the size of the array. Stands for Channel's Number of Data to Transfer Register.
@@ -110,7 +112,7 @@ A breakdown of how the DMA registers work:
 - `CPAR:` The address of the peripheral location. Again, this must be an address. Stands for Channel's Peripheral Address Register.
 - `CSELR:` This register lets you change how the initiated requests map out. Normally, each channel looks at a specific request. You can use this register to change what requests the channels looks at. We won't use this one here, but we will use it later.
 
-Then you have the control register, `CCR`. We suggest reading through the Family reference manual thoroughly to find out how these work, but here's some of the important ones:
+Then you have the control register, `CCR`. We suggest reading through the Family Reference manual thoroughly to find out how these work, but here's some of the important ones:
 - `MSIZE:` A bit field that sets the size of the memory. Not all data is a full integer. You can select from quarter word, half word, and full word data sizes.
 - `PSIZE:` Similar to `MSIZE`, not all peripherals have the same size of memory. Each GPIO has a 16-bit IDR, but the ADC might only take an 8-bit conversion. Set the size of your peripheral's data with this field.
 - `MINC:` A singular bit that shows if the memory address should increment. Typically, you use this if you're using an array. The incrememnt size is also set by MSIZE.
@@ -135,28 +137,30 @@ Here, you will set up a circular DMA transfer to the `GPIOB` peripheral's `ODR` 
 
 Remember that `TIM15` works with *one particular channel of the DMA1 controller*. You will find and use that default channel.
 
+Remember that there are symbols that define the values you need to shift into registers, and you can find them by searching through the stm32f0xx.h file that defines all the symbols you use, eg. RCC and RCC\_AHBENR\_GPIOCEN.  Use the symbols as a way of "being sure" that you are setting the right values in the right parts of the register.
+
 Have you determined which DMA channel Timer 15 can trigger? Good. Implement the C subroutine named `setup_dma()` that does the following things:
 
 - Enables the RCC clock to the DMA controller and configures the following channel parameters:
   - **Turn off the enable bit for the channel, like with every other peripheral.**
   - Set `CPAR` to the address of the `GPIOB_ODR` register.
   - Set `CMAR` to the address of the msg array.
-  - Set `CNDTR` to 8. (the amount of LEDs)
+  - Set `CNDTR` to 8. (the amount of LEDs.)
   - Set the `DIR`ection for copying from-memory-to-peripheral.
-  - Set the `MINC` to increment the CMAR for every transfer. (Each LED will have something different on it)
-  - Set the memory datum size to 16-bit.
-  - Set the peripheral datum size to 16-bit.
+  - Set the `MINC` to increment the CMAR for every transfer. (Each LED will have something different on it.)
+  - Set the `M`emory datum `SIZE` to 16-bit.
+  - Set the `P`eripheral datum `SIZE` to 16-bit.
   - Set the channel for `CIRC`ular operation.
 
 Implement one more C subroutine named `enable_dma()` that does only the following operation:
 
 - Enable the channel.
 
-There is a lot of variation in students' work. On occasions when we use autotest to check their work, it's check all possible cases once a DMA channel is enabled and running. We want you get used to keeping this step separate. Remember to not enable the DMA channel in `setup_dma`.
+There is a lot of variation in students' work. On occasions when we use autotest to check their work, it's check all possible cases once a DMA channel is enabled and running. We want you get used to keeping this step separate. **Remember to not enable the DMA channel in `setup_dma`.**
 
 ### 4.4 `init_tim15()` (10 points)
 
-Fill out the subroutine `init_tim15()` to enable TIM15's clock in `RCC` and trigger a DMA request at a rate of 1 kHz. Do that by setting the `UDE` bit in the `DIER`, while not setting 'UIE'. In this case, 'UDE' triggers DMA requests. 'UIE', which we've used in the past, causes interrupts. You may have noticed that we've not asked you to make an ISR for TIM15, because there is no ISR to invoke for this timer this time. The timer will trigger the DMA channel directly. 
+Fill out the subroutine `init_tim15()` to enable TIM15's clock in `RCC` and trigger a DMA request at a rate of 1 kHz. Do that by setting the `UDE` bit in the `DIER`, while not setting 'UIE'. In this case, 'UDE' triggers DMA requests. 'UIE', which we've used in the past, causes interrupts. You may have noticed that we've not asked you to make an ISR for TIM15, because there is no ISR to invoke for this timer this time. The timer will trigger the DMA channel directly.  **Don't forget to enable the timer as well.**
 
 This whole operation amounts to the DMA operation will do the copying that you had to do in the ISR in lab 5.
 
@@ -177,7 +181,7 @@ So many circumstances in this class depend on getting many details exactly corre
 - Are pins PB0 - PB10 configured as outputs?
 - Look at timer 15:
   - Is the timer enabled?
-  - Repeatedly click on the `CNT` register to update its view. Is it changing? If not, it probably means that the timer is not runing.
+  - Repeatedly click on the `CNT` register to update its view. Is it changing? If not, it probably means that the timer is not running.
   - Is the `CNT` value larger than the ARR? That's usually a sign that you set up the ARR after you set the CEN bit to enable the timer's counter. Always set CEN last.
   - Did you set the `UDE` timer to trigger the DMA channel?
 - Look at the DMA channel you've configured:
@@ -188,7 +192,7 @@ So many circumstances in this class depend on getting many details exactly corre
   - Did you set the `MINC` bit to increment the `CMAR` and clear the `PINC` bit to not increment the `CPAR` after each copy?
   - Did you configure the DMA channel for circular operation?
 
-By systematically check all of these elements, you can find the root cause(s) of any problem.
+By systematically checking all of these elements, you can find the root cause(s) of any problem.
 
 ### 4.5 Demo time
 
@@ -201,7 +205,7 @@ Your LEDs should scrolling the `Hello...Hello...` string now.
 **Look at the code for `print()` in the `support.c` file. It copies one byte at a time into the `msg[]` array. For historical reasons, every ASCII character is defined by the lower seven bits of the byte. That let us use the most significant bit to indicate that the dot on a character should be set or not. This will be used in the code to show key events in the next section.**
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-## 5. Boucing, Debouncing, and Keypad Implementation (15 Points Total)
+## 5. Bouncing, Debouncing, and Keypad Implementation (15 Points Total)
 
 ### 5.1: What is bouncing?
 
@@ -217,7 +221,7 @@ You'll notice that I put in a red cursor that shows where the logic line is. Thi
 
 ![bounce3](./images/Zoomed_In_Bad_Bounce.PNG)
 
-That looks like **garbage,** right? Notice that I have two red cursors on the screen that are separated by a singular pixel. Within this very slight time duration, the processor is able to look for an input around 15 times. The system doesn't settle for another 250 microseconds, so it could be reading any of those oscillations! How do we fix this? Debouncing. We can do this in a hardware fashion or a software fashion. For the hardware fashion, we add a capacitor in paralell with the input like in lab 5.1. This creates a charge constant, and will smooth out high frequency noise. Here's an example of when I add a 1uF capacitor in paralell with my input:
+That looks like **garbage,** right? Notice that I have two red cursors on the screen that are separated by a singular pixel. Within this very slight time duration, the processor is able to look for an input around 15 times. The system doesn't settle for another 250 microseconds, so it could be reading any of those oscillations! How do we fix this? Debouncing. We can do this in a hardware fashion or a software fashion. For the hardware fashion, we add a capacitor in parallel with the input like in lab 5.1. This creates a charge constant, and will smooth out high frequency noise. Here's an example of when I add a 1uF capacitor in paralell with my input:
 
 ![bounce4](./images/Zoomed_in_Debounce.PNG)
 
@@ -271,6 +275,7 @@ Use the System Workbench I/O Register Debugger to determine what the problem is 
 - Is the Timer 7 counter enabled?
 - Repeatedly click on the Timer 7 `CNT` register to update its value. Is it changing? If not, the timer is probably not enabled.
 - Is the `UIE` bit set?
+- Has the interrupt source been enabled in `NVIC`?
 - Set a breakpoint in the Timer 7 ISR. Is it ever invoked? If not, you may not have named it correctly.
 
 ### 5.5 Demo time
@@ -298,11 +303,11 @@ In analog-to-digital conversion, an analog signal is read by a circuit known as 
 
 ![quantize](./images/quantize.png)
 
-There are several ways to lay out a toplogiy scheme for an ADC. Below is an example of one that also happens to be a 3-bit decoder, although it is simplified a little:
+There are several ways to lay out a topology scheme for an ADC. Below is an example of one that also happens to be a 3-bit decoder, although it is simplified a little:
 
 ![ADCTop](./images/ADC_Topology.jpg)
 
-If this is something you're interested in designing, you'll need to do a little further reading elsewhere. Design of an ADC is an art, and we do not have the time to cover it in this course.
+If this is something you're interested in designing, you'll need to do a little further reading elsewhere. Design of an ADC is an art, and we (unfortunately) do not have the time to cover it in this course.
 
 In this section, you will set up the analog-to-digital converter (`ADC`) and repeatedly check it to update a global variable. Since there is always some amount of noise, you will smooth out the readings by creating a boxcar averaging mechanism and using that average to update a variable.
 
@@ -314,7 +319,7 @@ Before any ADC configuration can be done, a few initializations must be done. Fi
 
 Next, the inputs which are to be configured as analog I/O must be configured for analog mode in the corresponding `GPIOx_MODER` register. This is described in further detail in section 9.3.2, *"I/O pin alternate function multiplexer and mapping"*, of the STM32F0 family reference manual.
 
-Prior to performing any configuration of the ADC, the peripheral must first be enabled. **ADC activation must take place before any other ADC configurations are performed; failure to follow this order may result in the ADC entering an unknown state, at which point the ADC must be disabled and restarted.** This is backwards t how it's normally done, which may not seem intuitive right away. That's because it's not.
+Prior to performing any configuration of the ADC, the peripheral must first be enabled. **ADC activation must take place before any other ADC configurations are performed; failure to follow this order may result in the ADC entering an unknown state, at which point the ADC must be disabled and restarted.** This is backwards to how it's normally done, which may not seem intuitive right away. That's because it's not.
 
 Enabling the ADC requires writing '1' to the ADC enable bit, `ADEN`, in the ADC control register, `ADC_CR`. Once this is done, software must wait until the ADC is in a ready state, indicated by the bit `ADRDY` (located in the ADC status register, `ADC_ISR`) being read as '1' to software.
 
@@ -395,7 +400,7 @@ Use the System Workbench I/O Register Debugger to diagnose the problem:
 - Repeatedly click on the Timer 2 `CNT` register to update its value. Is it changing? If not, the timer is probably not enabled.
 - Is the `CNT` value higher than the `ARR` value? This is an especially important problem for Timer 2, where the `ARR` and `CNT` registers are 32 bits in size. It takes a long time to wrap around back to zero. You will have this problem if you enable the timer counter before you set the `ARR`.
 - Is the `UIE` bit set?
-- Set a breakpoint in the Timer 2 ISR. Is it ever invoked? If not, you may not have named it correctly.
+- Set a breakpoint in the Timer 2 ISR. Is it ever invoked? If not, you may not have named it correctly, or you did not enable it in NVIC.
 - Is the RCC clock for Port A enabled? Are the pins configured for analog operation? (Do you know which pin `ADC_IN` corresponds to?)
 - Is the RCC clock for the ADC enabled?
 - Look at the ADC ISR register. Is the ready bit set? Does the Timer 2 Interrupt Service Routine turn on the `ADSTART` bit? (The bits will change to quickly to read them in the I/O Register Debugger.)
@@ -411,10 +416,10 @@ Because the boxcar is 32 samples wide, and because new samples are only taken te
 
 A digital-to-analog converter (DAC) is similar to analog-to-digital conversion in reverse. An n-bit digital quantity is written to a data register, the conversion is triggered, and the quantized analog value appears on an output pin. One significant difference is that, since the conversion mechanism uses only a resistor network, the conversion is nearly instant. There is no need to continually check a DAC to find out if the conversion is complete.
 
-Like the ADC input, the DAC output cannot represent all values. For an n-bit DAC, there are 2n distinct values. A digital value of n zeros usually represents an analog conversion of 0 V. A digital value of all ones usually represents an analog conversion of the reference voltage: 
-[$$ V_{REF} $$] 
+Like the ADC input, the DAC output cannot represent all values. For an n-bit DAC, there are 2<sup>n</sup> distinct values. A digital value of n zeros usually represents an analog conversion of 0 V. A digital value of all ones usually represents an analog conversion of the reference voltage: 
+\$\$ V_{REF} \$\$
 If treated as an n-bit integer, each increment results in an approximately: 
-[$$ V_{REF} / 2^n $$] 
+\$\$ V_{REF} / 2^n \$\$
 volt increase in output voltage.
 
 For the final step of this lab exercise, you'll configure the DAC and an ISR to create and mix sine waves with arbitrary frequency. 
