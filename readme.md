@@ -7,31 +7,31 @@ Lab Checkoff/Help Link: [https://engineering.purdue.edu/ece362/f22/lab/labutils/
 Common Problems You May Run Into During This Course: [doc](./common_problems/common_problems.md)
 
 1. [Lab 0 Microcontroller kit setup](./lab-00/lab_00.md) (Due in week of 8/21 of your lab section)
-2. [Lab 1 General Purpsose I/O](./lab-01/lab_01.md) (Due in week of 2/20 of your lab section)
+2. [Lab 1 General Purpsose I/O](./lab-01/lab_01.md) (Due in week of 8/28 of your lab section)
    - you could download the [lab 01 template](https://github.com/ece362-purdue/f2022-lab-5):
      - `git clone git@github.com:ece362-purdue/f2022-lab-5.git`
      - or with [zipped file](https://github.com/ece362-purdue/f2022-lab-5/archive/refs/heads/main.zip)
-3. [Lab 2 Interrupts](./lab-02/lab_02.md) (Due in week of 8/28 of your lab section)
+3. [Lab 2 Interrupts](./lab-02/lab_02.md) (Due in week of 9/4 of your lab section)
    - you could download the [lab 02 template](https://github.com/ece362-purdue/f2022-lab-6):
      - `git clone git@github.com:ece362-purdue/f2022-lab-6.git`
      - or with [zipped file](https://github.com/ece362-purdue/f2022-lab-6/archive/refs/heads/main.zip)
-4. [Lab 3 Timers](./lab-03/lab_03.md) (Due in week of 9/4 of your lab section)
+4. [Lab 3 Timers](./lab-03/lab_03.md) (Due in week of 9/11 of your lab section)
    - you could download the [lab 03 template](https://github.com/ece362-purdue/f2022-lab-7):
      - `git clone git@github.com:ece362-purdue/f2022-lab-7.git`
      - or with [zipped file](https://github.com/ece362-purdue/f2022-lab-7/archive/refs/heads/main.zip)
-5. [Lab 4 DMA, ADC, DAC](./lab-04/lab_04.md) (Due in week of 9/25 of your lab section)
+5. [Lab 4 DMA, ADC, DAC](./lab-04/lab_04.md) (Due in week of 9/18 of your lab section)
    - you could download the [lab 04 template](https://github.com/ece362-purdue/f2022-lab-8):
      - `git clone git@github.com:ece362-purdue/f2022-lab-8.git`
      - or with [zipped file](https://github.com/ece362-purdue/f2022-lab-8/archive/refs/heads/main.zip)
-6. [Lab 5 PWM](./lab-05/lab_05.md) (Due in week of 10/2 of your lab section)
+6. [Lab 5 PWM](./lab-05/lab_05.md) (Due in week of 9/25 of your lab section)
    - you could download the [lab 05 template](https://github.com/ece362-purdue/f2022-lab-9):
      - `git clone git@github.com:ece362-purdue/f2022-lab-9.git`
      - or with [zipped file](https://github.com/ece362-purdue/f2022-lab-9/archive/refs/heads/main.zip)
-7. [Lab 6 SPI](./lab-06/lab_06.md) (Due in week of 9/11 of your lab section)
+7. [Lab 6 SPI](./lab-06/lab_06.md) (Due in week of 10/2 of your lab section)
    - you could download the [lab 06 template](https://github.com/ece362-purdue/f2022-lab-10):
      - `git clone git@github.com:ece362-purdue/f2022-lab-10.git`
      - or with [zipped file](https://github.com/ece362-purdue/f2022-lab-10/archive/refs/heads/main.zip)
-8. [Lab 7 USART](./lab-07/lab_07.md) (Due in week of 9/18 of your lab section)
+8. [Lab 7 USART](./lab-07/lab_07.md) (Due in week of 10/16 of your lab section)
    - you could download the [lab 07 template](https://github.com/ece362-purdue/f2022-lab-11):
      - `git clone git@github.com:ece362-purdue/f2022-lab-11.git`
      - or with [zipped file](https://github.com/ece362-purdue/f2022-lab-11/archive/refs/heads/main.zip)
