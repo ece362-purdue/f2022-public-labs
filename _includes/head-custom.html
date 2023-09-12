@@ -8,3 +8,165 @@
       }
     };
 </script>
+<style>
+  #slider {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    color: var(--boiler-up);
+    position: absolute;
+    left: calc(1012px - 80px);
+    top: 2em;
+  }
+  .switchCylinder {
+    width: 50px;
+    height: 25px;
+    border: 1px solid var(--softer-btn-border);
+    background-color: var(--themeswitch-bg-color);
+    border-radius: 25px;
+    transition: background-color 0.2s;
+}
+.switchCircle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    top: -5px;
+    left: var(--switch-position);
+    width: 35px;
+    height: 35px;
+    border: 1px solid var(--softer-btn-border);
+    background-color: var(--bg-color);
+    border-radius: 100%;
+    transition: all 0.2s;
+}
+#themeSwitchCircle:before {
+    content: var(--switch-icon);
+    color: var(--text-color);
+}
+  [theme="dark"] {
+    --event-bg-0: hsl(180, 100%, 20%);
+    --event-bg-0-full: hsl(180, 100%, 30%);
+    --event-bg-1: hsl(125, 100%, 25%);
+    --event-bg-1-full: hsl(125, 100%, 35%);
+    --event-bg-2: hsl(50, 100%, 25%);
+    --event-bg-2-full: hsl(50, 100%, 35%);
+    --event-bg-3: hsl(30, 100%, 25%);
+    --event-bg-3-full: hsl(30, 100%, 35%);
+    --event-bg-4: hsl(0, 100%, 25%);
+    --event-bg-4-full: hsl(0, 100%, 35%);
+    --event-bg-5: hsl(270, 100%, 25%);
+    --event-bg-5-full: hsl(270, 100%, 35%);
+    --switch-icon: "🌙";
+    --base-color: #000;
+    --switch-position: 25px;
+    --themeswitch-bg-color: #2a2a2b;
+    --code-bg-color: #222;
+    --waiter-p-color: black;
+    --bg-color: #1a1a1b;
+    --bg-hover: #000;
+    --self-bg-color: #112;
+    --text-color: #eee;
+    --disabled-text-color: rgba(240, 240, 240, 0.7);
+    --softer-btn-border: rgba(240, 240, 240, 0.5);
+    --flipped-btn-color: #fff;
+    --header-color: #333;
+    --flipped-text-color: #222;
+    --btn-color: #222;
+    --hsl-luminance: 100%;
+    --boiler-up: #cfb991;
+    --boiler-up-text: #cfb991;
+    --boiler-up-text-dark: #7A6236;
+    --boiler-up-transparent: #cfb9914a;
+    --boiler-up-coloredemphasis: #ff9274;
+    --boiler-up-selection: #cfb9913e;
+    --boiler-up-bg-hover: #362b18;
+    --boiler-up-dark: #cfb9914a;
+
+    html, body {
+      background-color: #111;
+    }
+
+    pre {
+      background-color: #333!important;
+    }
+
+    li code {
+      background-color: #222!important;
+    }
+
+    h1, h2, h3, h4, h5, h6, p, li, code {
+      color: #eee;
+    }
+
+    blockquote p {
+      color: #aaa!important;
+    }
+}
+[theme="light"] {
+    --event-bg-0-full: hsl(180, 100%, 20%);
+    --event-bg-0: hsl(180, 100%, 30%);
+    --event-bg-1-full: hsl(125, 100%, 25%);
+    --event-bg-1: hsl(125, 100%, 35%);
+    --event-bg-2-full: hsl(50, 100%, 25%);
+    --event-bg-2: hsl(50, 100%, 35%);
+    --event-bg-3-full: hsl(30, 100%, 25%);
+    --event-bg-3: hsl(30, 100%, 35%);
+    --event-bg-4-full: hsl(0, 100%, 25%);
+    --event-bg-4: hsl(0, 100%, 35%);
+    --event-bg-5-full: hsl(270, 100%, 25%);
+    --event-bg-5: hsl(270, 100%, 35%);
+    --switch-icon: "☀";
+    --base-color: #fff;
+    --switch-position: -15px;
+    --themeswitch-bg-color: #dddddf;
+    --code-bg-color: #e6e6e6;
+    --waiter-p-color: white;
+    --bg-color: #f3f3f3;
+    --bg-hover: #ddd;
+    --self-bg-color: #eef;
+    --text-color: #000;
+    --disabled-text-color: rgba(0, 0, 0, 0.7);
+    --softer-btn-border: rgba(10, 10, 10, 0.25);
+    --flipped-btn-color: #222;
+    --header-color: #ccc;
+    --flipped-text-color: #fff;
+    --btn-color: #fff;
+    --hsl-luminance: 30%;
+    --boiler-up: #cfb991;
+    --boiler-up-text: #756852;
+    --boiler-up-text-dark: #B6AA96;
+    --boiler-up-transparent: #cfb9914a;
+    --boiler-up-coloredemphasis: #9e3a2e;
+    --boiler-up-selection: #9686672e;
+    --boiler-up-bg-hover: #e6dbc6;
+    --boiler-up-dark: #b19e7b;
+}
+</style>
+<div id="slider">
+  <span class="switchCylinder" role="img" aria-label="theme_switch" onclick="switchTheme()">
+      <span class="switchCircle" id="themeSwitchCircle"></span>
+  </span>
+</div>
+<link rel="stylesheet" href="/assets/css/dark.css">
+<script>
+  function switchTheme() {
+    if (localStorage.darkmode == "true") {
+      localStorage.darkmode = "false";
+      document.documentElement.setAttribute("theme", "light");
+    }
+    else {
+      localStorage.darkmode = "true";
+      document.documentElement.setAttribute("theme", "dark");
+    }
+  }
+  window.onload = () => {
+    if (!localStorage.darkmode) {
+      localStorage.darkmode = "false";
+    }
+    document.documentElement.setAttribute("theme", localStorage.darkmode == "true" ? "dark" : "light");
+    document.querySelectorAll("div")[1].style.position = "relative";
+    document.querySelectorAll("div")[1].insertBefore(document.querySelector("#slider"), document.querySelectorAll("div")[1].children[0])
+  }
+</script>
