@@ -1,4 +1,4 @@
-# Fall 2023 ECE 362 Lab reources
+# Fall 2023 ECE 362 Lab Experiments
 
 Lab Checkoff/Help Link: [https://engineering.purdue.edu/ece362/f22/lab/labutils/](https://engineering.purdue.edu/ece362/f22/lab/labutils/)
 
