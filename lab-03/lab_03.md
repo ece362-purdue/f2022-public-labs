@@ -271,11 +271,11 @@ void drive_column(int c) {
 
 Remember that the upper 16 bits of BSRR clear pins and the lower 16 bit set pins. Setting takes precedence over clearing. 
 
-### (60 points) 2.3 Implement keypad scanning and building a game
+### (20 points) 4.3 Implement keypad scanning and building a game
 
 For the next three substeps, you will implement keypad scanning. 
 
-#### (5 points) 2.3.1 read_rows: Read the row values
+#### (5 points) 4.3.1 read_rows: Read the row values
 
 Implement the following function to examine the IDR of Port C and return the 4-bit reading of the rows of the keypad. 
 
@@ -285,7 +285,7 @@ int read_rows() {
 }
 ```
 
-#### (10 points) 2.3.2 rows_to_key: Translate row of a column to a key
+#### (10 points) 4.3.2 rows_to_key: Translate row of a column to a key
 
 Implement the following function that examines the rows reading for a particular column and turns it into a character. Remember that only the lower two bits of the `col` determine the column. We want to turn the row/column combination into a number and then use that number as the offset into an array called the `keymap_arr` that is initialized for you in `main.c`.
 
@@ -317,7 +317,7 @@ char rows_to_key(int rows) {
 }
 ```
 
-#### (5 points) 2.3.3 handle_key: Do something for a particular key
+#### (5 points) 4.3.3 handle_key: Do something for a particular key
 
 Implement the following function that decides what to do for a key passed as an argument. The function to implement is: 
 
@@ -328,7 +328,9 @@ void handle_key(char key) {
 }
 ```
 
-#### (10 points) 2.3.4 Timer 7 ISR
+### (20 points) 4.4 Timer 7
+
+#### (10 points) 4.4.1 Timer 7 ISR
 
 Write an ISR for timer 7. You should look up the exact name for it in `startup/startup_stm32.s`. The ISR should first acknowledge the timer interrupt (similar to what you did for the timer 6 ISR). Then, it should do the following things to invoke the functions you just wrote: 
 
@@ -347,7 +349,7 @@ drive the new column
 
 The reason we do not drive column and then immediately read rows is because it sometimes takes a little time for current to flow into the row of buttons and *settle* out to be read properly on the input pins. It doesn't always happen, but when students energize the column and immediately try to read the rows, and it doesn't work, then it's a Bad Day ™. 
 
-#### (10 points) 2.3.5 setup_tim7: Configure timer 7
+#### (10 points) 4.4.2 setup_tim7: Configure timer 7
 
 Write a subroutine to enable and configure timer 7. This will be similar to the subroutine you wrote to configure timer 6. Remember that timer 6 was written as a simple test, and it interferes with everything you've written since then (because it updates PC6). This is the point where you must disable timer 6. Here are the things you need to do: 
 
@@ -363,7 +365,9 @@ Once you are done with this function, uncomment the call to it in the `main()`.
 
 > Debugging tip: It is often helpful to slow down the rate of interrupts to *human speed* to better understand what is going on. For instance, if you set the timer 7 rate to one interrupt per second, you'll be able to see exactly what is happening. You should see individual digits displayed for one second at a time on the LED displays. You'll be able to press buttons at exactly the right time to be detected by `read_rows`. 
 
-#### (5 points) 2.3.6 write_display: Write a formatted message on the display
+### (20 points) 4.5 Game state updation
+
+#### (5 points) 4.5.1 write_display: Write a formatted message on the display
 
 The subroutines written above will be used to show characters on the display and scan the keypad. They are called by the timer 7 ISR. Any update to the `disp` array will be immediately copied to the 7-segment LEDs a thousand times per second.
 
@@ -390,7 +394,7 @@ void write_display(void) {
 
 Each time `write_display` is called, it will overwrite the previous contents of the `disp` array. The code invoked by the timer 7 interrupt will copy it to the 7-segment displays. 
 
-#### (5 points) 2.3.7 update_variables: Compute altitude, velocity, and acceleration
+#### (5 points) 4.5.2 update_variables: Compute altitude, velocity, and acceleration
 
 Implement a function `void update_variables(void)` to update the variables that describe the lunar lander. First the code. Then an explanation: 
 
@@ -425,7 +429,7 @@ Finally, the new velocity (`velo`) will the the summation of the accelerating fo
 
 These calculations are all that are needed to determine the motion of the lander. Note that we've deliberately avoided declaring units for any of the quantities we've described. You can feel free to imagine that the velocity is meters per second, feet per minute, furlongs per fortnight, or any other metric you prefer. The dimensions are not important so long as we have a playable game. 
 
-#### (10 points) 2.3.8 Set up timer 14
+#### (10 points) 4.5.3 Set up timer 14
 
 To periodically invoke `update_variables` and `write_display`, create an ISR for timer 14. In it, do the following:
 
