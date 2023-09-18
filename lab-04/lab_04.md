@@ -1,48 +1,16 @@
 # Lab 4: DMA, DAC, and ADC
-<!---
-- [Lab 4: Analog I/O](#lab-8-analog-io)
-  - [1. Introduction](#1-introduction)
-  - [2. Instructional Objectives](#2-instructional-objectives)
-  - [3. Background](#3-background)
-    - [3.1 Direct Memory Access](#31-direct-memory-access)
-    - [3.2 Debouncing a Keypad](#32-debouncing-a-keypad)
-    - [3.3 Analog-to-Digital Conversion](#33-analog-to-digital-conversion)
-    - [3.4 Configuring the STM32F0 ADC](#34-configuring-the-stm32f0-adc)
-    - [3.5 Using the STM32F0 ADC](#35-using-the-stm32f0-adc)
-    - [3.6 Digital-to-Analog Conversion](#36-digital-to-analog-conversion)
-    - [3.7 Configuring the STM32F0 DAC](#37-configuring-the-stm32f0-dac)
-    - [3.8 Using the STM32F0 DAC](#38-using-the-stm32f0-dac)
-    - [3.9 Wiring for this lab](#39-wiring-for-this-lab)
-  - [(100 points) 4. Experiment](#100-points-4-experiment)
-    - [(25 points) 4.1 DMA Transfer to 7-segment Displays](#25-points-41-dma-transfer-to-7-segment-displays)
-      - [(5 points) 4.1.1 enable_ports()](#5-points-411-enable_ports)
-      - [(10 points) 4.1.2 Configure DMA transfers](#10-points-412-configure-dma-transfers)
-      - [(10 points) 4.1.3 `init_tim15()`](#10-points-413-init_tim15)
-      - [4.1.4 When it doesn't work...](#414-when-it-doesnt-work)
-      - [4.1.5 Demo time](#415-demo-time)
-      - [4.1.6 How does it work?](#416-how-does-it-work)
-    - [(15 points) 4.2 Debouncing a Keypad](#15-points-42-debouncing-a-keypad)
-      - [(10 points) 4.2.1 Timer 7 ISR](#10-points-421-timer-7-isr)
-      - [(5 points) 4.2.2 `init_tim7()`](#5-points-422-init_tim7)
-      - [4.2.3 Demo time](#423-demo-time)
-      - [4.2.4 When it doesn't work](#424-when-it-doesnt-work)
-      - [4.2.5 How does it work?](#425-how-does-it-work)
-    - [(30 points) 4.3 Reading an Analog Voltage](#30-points-43-reading-an-analog-voltage)
-      - [(10 points) 4.3.1 `setup_adc()`](#10-points-431-setup_adc)
-      - [(10 points) 4.3.2 Timer 2 ISR](#10-points-432-timer-2-isr)
-      - [(10 points) 4.3.3 `init_tim2()`](#10-points-433-init_tim2)
-      - [4.3.4 Demonstrate it](#434-demonstrate-it)
-      - [4.3.5 When it doesn't work](#435-when-it-doesnt-work)
-    - [(30 points) 4.4 DAC Output](#30-points-44-dac-output)
-      - [4.4.1 Initialize a Wavetable](#441-initialize-a-wavetable)
-      - [4.4.2 `set_freq()`](#442-set_freq)
-      - [(10 points) 4.4.3 `setup_dac()`](#10-points-443-setup_dac)
-      - [(10 points) 4.4.4 Timer 6 ISR](#10-points-444-timer-6-isr)
-      - [(10 points) 4.4.5 `init_tim6()`](#10-points-445-init_tim6)
-      - [4.4.6 When it doesn't work](#446-when-it-doesnt-work)
-      - [4.4.7 Demo time](#447-demo-time)
-  - [5. Interrupt Priorities](#5-interrupt-priorities)
--->
+
+## Checkoff Demonstration Point Breakdown
+| Step | Associated Steps (and checkoff criteria)                            | Points |
+|------|---------------------------------------------------------------------|--------|
+| 1    | 3. Wiring and `enable_ports` (check function implementation)        | 5      |
+| 2    | 4. DMA Transfer to 7-Segment Displays (uncomment `SCROLL_DISPLAY`)  | 20     |
+| 3    | 5. Debouncing Keypad (uncomment `SHOW_KEY_EVENTS`)                  | 15     |
+| 4    | 6. ADC (uncomment `SHOW_VOLTAGE`)                                   | 30     |
+| 5    | 7. DAC (uncomment `ONE_TONE`, then `MIX_TONES`, test `dialer()`)    | 30     |
+|      | Total                                                               | 100    |
+
+>**NOTE:** Do not forget to do step 8 - you may want that code in the future.
 
 ## 1. Introduction
 
