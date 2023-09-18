@@ -343,7 +343,7 @@ if rows != 0 {
 }
 Get character from the `disp` string at position `col`
 show the character at column `col`
-increment col by 1, remember to wrap it around if it is > 8
+increment col by 1, remember to wrap it around if it is > 7
 drive the new column
 ```
 
