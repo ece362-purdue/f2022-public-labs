@@ -1,6 +1,7 @@
 # Lab 4: DMA, DAC, and ADC
 
-## Checkoff Demonstration Point Breakdown
+## Checkoff Demonstration Point Breakdown  
+
 | Step | Associated Steps (and checkoff criteria)                            | Points |
 |------|---------------------------------------------------------------------|--------|
 | 1    | 3. Wiring and `enable_ports` (check function implementation)        | 5      |
