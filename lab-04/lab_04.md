@@ -11,7 +11,8 @@
 | 5    | 7. DAC (uncomment `ONE_TONE`, then `MIX_TONES`, test `dialer()`)    | 30     |
 |      | Total                                                               | 100    |
 
->**NOTE:** Do not forget to do step 8 - you may want that code in the future.
+>**NOTE:** Do not forget to do step 8 - you may want that code in the future.  
+
 >**NOTE:** Do not forget to submit your code to Brightspace **before** the end of your lab section.
 
 ## 1. Introduction
