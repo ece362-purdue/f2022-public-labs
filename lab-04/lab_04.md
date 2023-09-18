@@ -12,6 +12,7 @@
 |      | Total                                                               | 100    |
 
 >**NOTE:** Do not forget to do step 8 - you may want that code in the future.
+>**NOTE:** Do not forget to submit your code to Brightspace **before** the end of your lab section.
 
 ## 1. Introduction
 
@@ -532,3 +533,5 @@ NVIC_SetPriority(TIM2_IRQn, 3);
 ```
 
 Recall that the upper two bits of the `ISPR` register bytes define four allowed interrupt priorities, from highest-to-lowest: 0, 64, 128, and 192. For some unknown reason, the `NVIC_SetPriority()` subroutine is configured to simply specify only those two bits, so the values of the second argument are 0, 1, 2, and 3. 
+
+## 9 Submit your code to Brightspace before the end of your lab section.
