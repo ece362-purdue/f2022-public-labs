@@ -149,7 +149,7 @@ Copy the implementation of following subroutines from your lab 4 `main.c` to you
 
 Implement the C subroutine named `setup_tim1()` that configures Timer 1 for PWM operation and routes the output to the external pins used for `TIM1_CH1`, `TIM1_CH2`, `TIM1_CH3`, and `TIM1_CH4`. (These are distinct from `TIM1_CH1N`, `TIM1_CH2N`, etc, which are the negated version of the same functions.) By now, you should know how to look up which physical pins can be used for these "functions". Looking those up will also inform you how to set the alternate function configurations. Your subroutine should do the following:
 
->**WARNING:** IF you accidentally overwrite the GPIOA AFRH (usually, using an `=` sign instead of an `|=` or `&=`) you will turn off the programming port, which resides in port A. You will start getting "device not found" or "wrong device detected" messages. To recfify this mistake, you need to hold the reset button and run (not debug) your program. For more details, see [this](https://piazza.com/class/lcmb4r2lt4z4w7/post/434) piazza article.
+>**WARNING:** IF you accidentally overwrite the GPIOA AFRH (usually, using an `=` sign instead of an `|=` or `&=`) you will turn off the programming port, which resides in port A. You will start getting "device not found" or "wrong device detected" messages. To rectify this mistake, you need to hold the reset button and run (not debug) your program.
 
 - Activate the RCC clock to GPIO Port A.
 - Configure the `MODER` for the four pins to set them for alternate function use.
