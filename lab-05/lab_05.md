@@ -66,7 +66,7 @@ As with all other peripheral configurations, the first step for configuring a pe
 
 Each timer peripheral that supports PWM on the STM32F0 features 4 independent channels, each of which can be set up to output a PWM signal. Specifying a channel as a PWM output requires writing to the `TIMx_CCMRx` registers. In PWM mode, the PWM frequency is specified through the `TIMx_ARR` register and duty cycles of the channels are controlled through the `TIMx_CCRx` registers. Aside from specifying alternate function mode on the associated I/O, additional steps must be taken in order to route the PWM signal from the internal peripheral to the external I/O pin. PWM is part of the timer’s capture/compare subsystem, thus the capture compare output for the selected channels must be activated in the timer capture/compare enable register, `TIMx_CCER`. The TIM1 subsystem is very similar to the TIM3 subsystem which was studied at length in lecture. One difference with TIM1 is that it has a "break and dead-time register" (`BDTR`). We will not use these features for this experiment, but the `MOE` bit of this register must be enabled to generate output on any of the channels of `TIM1`. At the end of timer configurations, remember to enable the timer, in the `TIMx_CR1` register. For further assistance in setting up PWM, consult the example in *Appendix A.9.8* of the family reference manual.
 
-You will use three PWM channels to control an RGB LED, a device where the human visual model already acts as a low-pass filter. You will use a fourth PWM channel as an analog synthesizer output similar to that of the DAC in lab experiment 8.
+You will use three PWM channels to control an RGB LED, a device where the human visual model already acts as a low-pass filter. You will use a fourth PWM channel as an analog synthesizer output similar to that of the DAC in lab experiment 4.
 In this lab experiment, you will configure timer 1 for autonomous PWM operation. Other timers will invoke interrupts that read from the keypad, update the 7-segment display, and update the PWM duty cycle.
 
 ### 2.2 Preliminary Experiments with Timer 3
@@ -84,7 +84,7 @@ Complete the `setup_tim3` subroutine to visualize what PWM channels look like. T
   - Enable the four channel outputs in the `TIM3_CCER` register.
   - Enable the Timer 3 counter.
 - Set each the Timer 3 CCRx registers as follows:
-  - `TIM3_CCR1` = 800
+  - `TIM3_CCR1` = 400
   - `TIM3_CCR2` = 400
   - `TIM3_CCR3` = 200
   - `TIM3_CCR4` = 100
@@ -95,13 +95,45 @@ Once these steps are done, uncomment the `#define TEST_TIMER3` stanza in main().
 
 ## 3 PWM Output Configuration (25 Points)
 
-*no new background here. We're ust making a more well-engineered PWM setup using stuff from earlier in the course.*
+*no new background here. We're just making a more well-engineered PWM setup using stuff from earlier in the course.*
 
-**NOTE:** The functions for the rest of the setup rely on functions from previous labs. At some point, I will include these in a .o file so if you didn't complete these labs, you won't fail this lab. It most likely won't be out until next week though. For now, if they're not working, try and fix them by yourself. You're all capable of this, and I fully believe you can figure it out, even with some effort.
+The functions for the rest of the setup rely on functions from previous labs.  You can either:
+- Figure out and implement the functions yourself (this gives you the necessary practice for a possible lab practical), or;
+- Use the solution object provided below (okay for the short term and getting checked off, but you might feel like putting off implementing them, which does NOT prepare you for the lab practical).
 
-Copy the functions you completed for lab experiment 8 into the `main.c` file for lab experiment 9. For the demonstrations below, you should be able to use the keypad to enter information to demonstrate the things you implement.
+<hr>
+<em>Read below only if you did not finish lab 4.  Skip to "End solution section" if you already finished lab 4.</em>
 
-Copy the implementation of following subroutines from your lab 8 `main.c` to your lab 9 `main.c`:
+The functions provided in the solution object are:
+
+```
+void soln_setup_dma(void)
+void soln_enable_dma(void)
+void soln_setup_adc(void)
+void soln_init_wavetable(void)
+void soln_set_freq(int chan, float f)
+void soln_init_tim6(void)
+void soln_TIM6_DAC_IRQHandler()
+void soln_TIM2_IRQHandler()
+void soln_TIM7_IRQHandler()
+```
+
+Here's the [solution object file](dma_adc_dac_soln.o) that you'll import into Eclipse, similar to how you used the autotest functions.  Download this file and place it in the "src" folder of your project folder.  To import this file into Eclipse: 
+- Right click on the project in Project Explorer.
+- Click Properties, and you should see this window:
+
+![add_soln.png](./images/add_soln.png)
+
+- Click through C/C++ Build > Settings > Tool Settings > Miscellaneous and use the Add object button (the one with a tiny green plus) under "Other Objects" to add the dma_adc_dac_soln.o file to the list.
+
+Once imported, simply substitute any calls to the missing functions with the corresponding solution function, using the function names above.  For the IRQHandlers, remember that the name cannot be different, so you'll need to call the solution function inside the current IRQHandler instead.
+
+<em>End solution section</em>
+<hr>
+
+Copy the functions you completed for lab experiment 4 into the `main.c` file for lab experiment 5. For the demonstrations below, you should be able to use the keypad to enter information to demonstrate the things you implement.
+
+Copy the implementation of following subroutines from your lab 4 `main.c` to your lab 5 `main.c`:
 
 - `enable_ports()`,
 - `setup_dma()`,
@@ -135,7 +167,7 @@ This configuration is long and tedious, and it won't work at all if you set slig
 
 You will know when you succeed in getting the timer and channels configured properly, because the LED will be illuminated bright white. Spend a little time setting values in the `CCR1`, `CCR2`, and `CCR3` registers. Use the I/O Registers control panel in SystemWorkbench to update them interactively. You might want to use use an oscilloscope to see the effect of setting a value in the register on the duty cycle of the PWM output. Initialize the `CCRx` values their maximum value, `0xffff`, to ensure that the PWM outputs remain high, and the LEDs remain off. This will ensure you are not blinded in the time it takes to write the control software to change the intensity of the LEDs.
 
-Finally, note that is is entirely possible to use the update event of Timer 1 to raise the interrupt that recomputes analog samples. That's maybe too much complexity for this lab. It's easier to set it up standalone and reuse the code from lab 8 to produce the waveforms.
+Finally, note that is is entirely possible to use the update event of Timer 1 to raise the interrupt that recomputes analog samples. That's maybe too much complexity for this lab. It's easier to set it up standalone and reuse the code from lab 4 to produce the waveforms.
 
 Once these steps are done, comment the `#define TEST_TIMER3` stanza in main() and uncomment the `#define TEST_TIM1` to demo your work for timer 1.
 
@@ -149,7 +181,7 @@ With low-pass filtering of the PWM output, the PWM duty cycle forms an analog ou
 
 **NOTE:** If you're in 301 or have completed 301, you'll probably see why we can do this. If you haven't made it that far yet, you'll be there soon enough. High frequency patterns make low frequency signals. Low pass filters remove the high frequency patterns, so you have the low frequency output leftover.
 
-In lab experiment 8, we updated the DAC output 20000 times per second with 12-bit resolution (0 – 4095). If we wanted to update the PWM duty cycle 20000 times per second, with the highest resolution, we would take the following steps:
+In lab experiment 4, we updated the DAC output 20000 times per second with 12-bit resolution (0 – 4095). If we wanted to update the PWM duty cycle 20000 times per second, with the highest resolution, we would take the following steps:
 
 - Set the prescaler to divide by 1 (Set `TIMn_PSC` to 0). Remember that is permissible to set the PSC to zero. Never set the ARR to zero though.
 - Set the ARR so that the counter updates (goes back to zero) 20000 times per second. For a 48 MHz clock, that means the counter should have a cycle of 2400 clock ticks between update events.
@@ -158,9 +190,9 @@ In lab experiment 8, we updated the DAC output 20000 times per second with 12-bi
 A range of 0 – 2400 is a little more than half the resolution of the DAC. If we used a PWM frequency of 10 kHz, it would allow a `CCRx` range of 0 – 4800, but 10 kHz is in the audible range, so the noise would make the resulting signal sound rather bad for higher tones.
 
 ### 4.2 Implementation
-For this experiment, you will use a PWM frequency of 20000 for the sole reason of being able to do analog synthesis at the same rate you did in lab 8. The PWM frequency is, arguably, too high for LEDs. LEDs have a response time and the on-off rate is better at around 100 Hz, but the effect is not terribly degraded at 200 times this rate. It is certainly high enough that your eyes will not perceive any flickering.
+For this experiment, you will use a PWM frequency of 20000 for the sole reason of being able to do analog synthesis at the same rate you did in lab 4. The PWM frequency is, arguably, too high for LEDs. LEDs have a response time and the on-off rate is better at around 100 Hz, but the effect is not terribly degraded at 200 times this rate. It is certainly high enough that your eyes will not perceive any flickering.
 
-Using a PWM update rate of 20 kHz means that you can take the wavetable synthesis subroutines from lab 8, and use them with only two changes:
+Using a PWM update rate of 20 kHz means that you can take the wavetable synthesis subroutines from lab 4, and use them with only two changes:
 
 - Instead of writing to `DAC_DHR12R1`, you will write to `TIM1_CCR4`. There is no need to "trigger" the "conversion".
 - Since the range of the duty cycle is 0 – 2400, rather than a range of 0 – 4095 for the DAC, the final sample should be shifted right by 18 rather than 17. A value of 1200 should be added center the duty cycle at 50% rather than adding 2048, which was the center value for the 12-bit DAC output.
@@ -173,10 +205,10 @@ Make the following changes outlined in the background section:
   - `sample = ((sample * volume)>>18) + 1200;`
 - Instead of writing sample to the DAC `DHR12R1` register, write it to Timer 1 `CCR4`.
 
-> **WARNING:** A common thing that's forgotten about is that we have that potentiometer on the board. Remember these from lab 8? They adjust the amplitude of your output waveform. If you're getting a signal that's sitting at around 1.5V, your potentiometer is probably turned down to zero, and you need to turn it up.
+> **WARNING:** A common thing that's forgotten about is that we have that potentiometer on the board. Remember these from lab 4? They adjust the amplitude of your output waveform. If you're getting a signal that's sitting at around 1.5V, your potentiometer is probably turned down to zero, and you need to turn it up.
 
 > Note: You may see an interesting problem if you do the `sample` update in one statement. The `volume` definition we gave you is a `uint32_t`. That means that it is a 32-bit unsigned integer. The expression `(sample * volume)` is a signed type times an unsigned type, which is promoted to an unsigned type. When the offset is in the negative part of the wavetable, that product should be interpreted as negative. Hmm. When shifting a negative number as a signed type right, the most significant bit (a one) is duplicated. When shifting an unsigned type right, the most significant bit is always made zero. That means that a negative value is being turned into a very large positive value. When you add 1200 to it, it gets even larger.
-> This math worked fine when we were assigning it to the 12-bit `DHR12R1` register in lab 8. Now, the CCR4 register is a 16-bit register. Those upper 4 bits are not chopped off. This will manifest itself as a value written to CCR4 that is much larger than 2400. So the value will be clipped at 100% duty cycle for about half the the sine wave.
+> This math worked fine when we were assigning it to the 12-bit `DHR12R1` register in lab 4. Now, the CCR4 register is a 16-bit register. Those upper 4 bits are not chopped off. This will manifest itself as a value written to CCR4 that is much larger than 2400. So the value will be clipped at 100% duty cycle for about half the the sine wave.
 > When you see this behavior, there are three ways to fix it. Choose one:
 > - Change the `uint32_t volume = 2400;` line and replace "`uint32_t`" with "`int`" to make it a signed type.
 > - Split the `sample = ((sample * volume)>>18) + 1200;` into multiple statements so that a signed value is shifted rather than the unsigned product.

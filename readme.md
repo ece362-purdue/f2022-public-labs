@@ -27,6 +27,7 @@ Common Problems You May Run Into During This Course: [doc](./common_problems/com
    - you could download the [lab 05 template](https://github.com/ece362-purdue/f2022-lab-9):
      - `git clone git@github.com:ece362-purdue/f2022-lab-9.git`
      - or with [zipped file](https://github.com/ece362-purdue/f2022-lab-9/archive/refs/heads/main.zip)
+     - If you were unable to complete lab 4, you may use these [solution functions](./lab-05/dma_adc_dac_soln.o).
 7. [Lab 6 SPI](./lab-06/lab_06.md) (Due in week of 10/2 of your lab section)
    - you could download the [lab 06 template](https://github.com/ece362-purdue/f2022-lab-10):
      - `git clone git@github.com:ece362-purdue/f2022-lab-10.git`

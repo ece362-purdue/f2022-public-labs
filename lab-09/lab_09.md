@@ -56,7 +56,7 @@ int main (int argc, char * argv[]) {
 }
 ```
 
-With a click of button in an IDE or some terminal commands, Vola! The program just works. Nevertheless, how exactly does the CPU recognize and execute the program?
+With a click of button in an IDE or some terminal commands, Voila! The program just works. Nevertheless, how exactly does the CPU recognize and execute the program?
 
 ### 1.2 ISA and Compiler
 
