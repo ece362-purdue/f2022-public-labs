@@ -15,6 +15,17 @@
     - [(25 points) 4.4 `setrgb()`](#25-points-44-setrgb)
   - [5. On Your Own](#5-on-your-own)
 --->
+
+## Checkoff Demonstration Point Breakdown  
+
+| Step | Associated Steps (and checkoff criteria)                                               | Points |
+|------|----------------------------------------------------------------------------------------|--------|
+| 1    | 2. PWM (PC6-PC9 flashing in expected pattern, test PSC=480, check brightness)          | 25     |
+| 2    | 3. PWM Output Configuration (RGB ramps up to full white and back to off)               | 25     |
+| 3    | 4. PWM Sine Wave Synthesis (sine wave on PA11 on scope/AD2, adjustable with "A 440 #") | 25     |
+| 4    | 5. setrgb (change RGB color and intensity using "D RR GG BB")                          | 25     |
+|      | Total                                                                                  | 100    |
+
 ## 1. Introduction
 
 A microcontroller’s interaction with the real world (and real humans) often requires the generation of voltages that can vary over a continuous spectrum. Although your microcontroller has an on-board digital-to-analog converter (DAC), it is too weak to drive any load that requires high power. Even with amplification, a DAC is inefficient for the purpose of driving heavy loads. Digital electronic systems are well-suited to switching circuits on and off. In circumstances where a load can be switched on and off in such a way that the average output voltage is treated (or perceived) as the signal, a solution is Pulse-Width Modulation (PWM). In this experiment, you will learn about configuring and using PWM to control a high-power load (a light) and generate a variable duty-cycle waveform.
@@ -116,6 +127,9 @@ void soln_init_tim6(void)
 void soln_TIM6_DAC_IRQHandler()
 void soln_TIM2_IRQHandler()
 void soln_TIM7_IRQHandler()
+void soln_init_tim15()
+void soln_init_tim7()
+void soln_init_tim2()
 ```
 
 Here's the [solution object file](dma_adc_dac_soln.o) that you'll import into Eclipse, similar to how you used the autotest functions.  Download this file and place it in the "src" folder of your project folder.  To import this file into Eclipse: 
@@ -144,7 +158,7 @@ Copy the implementation of following subroutines from your lab 4 `main.c` to you
 - `init_tim2()`,
 - `init_wavetable()`,
 - `set_freq()`,
-- `setup_tim6()`, and
+- `init_tim6()`, and
 - the ISRs for each of the timers
 
 Implement the C subroutine named `setup_tim1()` that configures Timer 1 for PWM operation and routes the output to the external pins used for `TIM1_CH1`, `TIM1_CH2`, `TIM1_CH3`, and `TIM1_CH4`. (These are distinct from `TIM1_CH1N`, `TIM1_CH2N`, etc, which are the negated version of the same functions.) By now, you should know how to look up which physical pins can be used for these "functions". Looking those up will also inform you how to set the alternate function configurations. Your subroutine should do the following:
