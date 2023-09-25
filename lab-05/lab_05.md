@@ -24,7 +24,10 @@
 | 2    | 3. PWM Output Configuration (RGB ramps up to full white and back to off)               | 25     |
 | 3    | 4. PWM Sine Wave Synthesis (sine wave on PA11 on scope/AD2, adjustable with "A 440 #") | 25     |
 | 4    | 5. setrgb (change RGB color and intensity using "D RR GG BB")                          | 25     |
+|      | 7. Submit your code to Brightspace before the end of your lab section.                 | \*     |
 |      | Total                                                                                  | 100    |
+
+\* Your points are contingent on the submission of your code to Brightspace.
 
 ## 1. Introduction
 
@@ -282,3 +285,5 @@ Just enter the 6-digit BCD number. No terminating '#' is needed.
 ## 6. On Your Own
 
 In semesters past, this lab has been constructed to also allow adjustment of the PWM frequency as well as the duty cycle for LEDs. That would have complicated the calculations needed to do waveform synthesis. You might try, on your own, the steps needed to control the frequency. Use the `getfloat()` subroutine for entry, and use the number to form the nearest possible PSC divisor. When doing so, it is still possible to use the waveform synthesis subroutines, but it will be necessary to change the `RATE` #define to a global floating-point variable.
+
+## 7. Submit your code to Brightspace before the end of your lab section.
