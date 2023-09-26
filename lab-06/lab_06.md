@@ -247,9 +247,9 @@ To have a more concise definition, here are the important registers and bit fiel
 - `TXDMAEN:` Transmitter DMA request enable.
 - `RXDMAEN:` Receiver DMA request enable.
 
->**WARNING:** As mentioned above, if you set the DS[3:0] field to 0x000 (i.e. clear it out, reset, etc.), it will default back to it's normal value. 
+>**WARNING:** As mentioned above, if you set the DS[3:0] field to 0x000 (i.e. clear it out, reset, etc.), it will default back to its normal value. 
 
-### 3.2: `init_tim15()` and TIM15 ISR  (10 points)
+### 3.2: `init_tim15()` and DMA setup/enable functions  (10 points)
 
 Copy:
 -`init_tim15()` 
@@ -262,7 +262,9 @@ Also copy the `TIM7` setup (`init_tim7()`) and ISR function to `main.c` to read 
 
 ### 3.3: `init_spi2()` (15 points)
 
-Write a C subroutine named `init_spi2()` that initializes the SPI2 subsystem and connects its NSS, SCK, and MOSI signals to pins PB12, PB13, and PB15, respectively. You should set these pins to use the alternate functions to do this (remember to enable the GPIOB in RCC). 
+Write a C subroutine named `init_spi2()` that initializes the SPI2 subsystem and connects its NSS, SCK, and MOSI signals to pins PB12, PB13, and PB15, respectively. 
+
+This subroutine should first configure these pins, and set them to use the alternate functions to be used by SPI.  Remember to enable GPIOB clock in RCC.  
 
 The subroutine should then configure the SPI2 channel as follows:
 
@@ -314,8 +316,10 @@ Once you have some experience configuring an SPI peripheral for one purpose, it 
 Write a C subroutine named `init_spi1()` to configure the SPI1 peripheral. The configuration for SPI1 is similar to SPI2 from before with a few key differences: 
 
 - Configure NSS, SCK, MISO and MOSI signals of SPI1 to pins PA15, PA5, PA6, and PA7, respectively.
-- Configure the SPI registers 10-bit word size.
+- Configure the SPI register for 10-bit data size.
 - Enable it.
+
+>**WARNING:** When you're setting the data size register, you need to SET the bits you want, before you RESET the bits you don't want, in order to specify the 10-bit size.  This has to do with a weird quirk with how the chip sets its default values that we can't seem to get around.
 
 >**WARNING:** Similarly with last lab, if you configure Port A's AFR incorectly, you can turn the programming pin off. 
 
@@ -373,7 +377,7 @@ If your OLED isnt working right away, check these things:
 - Are you setting your GPIOA pins to alternate function mode (0x10)? A common problem here is accidentally editing PA13 and PA14. If you edit these, it will make your debugger stop working. If your debugger suddenly is saying "device not detected," then you are accidentally changing PA13 and PA14. Fix your code, and hold the reset button while you're programming it. 
 - Are you turning on the RCC clock to SPI1?
 - Are you correctly setting the data size to 10 bits? In an earlier help section, it's mentioned that CR2 intitializes to 0x0700. This means you can't just OR in 0x0900. Further, you cannot clear out 0x0f00 because it returns the SPI channel to a default state. You must do a set and clear operation to get the data size to the correct value for this case.
-- If your code looks correct, your data size is set to ten bits, and it looks like everything is working on the AD2, you may need to reset your OLED display. These are pretty cheap displays that aren't very smart, so it's easy to confuse them and make them quit working. This can be fixed by unplugging its wiring and plugging it back in.
+- If your code looks correct, your data size is set to ten bits, and it looks like everything is working on the AD2, you may need to reset your OLED display. These are pretty cheap displays that aren't very smart, so it's easy to confuse them and make them quit working. This can be fixed by unplugging its wiring and plugging it back in, or simply holding down the reset button, removing anything providing power to the circuit, then putting it back in and releasing the reset button.
 - I've noticed that there are some edge cases where the OLED will not work with this task, but it will work with the next task. This is only happening with a small amount of students, so don't immediately assume it's your problem. Anyways, I'm chalking this specific problem up to the quality of the OLED displays. If you're confident that your SPI1 bus is working correctly, the output on the AD2 is correct, and your wiring is correct, skip to the next task and it might start working. If it still does not work after the next task, something went wrong that you missed here, and you'll need to look over this section again.
 
 ## 6 Trigger SPI1 DMA (25 points total)
