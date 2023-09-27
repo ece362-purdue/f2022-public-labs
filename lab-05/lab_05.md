@@ -124,8 +124,6 @@ The functions provided in the solution object are:
 void soln_setup_dma(void)
 void soln_enable_dma(void)
 void soln_setup_adc(void)
-void soln_init_wavetable(void)
-void soln_set_freq(int chan, float f)
 void soln_init_tim6(void)
 void soln_TIM2_IRQHandler()
 void soln_TIM7_IRQHandler()
