@@ -248,7 +248,7 @@ To have a more concise definition, here are the important registers and bit fiel
 - `BR[2:0]:` Baud rate selection field.  
 `SPIx->CR2:`
 - `DS[3:0]:` The data size field.
-- `TXEIE:' Transmitter empty interrupt enable.
+- `TXEIE:` Transmitter empty interrupt enable.
 - `RXNEIE:` Receiver not empty interrupt enable.
 - `TXDMAEN:` Transmitter DMA request enable.
 - `RXDMAEN:` Receiver DMA request enable.
