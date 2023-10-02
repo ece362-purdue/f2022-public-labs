@@ -37,6 +37,16 @@
   - [3. Play the game](#3-play-the-game)
 --->
 
+| Step | Associated Steps (and checkoff criteria)                                               | Points |
+|------|----------------------------------------------------------------------------------------|--------|
+| 1    | 2. Bit-Banging (setup_bb, bb_write_bit, bb_write_halfword, 0x79 word via SPI on scope) | 25     |
+| 2    | 3. SPI 7-segment (TIM15, SPI2, uncomment SPI_LEDS and test SPI2 on 7-seg with keypad)  | 25     |
+| 3    | 4. SPI DMA 7-segment (same as 2, check that SPI_DMA_LEDS is uncommented)               | 15     |
+| 4    | 5. SPI1 OLED (shows "Hello again, \[their login\]")                                    | 10     |
+| 5    | 6. SPI1 DMA OLED (uncomment SPI_OLED_DMA shows "Hello again, \[their login\]")         | 25     |
+| 6    | 7. Play the game         | 0     |
+| 7    | Total         | 100     |
+
 ## 1: Introduction
 
 The Serial Peripheral Interface (SPI) is a widely-used method for communicating with digital devices with an economy of wires and connections. It is possible to control such devices by "bit-banging" the protocol using GPIO, but your microcontroller has high-level support for SPI devices that simplifies the use of such interfaces. This support also allows for the use of Direct Memory Access (DMA) to automatically transfer a region of memory to the device. In this lab, you will gain experience using SPI and DMA with display devices. 
@@ -115,7 +125,7 @@ Page 4 of the datasheet for the [SOC1602A OLED LCD display](https://engineering.
 
 ![oled](./images/oled-wiring.jpg)
 
-## 2: Software Emulation Using Bit-Banging (35 Points total)
+## 2: Software Emulation Using Bit-Banging (25 Points total)
 
 For this experiment, you will write the subroutines to write to the shift registers to drive the 7-segment LED displays and to initialize and write to the SOC1602A OLED LCD display through the SPI interface and using DMA. 
 
@@ -127,7 +137,7 @@ Several subroutines you write will be copied directly from those you wrote in la
 
 The SPI interface is simple enough that it can be driven by setting individual GPIO pins high and low — a process known as bit-banging. This is a common method for using SPI with most microcontrollers because no specialized hardware is needed to do so. For our first implementation, we will bit bang the SPI protocol for the shift registers connected to the 7 segment LED array. 
 
-### 2.2: `setup_bb()` (10 points)
+### 2.2: `setup_bb()`
 
 Write a C subroutine named setup_bb() that configures GPIO Port B for bit-banging the 7 segment LED displays. To do so, set these pins in their respective ways:
 - PB12 (Represents NSS)
@@ -136,14 +146,13 @@ Write a C subroutine named setup_bb() that configures GPIO Port B for bit-bangin
 
 for general purpose output (not an alternate function). Initialize the ODR so that NSS is high and SCK is low. It does not matter what MOSI is set to. 
 
-
 ### 2.3: `small_delay()`
 
 A C subroutine named `small_delay()` that calls the `nano_wait()` subroutine is provided for you in `main.c`. When you are starting out bit-banging an interface, it is helpful to have a uniform small delay that can be made arbitrarily large. The parameter for `nano_wait()` is number of nanoseconds to spend spinning in a loop. Having `small_delay()` allows you to always call `nano_wait()` with the same value. If things do not work, it helps to slow down all elements of the protocol. You can make the value very large so that you can debug it. We start out with a large value like 50000000 (50 ms). In practice, you would gradually reduce it to see what works, but you will find that, when driving the 7-segment LED array with the shift registers, you will not need any delay at all. Once the circuitry and software is working you can comment out the `nano_wait()` call in small delay.
 
 Consider what the SPI protocol does. The delays are to be inserted between transitions of NSS-MOSI-SCK-MOSI-SCK-...-NSS. The SPI interface will certainly work at extremely low speeds. When starting to develop any hardware interface, it is helpful to be able to see things happening in slow-motion. Once it works, increase the speed. 
 
-### 2.4: `bb_write_bit()` (7 points)
+### 2.4: `bb_write_bit()`
 
 Write a C subroutine named `bb_write_bit()` that accepts a single integer parameter, which should always be either 0 or non-zero, and implements the following pseudocode:
 
@@ -165,7 +174,7 @@ void bb_write_bit(int out)
 - `small_delay();`
 - Set the SCK pin to low.
 -->
-### 2.5: `bb_write_halfword()` (8 points)
+### 2.5: `bb_write_halfword()`
 
 Write a C subroutine named `bb_write_halfword()` that accepts a single integer parameter and implements the following pseudocode:
 
@@ -192,7 +201,7 @@ void bb_write_halfword(int message)
 
 >**NOTE:** If you're new at this, remember that you can use the `>>` operator to shift values to the right by an arbitrary amount. Then use the `&` operator to AND the result with a 1 to isolate one bit. If you don't feel like expressing this with a loop, you may make sixteen separate calls to `bb_write_bit()` in the proper sequence. 
 
-### 2.6: Demonstrate Bit Banging (25 Points)
+### 2.6: Demonstrate Bit Banging
 
 Uncomment the `#define BIT_BANG` stanza in `main.c`. This will invoke your `setup_bb()` subroutine to configure the pins as outputs and then call your `bb_write_halfword()` repeatedly to show the entire array.
 
@@ -212,10 +221,7 @@ Comment out the `nano_wait()` call and use your AD2 to capture a trace of the SP
 
 While your program is running, capture a single trace of the protocol transaction that writes the "E" pattern to digit 0 of the display. It should look like the image below. 
 
-![ad2](./images/ad2capture.png)
-
-Create a snapshot of the output of the AD2 by clicking `File -> Export` and save it as a PNG file. Ensure that your device, serial number, and creation time are shown in the image.
--->
+![ad2](./images/ad2capture.png)-->
 
 **Have a TA check you off for this step** (TA Instructions: Confirm that the bit-bang subroutines are being called in `main()`. Check that display flashes one digit at a time. Ask the student to comment the `nano_wait()` call in `small_delay()` and confirm that the display is smooth. Enter numbers on the keypad, and ensure they are displayed on the 7-segment displays.) 
 
@@ -282,7 +288,7 @@ In labs 8 and 9, you used DMA to copy 16-bit words into an 11-bit GPIO ODR to dr
 
 ### 3.4: Demonstrate SPI2 and 7-Segment Display
 
-**Have a TA check you off for this section** (TA Instructions: Check that the correct functions are commented/uncommented in main and that the display and keyboard work normally). 
+**Have a TA check you off for this section** (TA Instructions: Check that the correct functions are commented/uncommented in main and that the 7-segment display shows ECE 362, and that pressing keys on the keypad shows up on the same display.). 
 
 #### 3.4.1: Debugging the SPI2 Channel
 If your display is not working, check these items inside of the debugger:
@@ -290,7 +296,7 @@ If your display is not working, check these items inside of the debugger:
 - Because we are setting alternate functions in these pins, the AFRH (AFR[1]) should be reading the alternate function that can be used for these pins. These can be found in the STM32F0 datasheet, not the family reference manual.
 - Are you turning on the SPI2 RCC clock? Every peripheral in the STM32F0 has a clock associated with it in the RCC. Assume that these peripherals will not work unless you turn their clock on.
 - Are you turning off the SPE bit before configuration and turning it back on after?
-- Are your CR1 and CR2 registers coming out to expected values? Make sure to put a breakpoint after your code, run the debugger to that breakpoint, and check the values in those registers. CR1 initializes to 0x0700 and CR2 initializes to 0x0000, so most of the things that are turned on are bits that you turn on in your code. If they are coming out different than what you expext, check through your code to make sure you are correctly setting and clearing bits.
+- Are your CR1 and CR2 registers coming out to expected values? Make sure to put a breakpoint after your code, run the debugger to that breakpoint, and check the values in those registers. CR1 initializes to 0x0000 and CR2 initializes to 0x0700, so most of the things that are turned on are bits that you turn on in your code. If they are coming out different than what you expect, check through your code to make sure you are correctly setting and clearing bits.
 
 ## 4: Trigger DMA with SPI_TX (15 points) 
 
