@@ -376,6 +376,8 @@ The display hardware allows for scroll buffers for each line, so the beginning o
 
 At this point, you should be able to comment and previous stanzas and uncomment the `SPI_OLED` stanza. It uses the `init_spi1()` you wrote along with the support code to initialize and write things to the OLED display.
 
+(You can either add an empty infinite for loop, or comment out `game` in `main.c` to keep the display from being overwritten.)
+
 **Have a TA check you off for this part** (TA Instructions: the OLED display should display "Hello again,\n[Their login]")
 
 #### 5.7.1 Debugging the SPI1 Channel
