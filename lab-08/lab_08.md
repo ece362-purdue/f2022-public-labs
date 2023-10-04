@@ -1,420 +1,381 @@
-# Lab 0: ARMv8 Development environment setup
-
-Unfortunately, we do not have any ARMv8 chips, so we must rely on an ARM Fixed Virtual Platform (FVP).
-Essentially this software will emulate an ARMv8 chip, allowing us to program in the ISA we have studied in class.
-
-This lab shows you how to setup Dev Studio one your own machines or using Method 2 on the lab machines.
-**You are only required to demo one of the methods for this lab. Although we recommend you get Dev Studio working on your own computer**.
-
-- [Lab 0: ARMv8 Development environment setup](#lab-02-armv8-development-environment-setup)
-- [Method 1 ARM Dev Studio](#method-1-arm-dev-studio)
-  - [ARM Development Studio IDE installation](#arm-development-studio-ide-installation)
-    - [Windows](#windows)
-    - [Linux](#linux)
-  - [ARM Development Studio License](#arm-development-studio-license)
-  - [Example program setup Dev Studio](#example-program-setup-dev-studio)
-    - [Creating a project in ARM Development Studio](#creating-a-project-in-arm-development-studio)
-    - [Adding and compiling source file `main.S`](#adding-and-compiling-source-file-mains)
-    - [Configuring the debugger](#configuring-the-debugger)
-    - [Launching debugger with FVP](#launching-debugger-with-fvp)
-    - [Debugging `main.S` step-by-step](#debugging-mains-step-by-step)
-  - [Further guides](#further-guides)
-- [[100 Points] Lab 0 Sanity Quiz](#100-points-lab-02-sanity-quiz)
-  - [Questions](#questions)
-    - [[30 Points] Question 1](#30-points-question-1)
-    - [[30 Points] Question 2](#30-points-question-2)
-    - [[40 Points] Question 3](#40-points-question-3)
-  - [Errata](#errata)
-
-# Method 1 ARM Dev Studio
-
-<!-- ## Prerequisites
-
-1. An PC with Windows or Linux installed and 5GB+ free space
-2. An ARM Developer account
-   1. If you have an ARM developer account, you could directly skip to [IDE installation section](#arm-development-studio-ide-installation) -->
-
-## ARM Developer account registration
-
-1. Go to the [ARM developer website](https://developer.arm.com/)
-2. Click on account icon on top right and select `Register`
-
-    ![ARM Account icon](./images/account-icon.png)
-
-3. Enter your Purdue email address in the dialog and proceed with `Send verification code`
-4. Enter the verification code sent to your email and proceed with `Verify code`.
-   1. You might need to check spam filter or wait 1~2 minutes for the email to arrive.
-5. In the new webpage, proceed by entering your information. You will need your email address and password to activate the ARM Developer Studio.
-
-    ![ARM Account registration page](./images/account-info.png)
-
-6. Hit `Create` and you should be able to login into your ARM account.
-   1. In some cases, you may have to wait for ARM to verify your account for export laws. This normally does not take long, but can take up to five days.
-   2. You do not need this ARM account for the lab machines, only for your personal machine. If it takes a while to verify, use the lab machines in the meantime.
-
-## ARM Development Studio IDE installation
-
-1. You don't need to install the IDE on lab machines; they are already pre-installed.
-2. ARM Development Studio IDE requires a Windows or Linux PC. If you hold a Mac machine, please refer to the Lab machine to use this software.
-3. Visit the [ARM Developer Studio website](https://developer.arm.com/downloads/-/arm-development-studio-downloads) to download the newest IDE.
-4. After the download completes, please go to the section corresponding to your PC operating system and proceed with the remaining steps:
-   1. [Windows PC](#windows)
-   2. [Linux PC](#linux)
-
-### Windows
-
-1. After the download completes, locate the downloaded zipped file with name similar to `DS000-BN-00000-r22p1-00rel.zip`
-2. Extract the file content by right clicking the file and select `Extract All`, then select a folder you want the contents in the file to be placed:
-    ![Windows extract files](./images/extract-files-win.png)
-3. In the extracted files folder, open the `armds-2022.1.exe` setup program (the numeric postfix might be different for different versions)
-4. In the setup program, proceed by continuously hitting the `Next` button
-   1. You could also specified a location to install the IDE (the default location is `C:\Program Files\Arm\Developement Studio 2022.1\`):
-    ![Change location](./images/windows-install-location.png)
-   2. You will need admin privilege to install the IDE and its driver.
-   3. The installation might take 2~3 mins to complete
-5. You are done! You could find the IDE in the Start menu or by searching `Arm DS IDE 2022.1` in the Windows search bar.
-    ![Windows Start menu](./images/windows-start-menu.png)
-6. Now you should refer to the [license section](#arm-development-studio-license-tbd) to activate the IDE
-
-### Linux
-
-> Note: the guide for Linux is tested on Ubuntu 16.04, other Linux distro should also work fine
-
-1. After the download completes, locate the downloaded compressed file with name similar to `DS000-BN-00001-r22p1-00rel0.tgz`
-2. Extract the file to `~/Desktop/ARM-DS` and install the IDE:
-
-    ```bash
-    # Create the directory '~/Desktop/ARM-DS'
-    # and extract all files to it
-    # Note the compressed file name might be different
-    mkdir -p ~/Desktop/ARM-DS && tar -xvf DS000-BN-00001-r22p1-00rel0.tgz -C ~/Desktop/ARM-DS
-
-    # Enter the install file dir
-    cd ~/Desktop/ARM-DS/DS000-BN-00001-r22p1-00rel0/
- 
-    # Ensure we can execute the shell script
-    chmod u+x armds-2022.1.sh
-
-    # Run the installation script, need sudo to install
-    #   USB drivers
-    # This will install the ARM Development Studio 
-    #   to '/opt/arm/developmentstudio-2022.1'
-    # If you want to modify the installation path, 
-    #   remove the '--no-interactive flag' or 
-    #   supply your custom path after the '-d'
-    #   flag
-    sudo ./armds-2022.1.sh --i-agree-to-the-contained-eula --no-interactive
-    ```
-
-3. After installation, you could find the IDE by searching `Arm DS IDE 2022.1` in Ubuntu search bar or by running `/opt/arm/developmentstudio-2022.1/bin/armds_ide` from terminal (you will need to change the `/opt/arm/developmentstudio-2022.1` prefix if you have it installed on custom path).
-4. Now you should refer to the [license section](#arm-development-studio-license-tbd) to activate the IDE
-
-## ARM Development Studio License
-
-We will use a license server within Purdue to gain IDE access. This license will work both on lab machines as well as your personal machines provided you are connected to Purdue network (i.e. PAL 3.0 or Purdue VPN).
-
-> Note: for connecting to Purdue VPN, see [this guide](https://www.itap.purdue.edu/connections/vpn/) from ITAP.
-
-> Note: also you might need a VPN connection even with PAL 3.0.
-
-In the ARM DS IDE, opens up the license manager from top menu under `Help->Arm License Manager...`: 
-
-![license manager](./images/arm-ds-license-manager.png)
-
-Then, in the popped up window, select `Change`:
-
-![license change](./images/arm-ds-change-license.png)
-
-> You might also want to remove any previous evaluation license as well.
-
-> If you do not see the `Change` button, just click on the `Configure` button instead.
-
-Then select `Add product license` and hit `Next`:
-
-![add product license](./images/arm-ds-add-product-license.png)
-
-Select `License Server` and enter the following: `8224@marina.ecn.purdue.edu`:
-
-![license server config](./images/arm-ds-license-server.png)
-
-Keep hitting `Next` until this page shows up, then click `Finish`:
-
-![license done](./images/arm-ds-license-done.png)
-
-Click `Apply & Close`, your ARM DS IDE should be set up properly.
-
-<!--
-All of these are the evaluation license 
-> Note: this section is perform under the Linux version of the IDE, there might exist minor differences with the Windows one, but will not affect the final outcome.
-
-In this section we will obtain an evaluation license for the ARM Development Studio (we are currently working on getting educational licenses from ARM, but for the first lab, we will be using the trial version).
-
-1. First open up your newly installed ARM DS (you could find it by searching `ARM Development Studio` in the system search bar)
-2. For the first time you open the IDE, a license prompt will pop up to let you choose the license type, select `Obtain evalution license` as shown below and hit `Next`:
-
-    ![ide-license-pop](./images/ide-license-pop.png)
-3. Enter your ARM account email and password, then hit `Next`
-4. Select one of your network interface as the license will need it to recognize the computer, then hit `Next`:
-
-    ![ide-license-network-if](./images/ide-license-network-if.png)
-
-5. You should see the license file being generated properly and installed on your local machine, hit `Next` and then `Finish` to complete the setup
-
-    ![ide-license-success](./images/ide-license-success.png)
-
-6. You are now ready to use the ARM Development Studio to create your first assembly program! -->
-
-## Example program setup Dev Studio
-
-> Note: this section is perform under Windows version of the IDE, there might exist minor differences with the Linux one, but will not affect the final outcome.
-
-> Note: this section is partially based on the [ARM Development Studio Getting Started Guide](https://developer.arm.com/documentation/101469/2000/Tutorials/Tutorial--Hello-World).
-
-In this section, we will be using the ARM Development Studio (ARM DS) IDE to write a simple assembly program and debug with ARM FVP simulation model.
-
-### Creating a project in ARM Development Studio
-
-1. Open the ARM Development Studio and ensure you are in the Development Studio Perspective similar to the following:
-    ![ds perspective](./images/ds-perspective.png)
-    1. You might have the center portion displaying information about the IDE.
-    2. If you do not have this, you could select the Developement Studio perspective by clicking the following highlighted icon on the top right corner:
-        ![ds perspective icon](./images/ds-perspective-icon.png)
-        1. Starting from the left to right, the first icon, search, allows you to search for content within the IDE
-        2. The second icon allows you to choose from various perspectives
-        3. The third one allows you to directly switch to development view
-        4. The final one is used to install chip-specific packages and won't be used in this lab.
-2. In the Development Perspective, create a new C project by navigating `File->New->Project` on the top menu bar
-
-    ![ds new project](./images/ds-new-project.png)
-
-3. In the popped up windows, select `C/C++/C Project` and hit `Next`
-
-    ![ds new C project](./images/ds-create-c-project.png)
-
-4. Let's give this project a name `HelloWorld` and select the `Empty Project` option
-
-    ![ds c project name](./images/ds-c-project-config.png)
-
-5. Click `Finish` to skip rest of the configuration
-
-### Adding and compiling source file `main.S`
-
-1. Right click on the project folder and select `New->File`:
-
-    ![Adding file to project](./images/project-new-file.png)
-
-2. In the popped up window, give the file a new name `main.S` and hit `Finish`
-
-    ![Rename the ASM](./images/project-new-asm.png)
-
-3. In the created `main.S` file, copy the following simple assembly program to it:
-
-    ```asm
-    // Mark the 'main' label as visible to linker
-    // meaning other program can call this function
-    .global main
-
-    // the main function
-    // assign register x0 with val 1
-    // assign register x1 with val 2
-    // add x0 and x1 and assign value to register x2
-    // return to address in register 'lr'
-    //     (ignore the following screenshots with 'blr lr')
-    main:
-        mov x0, #1
-        mov x1, #2
-        add x2, x0, x1
-        ret lr
-    ```
-
-4. Before we build the project, we will need to set the RAM base address for our FVP target so that it will properly run our test program
-    1. Right click on the project name in the `Project Explorer` and select `Properties`
-
-        ![Project properties](./images/project-properties.png)
-
-    2. In the popped window, select `C/C++ Build -> Setting -> Arm Linker 6 -> Image Layout`. In the `RO base address`, enter `0x80000000`
-
-        ![Project ro addr](./images/project-ro-addr.png)
-
-    3. Hit `Apply and Close` to finish this step
-5. Now we will compile/build the project
-    1. You could build the project by clicking the littler hammer icon on top of the `Project Explorer` tab
-
-        ![project build project](./images/project-build-project.png)
-
-        1. If the icon is grey, make sure you have selected the project
-    2. Or by using the shortcut `ctrl-B`
-6. After the compiliation, in the console window at the bottom of the IDE, you should see outputs similar to:
-
-    ![Compiliation console](./images/project-compile-success.png)
-
-    1. `*.axf` is an ARM exectuable format, similar to `.elf`
-7. Good job! Now you have an ARM exectuable that is ready to run on a simulator!
-
-### Configuring the debugger
-
-1. On top of `Project Explorer` tab, click the `New Debug Connection` icon
-
-    ![debug icon](./images/debug-icon.png)
-
-2. Select `Model Connection` in the popped up window, hit `Next`
-
-    ![Model connection](./images/debug-model-connection.png)
-
-3. Enter an descriptive name for the debug connection and associate it with our project, hit `Next`
-
-    ![Model name](./images/debug-model-name.png)
-
-4. Expand `Arm FVP (Installed with Arm DS)` and select `Base_A57x1` as our FVP model (an ARMv8-A core), hit `Finish`
-
-    ![Model FVP](./images/debug-fvp-model.png)
-
-5. After adding the model connection, you should see a pop up window titled with `Edit configuration and launch`
-6. In the `Bare Metal Debug` dialog located at the lower half of the window, enter `-C bp.secure_memory=false` as the model parameter
-
-    ![Debug disable mem](./images/debug-disable-secure-memory.png)
-    - According to ARM:
-        > This parameter disables the TZC-400 TrustZone memory controller included in the Base_A53x1 FVP. By default, the memory controller refuses all accesses to DRAM memory.
-    - Although we are using A57, this step is still necessary to correctly debug the FVP
-7. In the same window, select the `Files` tab
-    1. In the `Target Configuration` dialog, click `Workspace...`
-    2. Select the `HelloWorld.axf` under `Debug` folder
-    3. Hit `OK`
-
-    ![Debug model file](./images/debug-model-file.png)
-8. Again in the `Edit configuration and launch` window, select the `Debugger` tab
-    1. Under `Run control`, select `Debug from symbol` option
-    2. Also make sure the input box after the option has `main`
-    3. This will allow the debugger to stop at the `main` function
-
-    ![Debug symbol](./images/debug-symbol.png)
-
-9.  Hit `Apply` to save all changes
-10. Now you are ready to debug! You could always reconfigure all this by opening the file `HelloWorld_FVP.launch` or by right clicking the project name and navigate to `Debug As -> Debug Configurations...`
-
-### Launching debugger with FVP
-
-> Note: if you launch the IDE from the application page, and encounter issues when launching the debugger, try close the IDE and launch from terminal using the commands below:
-> ```
-> # Opens up a terminal, copy and run the following commands
-> ml armds
-> armds_ide
-> ```
-
-1. To start debugging, you could either
-   1. Hit the `Debug` button when configuring the debugger
-   2. Or by clicking the `*.launch` debug configuration file and hit `Debug` in the pop-up window
-   3. Or by right clicking the project name and select `Debug As -> Arm Debugger...`
-   4. Or by right clicking the debugging connection target `HelloWorld_FVP` in the `Debug Control` window on the bottom left and then select `Connect to Target`
-
-        ![Debug start debug](./images/debug-start-debug.png)
-
-2. After the debugging started, you will see a black window popped up and the program stop at `mov x0, #1`
-    ![Debug running](./images/debug-running.png)
-    1. The black window is our FVP model, you can ignore it by minimize it
-    2. If your program does not pause at `mov x0, #1`, please check your previous steps on adding the source file and configuring debugger
-       1. Especially on setting the RAM base address
-       2. And the model parameter for FVP
-3. During the debugging process, there are multiple tabs at the bottom
-    1. `Console`
-       1. View the Build messages
-       2. Won't be used for debugging
-    2. `Commands`
-       1. Display commands sent to debugger
-       2. Allow you to send debug commands from text
-    3. `Variables`
-       1. Show the variables in the source file and their values
-       2. But since this is a simple assembly program, nothing will display here
-    4. `Memory`
-       1. Allow you to read from a memory address and dump the contents
-       2. We will not use it in this lab
-    5. `Registers`
-       1. Display values of the registers
-       2. We will only focus on the core register presented in AArch64, i.e. those under `AArch64/Core`
-            ![Debug core reg](./images/debug-core-reg.png)
-    6. `Disassembly`
-       1. Display the assembly code that corresponds to the program
-       2. In addition to the simple `main` function we coded, you will see other segments of assembly code related to initialization, interrupt setup, and program exit
-            ![Debug disasm](./images/debug-disasm.png)
-    7. `Target Console`
-       1. Display communication logs with the FVP model, do not worry about it
-    8. You could drag the tabs to the edge and view them side by side.
-
-### Debugging `main.S` step-by-step
-
-1. To step the program, click the `Step Source Line` icon under the `Debug Control` tab or press `F5`
-
-    ![debug](./images/debug-stepping.png)
-
-2. First step: register `x0` should have value `1` loaded
-
-    ![debug 1 step](./images/debug-1-step.png)
-
-3. Second step: register `x1` should have value `2` loaded
-
-    ![debug 2 steps](./images/debug-2-steps.png)
-
-4. Third step: register `x2` should have value `3` loaded
-
-    ![debug 3 steps](./images/debug-3-steps.png)
-
-5. Hooray! You have finished debugging an assembly program that runs with ARM instructions!
-6. To end the debugging session, click the `Disconnect from Target` button
-
-    ![Debug end](./images/debug-end.png)
-
-## Further guides
-
-1. [ARM Development Studio Tutorial: Hello World](https://developer.arm.com/documentation/101469/2000/Tutorials/Tutorial--Hello-World?lang=en)
-2. [ARM Development Studio IDE Introduction](https://developer.arm.com/documentation/101469/2000/Introduction-to-the-Integrated-Development-Environment)
-3. [ARM Development Studio Debugger Introduction](https://developer.arm.com/documentation/101469/2000/Tutorials/Tutorial--Hello-World/Application-debug-with-Arm-Debugger?lang=en)
-
-# [100 Points] Lab 0 Sanity Quiz
-
-A simple quiz to test basic debugger usage.
-
-Delete the current code in the main.s file and copy the following code into it. Then use debugger to find answers to the 3 questions down below.
-
-```asm
-.global main
-main:
-    ldr x0, =0xABCDBEEFBAD1BAD0
-    ldr x1, =0xEE10ACBD22433900
-    ldr x2, =0x87874838217384FF
-
-question_1:
-    add x3, x0, x1
-
-question_2:
-    and x4, x0, x2
-    eor x4, x4, x1
-
-question_3:
-    neg x5, x0
-    orr x5, x5, x1
-    and x5, x5, x2
-    add x5, x5, x0
-
-    ret
+# Lab 8: RISCV assembly lab setup
+
+| Step | Associated Steps (and checkoff criteria)                           | Points |
+|------|--------------------------------------------------------------------|--------|
+| 1    | 1-2. RISC-V Environment Setup (check that code runs and debugs)    | 50     |
+| 2    | 4. Lab 8 Quiz                                                      | 50     |
+|      | Total                                                              | 100     |
+
+
+This tutorial will direct you to set up your first RISCV assembly lab and debug a simple assembly program on it via Visual Studio Code (VSCode).
+
+> Note: This lab, and all other labs going forward, should ideally be completed on your personal computer.  Post on Piazza if you encounter issues while setting up on your own machine.
+
+- [Lab 8: RISCV assembly lab setup](#lab-0-riscv-assembly-lab-setup)
+  - [1. Environment Setup](#1-environment-setup)
+    - [1.1 Setting up RISC-V tools on login](#11-setting-up-risc-v-tools-on-login)
+    - [1.2 Visual Studio Code](#12-visual-studio-code)
+      - [1.2.1 VSCode extensions](#121-vscode-extensions)
+      - [1.2.2 Remote access to the lab machines](#122-remote-access-to-the-lab-machines)
+      - [1.2.3 Adding an SSH key to your ECN account](#123-adding-an-ssh-key-to-your-ecn-account)
+        - [1.2.3.1 Linux & MacOS](#1231-linux--macos)
+        - [1.2.3.2 Windows](#1232-windows)
+    - [1.3 Setting up your first lab workspace](#12-setting-up-your-first-lab-workspace)
+  - [2. A sample debug process](#2-a-sample-debug-process)
+    - [2.1 Running the lab](#21-running-the-lab)
+    - [2.2 Begin debugging](#22-begin-debugging)
+      - [2.2.1 Debugger control buttons](#221-debugger-control-buttons)
+      - [2.2.2 View register value](#222-view-register-value)
+      - [2.2.3 View memory content](#223-view-memory-content)
+    - [2.3 Finish debugging](#23-finish-debugging)
+  - [3. Under the hood](#3-under-the-hood)
+    - [3.1 Running RISCV?](#31-running-riscv)
+    - [3.2 Install the toolchain on own machine](#32-install-the-toolchain-on-own-machine)
+    - [3.3 Makefile Deep Dive](#33-makefile-deep-dive)
+      - [3.3.1 Debugging lab with gdb](#331-debugging-lab-with-gdb)
+    - [3.2 Closing QEMU](#32-closing-qemu)
+  - [4. Lab 8 Quiz](#4-lab-8-quiz)
+  - [5. Troubleshooting](#5-troubleshooting)
+    - [5.1 `make: riscv64-unknown-elf-gcc: No such file or directory`](#51-make-riscv64-unknown-elf-gcc-no-such-file-or-directory)
+    - [5.2 `Configured debug type 'cppdbg' is not supported.` when debugging in VSCode](#52-configured-debug-type-cppdbg-is-not-supported-when-debugging-in-vscode)
+
+## 1. Environment Setup
+
+### 1.1 Setting up RISC-V tools on login
+
+We'll be doing these labs in VScode, but before we spin that up, we need to set up our ECN accounts so that they load the correct tools when you log in.
+
+SSH to `eceprog.ecn.purdue.edu`, or any one of the lab machines (there are 34 you can use, and their addresses have the same format of `ee69lnxYY.ecn.purdue.edu`, where YY is 01-34.)  When you can see the prompt, add the following to the bottom of both your `~/.bashrc` and `~/.profile` files (create the latter if it doesn't exist):
+
+```
+case $(hostname) in ee69lnx* | eceprog* )
+  module load riscv
+esac
 ```
 
-## Questions
+This case structure checks if you're on any of the `eceprog` cluster nodes or any of the lab machines in EE 69, and then loads the RISC-V module, configured for us by ECN.  This ensures we don't accidentally conflict with RISC-V tools that may be installed on other servers.  Once you've added it, close the session and log in again.  You should see a bit of a delay as the tools load, and then type `which riscv64-unknown-elf-gcc`.  If it says "/package/riscv-gnu-toolchain/bin/riscv64-unknown-elf-gcc", that means your shell is now able to find the compiler for this lab, and VScode will find it as well when it logs in remotely.
 
-You must demo these results in the debugger to collect these points.
+### 1.2 Visual Studio Code
 
-### [30 Points] Question 1
+To make the environment consistent for everybody, the recommended editor for the assembly lab will be Visual Studio Code (VSCode), but we'll be running a remote version of it on ECN servers (you may have done this already for previous classes) so that you can work on it from home with the same tools as the lab machines.  On your own machine, download and install it from [here](https://code.visualstudio.com/).
 
-What is the value inside register `x3` when the program runs to the end of `question_1`? I.e. after line 8 `add x3, x0, x1`?
+> Note: You can also opt out of VSCode and use your own editor, provided you are familiar with `gdb` and `make`.  This lab is entirely doable on the command line as well.  You will need to manually create a debug session to the RISC-V QEMU emulator and attach `gdb` to it. You can checkout the **Makefile deep dive** section further down for more info.
 
-### [30 Points] Question 2
+#### 1.2.1 VSCode extensions
 
-What is the value of register `x4` when the program runs to the end of `question_2`? I.e. after line 12 `eor x4, x4, x1`?
+In order for the debugging part to function properly, we will need two extensions installed:
 
-### [40 Points] Question 3
+1. [C/C++](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools): gives us debugger to work with
+2. [RISC-V](https://marketplace.visualstudio.com/items?itemName=zhwu95.riscv): gives us syntax highlights within assembly file
 
-What is the value of register `x5` when the program runs to the end of `question_3`? I.e. after line 17 `add x5, x5, x0`?
+To install them, you could either click on the links above and follow the install steps, or you could search them on extension tab on VSCode:
 
+![install extension on vscode](./images/install_vscode_dbg_extension.png)
 
-## Errata
+For the last extension, we will be installing a modified version of [Native Debug](https://marketplace.visualstudio.com/items?itemName=webfreak.debug), which gives us ability to set breakpoints in assembly file. The installation process will be a bit different:
 
-1. Several screenshots have `blr lr` instead of `ret lr` as return to caller function.
+1. First download the `riscv-debug.vsix` file [here](./assets/riscv-debug.vsix) to your lab machine.
+   1. If you are working with remote vscode access, you will need to copy the `.vsix` file to the server. Checkout [`scp`](https://www.geeksforgeeks.org/scp-command-in-linux-with-examples/) for more details, or download it using the terminal - copy the URL for the vsix file, and type `wget URL` in the terminal to download it to your ECN account.
+2. Then click on the extension tab and press the `...` button on the top right of extension window.
+3. Select `Install from VSIX...` and locate your downloaded `riscv-debug.vsix` path to install it:
+    ![install vsix](./images/vscode_install_ext_vsix.png)
+4. You might need to reload VSCode to let the installation completed as prompted on the bottom right. Or you could do `Ctrl + Shift + P` and type `reload` to reload VSCode window.
+
+#### 1.2.2 Remote access to the lab machines
+
+Besides using VSCode in the lab, you could also remotely access the lab machine you normally sit at, in order to finish your assembly assignments.
+
+> Note: This section is meant to be run on your own PC, or other machine that is not a lab machine.
+
+If you're not on campus, you can alternatively connect to eceprog.ecn.purdue.edu, instead of the lab machines.
+
+After downloading and installing VSCode, open it and locate the remote connection button on the bottom left of VSCode:
+
+![remote ssh button](./images/vscode_remote_ssh.png)
+
+> Note: If you could not find this button, you will need to download the `Remote - SSH` manually [here](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh) or by searching it in the extension tab.
+
+Click on the button and select `Connect to Host...` on the drop-down menu:
+
+![connect to host](./images/vscode_connect_host.png)
+
+Then in the drop-down, enter `CAREER_LOGIN@LAB_MACHINE_HOSTNAME` and click on it. The `CAREER_LOGIN` is your career account login, and you can find `LAB_MACHINE_HOSTNAME` on your lab machine mainframe case's label, which is something like `ee69lnx23.ecn.purdue.edu`.  If you're off-campus, you may also use `eceprog.ecn.purdue.edu`.  (All ECN machines load the same data.)
+
+![Enter hostname](./images/vscode_ssh_hostname.png)
+
+This should open up a new VSCode window. If you encounter something like `"ee69lnx23.ecn.purdue.edu" has fingerprint "SHA256:xxxxxxxxx"`, choose `continue`.  You'll see this message when you're connecting to a server for the first time, to have you confirm you know what server you're connecting to.  This isn't usually an issue when you're connecting to Purdue machines on campus, but it is a concern if you see this message if you're reconnecting to the machine.
+
+You may see a prompt for a password, if you haven't already set up SSH keys (which we'll explain further down.)  Enter your Purdue Login password, with the ",push" as necessary, hit Enter, and approve it from your 2FA device.  Once you set up SSH keys, you'll be able to skip this step.
+
+![Enter password](./images/password_login.png)
+
+You should then have a window opened similar to this:
+
+![SSH Connected](./images/vscode_ssh_connected.png)
+
+You could then open up your lab project, or use `TERMINAL` tab open a terminal and clone it via Git from the course website.
+
+You might need to install some extensions again with remote ssh VSCode to debug lab ([section 1.2.1](#121-vscode-extensions)). Check your installed extensions to find the missing one (if you have finished setup on a lab machine, this should just be the `RISC-V Assembly` extension as it is the only one installed locally).
+
+> A reminder: Once you've finished setup on one machine, you don't need to redo the setup process on a different lab machine, since all ECN machines load the same data when you log in.  Whether you log in to eceprog or a different-numbered lab machine, they will all have the same setup you were using.
+
+#### 1.2.3 Adding an SSH key to your ECN account
+
+> Note: This section is not required, but still highly recommended.  Setting this up will save you from having to deal with two-factor authentication by using SSH keys instead.
+
+> Note: The key can also be added to GitHub so that you won't need to use password every time for push/pull. Here is a [guide](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account) on how to do this.
+
+##### 1.2.3.1 Linux & MacOS
+
+If you don't have an ssh key on your machine, you can generate it with `ssh-keygen`:
+
+```bash
+ssh-keygen -t ed25519 -C "your_email@example.com"
+```
+
+This will prompt you for passphrase and key location. You can keep those configuration at default.
+
+After you have your key ready, we can upload to lab machine by doing:
+
+```bash
+ssh-copy-id CAREER_LOGIN@LAB_MACHINE_HOSTNAME
+```
+
+Where `CAREER_LOGIN` and `LAB_MACHINE_HOSTNAME` are the same when you setup VSCode remote ssh.
+
+You will then be prompted with password and two-factor auth from duo. After this is done, you can access lab machine with the key only:
+
+```bash
+ssh CAREER_LOGIN@LAB_MACHINE_HOSTNAME
+```
+
+A more detailed guide is [here](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) from GitHub.
+
+##### 1.2.3.2 Windows
+For Windows machines, here is a detailed [guide](https://www.purdue.edu/science/scienceit/ssh-keys-windows.html) from ITaP.
+
+### 1.3 Setting up your first lab workspace
+
+Using your terminal, do the following:
+- Create a folder called `ece362` under your home directory (where you should start by default) and `cd` inside it.
+- Download and extract the lab 8 template from the course website onto your lab computer using `wget`, or clone lab 8 via the git URL posted on the lab experiments page.
+
+Once it's cloned, you'll need to reopen the folder in VScode so that all the automation we've set up for you can be properly registered by VScode.  Click File > Open Folder, navigate to the folder you just cloned, and open it.  
+
+This is a good test of your SSH key addition, because the VScode window will refresh.  If it was properly added, VScode should not ask you for your password.  If it does, double-check that copy-pasted your SSH public key into `~/.ssh/authorized_keys` correctly.  Ask on Piazza if this doesn't seem to working, and upload the contents of your `authorized_keys` file.
+
+You should now see your lab 8 folder open in the left sidebar, and various files - some you will edit, others will help you edit.
+
+In this folder, open up the `lab8.S` file and examine its content. Then, use the instructions in [section 2](#2-a-sample-debug-process) to run the sample program. Make sure to set a breakpoint after the `main:` and verify that the registers have the corresponding values loaded in as you step each instruction.
+
+## 2. A sample debug process
+
+This section will walk you through the process of debugging lab code on VSCode.
+
+### 2.1 Running the lab
+
+At the beginning of every session, when your terminal has just started, make sure to run `module load riscv`.  It may take a few seconds to load, but when it does, you should now have the RISC-V compiler in your PATH (a set of locations that your shell will look in to find programs.)
+
+If you don't mind waiting a few seconds whenever you open a new terminal, you can also add it permanently to your `.bashrc`.  (Keep this in mind if you ever need to have a RISC-V compiler again in the rest of your student career - you will be able to use these even long after ECE 36200.)
+
+To run the lab, in the VSCode integrated terminal (access via the `TERMINAL` tab), type `make`:
+
+![Running lab](./images/vscode_run_lab.png)
+
+Hmm... nothing happened... or did it? Two files will appear on the left: `lab` and `autograder.o`, meaning we did compile the lab successfully. However the `main` function did not print anything to the console as it is somewhat equivalent to:
+
+```C
+int main() {
+    int x = 1;
+    int y = 2;
+    int z = x + y;
+    x = 0;
+    return x;
+}
+```
+
+> Note: You can also use `make run` to compile and run the lab. `make lab` will just compile. Checkout the `Makefile` or use `make help` to find out more.
+
+### 2.2 Begin debugging
+
+Before debugging, you will need to set breakpoints in the assembly file (the file with a `.s` extension) by clicking on the right of the line number like this:
+
+![vscode debug](./images/vscode_breakpoint.png)
+
+To start debugging, press the debug button on the left panel and run the `RISCV32 Debug` debug target:
+
+![VSCode debug](./images/vscode_debug.png)
+
+This will build your assembly program and launch the emulator to wait for gdb connection. If you encounter errors in your program, the debug session will fail and you could see red lines under the wrong lines of code:
+
+![vscode problem](./images/vscode_problem.png)
+
+You could find the error messages by hovering on the wrong lines of code, check out the `Problems` tab below, or in the `TERMINAL` tab in terminal `Build Task`:
+
+![vscode errmsg](./images/vscode_terminal_errmsg.png)
+
+After the debugging begins, you will see VSCode pause at the first breakpoint you set:
+
+![VSCode pause on breakpoint](./images/vscode_debug_pause.png)
+
+To view the program output, click on `Terminal` and select the `Debug session` tab on the right:
+
+![VSCode debug session](./images/vscode_debug_session.png)
+
+#### 2.2.1 Debugger control buttons
+
+As you launch the debugger, you could see a control panel on top like:
+
+![Debug control](./images/debug_control.png)
+
+From left to right, for each button:
+
+1. Continue to next breakpoint
+2. Step over an instruction, will not enter subroutine
+3. Step into an instruction, if it is a function call, will enter the function
+4. Step out a function call
+5. Restart debugging
+6. Stop the debugging
+
+#### 2.2.2 View register value
+
+You can view the registers value on the left under `Registers/CPU`.
+
+#### 2.2.3 View memory content
+
+To get values at some memory address, you will need to use the `Debug Console` tab in VSCode and type the command `-exec x [address]`. Reference guides can be found [here](https://visualgdb.com/gdbreference/commands/x) and [GNU website](https://sourceware.org/gdb/onlinedocs/gdb/Memory.html).
+
+You could also directly examine content at address in registers. Said if I want to examine the string starting at address storing in register `a0`, I could do:
+
+```bash
+# s: print the memory content as C string
+# $a0: use the value in register a0 as the address
+-exec x/s $a0
+```
+
+### 2.3 Finish debugging
+
+After you are done with the lab, please make sure to stop your debugging session using the control buttons.  **Do not close the VScode window immediately - if you quit too soon, you'll create [orphaned processes](https://en.wikipedia.org/wiki/Orphan_process) that will keep running on the server, slowing it down over time.
+
+> Note: Most of the debugging work is encapsulated in VSCode and the `Makefile`. If you want to know more about this, checkout [section 3](#3-under-the-hood), otherwise, skip to [section 4](#4-lab-8-quiz).
+
+> Note: Demonstrate that you can run and debug in this environment to your TA.  
+
+## 3. Under the hood
+
+> Note: This section explain how the lab work under the hood and is entirely optional. You can skip directly to [section 4](#4-lab-8-quiz) for lab8 if you want.
+
+> Note: If you want to setup and run lab on your own computer, this section will list out the required packages and procedures.
+
+### 3.1 Running RISCV?
+
+You might be wondering how the x86-based CPU of your lab computer is capable of running a RISC-V program, which is completely different from x86 assembly. That's easy - we don't!  We actually use something called a system emulator called QEMU.  This is a specialized program that has been compiled to run on x86 hardware, which can execute RISC-V instructions.
+
+In addition, to support syscalls (system calls, part of the operating system that allows programs to interact with resources like a keyboard or mouse) like those underneath `printf` and `malloc`, we choose the QEMU user space emulator (`qemu-riscv32-static`) which will capture those syscalls and use the host OS (x86 Linux) to execute them instead, since QEMU does not emulate the entire Linux system - just instructions.
+
+### 3.2 Install the toolchain on own machine
+
+If you wish to run the lab on your own Linux machine, here are the packages you will need:
+
+- QEMU emulator
+  - Download [QEMU user space emulator](https://www.qemu.org/download/)
+  - Ubuntu: `apt install qemu-user-static`
+- RISC-V GNU Compiler Toolchain
+  - Repo: `https://github.com/riscv-collab/riscv-gnu-toolchain`
+  - We are using the [32-bit/64-bit newlib compiler](https://github.com/riscv-collab/riscv-gnu-toolchain#installation-newliblinux-multilib), make sure to run `configure` as follows:
+    - `./configure --prefix=/path/to/riscv --enable-multilib`
+  - Execute `make` directly - do not run `make linux`.
+
+After downloading, building and installing the RISC-V toolchain, you will need to add it to your `PATH` variable like what we did for lab machine (change command depending on your shell):
+
+```bash
+echo "export PATH=$PATH:/path/to/riscv/bin" >> ~/.bashrc
+```
+
+If you wish to set up on MacOS or Windows, you will need to use docker or other virtualization tool to create a Linux VM to run the `qemu-riscv32-static`.  Microsoft also offers WSL2, which is a fully functional Linux environment that runs alongside Windows.  It might be tempting to use Docker to run a full system RISC-V Linux (yes - [this exists!](https://www.omgubuntu.co.uk/2021/01/beaglev-risc-v-board-for-linux), but then you will need to compile Linux from source targeting RISCV32 as most Linux distros only have official images for 64-bit RISC-V, which is why we're not using Docker.
+
+### 3.3 Makefile Deep Dive
+
+This section will provide an overview on the few `make` commands that you  used in section 2 to help debugging.
+
+> Note: Use `make help` to get short descriptions for all the make commands.
+
+#### 3.3.1 Debugging lab with gdb
+
+```Makefile
+# Debug the lab
+debug: lab port kill
+	@echo "target remote localhost:`sed -n '1 p' port.env`" > ./qemu_riscv32.gdbinit
+	@echo "Debug session started"
+	@echo "Waiting for gdb connection on port `sed -n '1 p' port.env`"
+	@$(QEMU) $(QEMU_FLAGS) -g `sed -n '1 p' port.env` $(EXE)
+```
+
+In a terminal, `make debug` will start the QEMU emulator and let it wait for gdb connection on an unused port in `port.env`, which is generated with the recipe:
+
+```Makefile
+# Obtain an unused port
+port:
+	@ruby -e 'require "socket"; puts Addrinfo.tcp("", 0).bind {|s| s.local_address.ip_port }' > ./port.env
+```
+
+This one line ruby command will ask the system for an unused port via `Addrinfo.tcp("", 0)` and get its port number by `.bind {|s| s.local_address.ip_port }`. With `puts` and `>`, this will be printed out and redirected to a file, `./port.env`.
+
+Also, as we have set `port` to be a `PHONY` target, it will get called every time we invoke it, thus providing an *almost* guaranteed available port.
+
+> Note: By "almost", it is possible to get a port collision during the time span after `port.env` gets generated, and before QEMU is launched. This process is not atomic but it is unlikely this will happen unless you plan to do it - there are 65536 ports on Linux, and you and the other person would need to be on the same machine and issue `make port` at the exact same time.
+
+Besides the port file, the `debug` recipe will also create a `qemu_riscv32.gdbinit` file, which is "consumed" by the VSCode debugger at launch so that it will know the remote `gdb` port number we have given:
+
+```Makefile
+@echo "target remote localhost:`sed -n '1 p' port.env`" > ./qemu_riscv32.gdbinit
+```
+
+To debug with `gdb` directly, run `make debug` in a terminal, which invokes the QEMU emulation.  Then, open another terminal and run:
+
+```bash
+riscv64-unknown-elf-gdb -x ./qemu_riscv32.gdbinit lab
+```
+
+Which should let you attach to the QEMU gdb session and start debugging via the command line.
+
+### 3.2 Closing QEMU
+
+You might notice that you cannot just `ctrl + c` in the terminal where you have `make debug` running. This is because the SIGINT signal indicated by `ctrl + c` is forwarded to the running RISC-V program inside the QEMU emulation. However, since we are using the baremetal RISC-V toolchain with no Linux support, it won't respond to most Linux system signals sent to it.
+
+If you wish to close QEMU, you could either start a debug session with VSCode or gdb and close it to let QEMU ends, or you could use the Makefile target `make kill`, which will send a kill signal to QEMU.
+
+## 4. Lab 8 Quiz
+
+After you finish, follow the [lab 8 quiz document](./quiz.html) and answer the questions with debugger. Show your answers and your setup environment on your own machine, or on the lab machine, to the TAs.
+
+Also remember to close the debug session properly with `make kill`.
+
+## 5. Troubleshooting
+
+### 5.1 `make: riscv64-unknown-elf-gcc: No such file or directory`
+
+![Did not find riscv toolchain](./images/debug_error_could_not_find_riscv.png)
+
+Solutions:
+
+- Make sure you ran `module load riscv` first.  You must be on a lab machine, or eceprog, for this to work.
+- If this does not work, make a post on Piazza.
+
+### 5.2 `Configured debug type 'cppdbg' is not supported.` when debugging in VSCode
+
+![Missing `cppdbg`](./images/missing_vscode_dbg_extension.png)
+
+Solutions: Just click the `Install cppdbg Extension` button and relaunch debug session once it completes.
+
+### 5.3 `Check your miDebuggerPath` or similar errors while debugging
+
+![Missing `miDebuggerPath`](./images/midebug.png)
+
+- This usually happens if students ran VScode before running `module load riscv`.  On the machine that you are connecting to, start a separate SSH session, and run `pkill -f code-server`.  This will close all remaining VScode Remote instances.  
+- Then, double-check that your `~/.bashrc` and `~/.profile` files to ensure that you copy-pasted the `case` statement from step 1.1 of this lab in order to load the RISC-V tools correctly.  Double-check that you can find the compiler after logging in.
+- Then, try reconnecting to the same server with VScode Remote.
+- If this still does not work, you can also try hardcoding the path to the debugger.  This isn't usually recommended, but since it's limited to this project folder, it should be fine for the time being.  Remember to do this for each lab folder you work on.
+  - In a terminal, run `which riscv64-unknown-elf-gdb`.  This returns the location of the gdb executable.
+  - Copy this path, and open `.vscode/launch.json` in your lab folder.
+  - Change the value of the key "miDebuggerPath" to the path you just copied.
