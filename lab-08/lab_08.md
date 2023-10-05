@@ -1,9 +1,8 @@
 # Lab 8: RISCV assembly lab setup
 
-| Step | Associated Steps (and checkoff criteria)                           | Points |
-|------|--------------------------------------------------------------------|--------|
-| 1    | 1-2. RISC-V Environment Setup (check that code runs and debugs)    | 50     |
-| 2    | 4. Lab 8 Quiz                                                      | 50     |
+| Step | Associated Steps (and checkoff criteria)                           | Points  |
+|------|--------------------------------------------------------------------|---------|
+| 1    | 4. Lab 8 Quiz                                                      | 100     |
 |      | Total                                                              | 100     |
 
 

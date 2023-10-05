@@ -223,7 +223,7 @@ While your program is running, capture a single trace of the protocol transactio
 
 ![ad2](./images/ad2capture.png)-->
 
-**Have a TA check you off for this step** (TA Instructions: Confirm that the bit-bang subroutines are being called in `main()`. Check that display flashes one digit at a time. Ask the student to comment the `nano_wait()` call in `small_delay()` and confirm that the display is smooth. Enter numbers on the keypad, and ensure they are displayed on the 7-segment displays.) 
+**Have a TA check you off for this step** (TA Instructions: Confirm that the bit-bang subroutines are being called in `main()`. Check that display flashes one digit at a time. Ask the student to comment the `nano_wait()` call in `small_delay()` and confirm that the display is smooth.) 
 
 #### 2.6.1: Debug Bit Banging
 
