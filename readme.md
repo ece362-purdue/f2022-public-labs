@@ -37,7 +37,7 @@ Common Problems You May Run Into During This Course: [doc](./common_problems/com
      - `git clone https://github.com/ece362-purdue/f2022-lab-11.git`
      - or with [zipped file](https://github.com/ece362-purdue/f2022-lab-11/archive/refs/heads/main.zip)
 
-9. Lab Practical (Takes place in your lab section in the week of 10/23)
+9. [Lab Practical](./lab-prac/lab-prac.md) (Takes place in your lab section in the week of 10/23)
     - We'll put up details about the lab practical as soon as they're ready.
     - In the meantime, practice such that you are prepared to configure a peripheral given only the prep slides, lab manuals and reference datasheets.
 
@@ -46,8 +46,8 @@ Common Problems You May Run Into During This Course: [doc](./common_problems/com
       - `git clone https://github.com/ece362-purdue/riscv-lab-0.git`
     - Or with [zipped file](https://github.com/ece362-purdue/riscv-lab-0/archive/refs/heads/main.zip)
 
-<!-- 9. [Lab Practical](./lab-prac/lab-prac.md) (Takes place in your lab section in the week of 10/23) -->
 
+<!-- 9. Lab Practical (Takes place in your lab section in the week of 10/23) -->
 <!--9. [Lab 8 ARMv8 Development environment setup](./lab-0.2/lab_0.2.md) (Due in week of 10/9 at the end of your lab section)
    - You could download the [lab 0.2 template](https://github.com/ece362-purdue/f2022-lab-0.2):
      - `git clone https://github.com/ece362-purdue/f2022-lab-0.2.git`
