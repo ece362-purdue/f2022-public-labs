@@ -38,10 +38,10 @@ Common Problems You May Run Into During This Course: [doc](./common_problems/com
      - or with [zipped file](https://github.com/ece362-purdue/f2022-lab-11/archive/refs/heads/main.zip)
 
 9. [Lab Practical](./lab-prac/lab-prac.md) (Takes place in your lab section in the week of 10/23)
-    - We'll put up details about the lab practical as soon as they're ready.
-    - In the meantime, practice such that you are prepared to configure a peripheral given only the prep slides, lab manuals and reference datasheets.
+    - TL:DR; practice such that you are prepared to configure a peripheral given only the prep slides, lab manuals and reference datasheets, and no other resources.
 
 10. [Lab 8 RISC-V Assembly Lab Setup](./lab-08/lab_08.md) (Due in week of 10/30 at the end of your lab section)
+    - (Not the final version of this lab.  Please re-check this page for updates.)
     - You could download the [lab 08 template](https://github.com/ece362-purdue/riscv-lab-0)
       - `git clone https://github.com/ece362-purdue/riscv-lab-0.git`
     - Or with [zipped file](https://github.com/ece362-purdue/riscv-lab-0/archive/refs/heads/main.zip)
