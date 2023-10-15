@@ -21,6 +21,14 @@
       - [4.4.6 Test and Demo](#446-test-and-demo)
 -->
 
+| Step | Associated Steps (and checkoff criteria)                                                | Points |
+|------|-----------------------------------------------------------------------------------------|--------|
+| 1    | 4. Initialize the USART (check that chars are echoed)                                   | 35     |
+| 2    | 5. Support for printf() and fgets() (type name, hit Enter to echo, should print twice)  | 25     |
+| 3    | 6. Basic line editing (same as before, ensure backspace works)                          | 20     |
+| 4    | 7. Interrupt/DMA (same as above but check that tty funcs implemented)                   | 20     |
+| 5    | Total                                                                                   | 100     |
+
 ## 1. Introduction
 
 Asynchronous serial communication using a Universal Asynchronous Receiver/Transmitter (UART) has been a staple of inter-computer communication since its introduction in the 1960s. Although asynchronous serial has been largely supplanted by more specialized communication protocols that are faster or more specially structured, it remains the only interface on your microcontroller that can be readily used for ad hoc interactive bidirectional communication. In this lab, you will use a UART to implement communication with an interactive program. You will examine the asynchronous serial protocol using an oscilloscope to identify the communication payload. 
@@ -53,7 +61,8 @@ Your STM32 development system contains **eight** independent USART channels, eac
 - The `USART_ISR` register contains the flags that show the state of the channel as well as interrupt status.
 - The `USART_ICR` register is used to clear bits in the ISR. Usually, only error flags must be manually cleared using this register. Normal flags used to indicate receiver and transmitter readiness are automatically cleared by input/output operations as described below.
 - The `USART_RDR` register is used to read a new byte from the receiver. Reading from this register will automatically clear the RXNE bit of the ISR.
-- The `USART_TDR` register is used to write a new byte into the transmitter. Writing to this register will automatically clear the TXE bit of the ISR.
+- The `USART_TDR` register is used to write a new byte into the transmitter. Writing to this register will automatically clear the TXE bit of the ISR.  
+
 <!---
 ### 3.3 Viewing an asynchronous serial transaction
 
@@ -63,6 +72,7 @@ Press the "Run" button in the Logic tool and, while continuous serial communicat
 
 ![space character](./images/analyzer-trace.png)
 -->
+
 ### 3.3 Using a serial terminal emulator program
 
 Decades ago, most mainframe computing equipment was large and was usually centralized in special rooms. Devices called serial terminals, like the one pictured below, were used to interact with the computers from a distance. The only function of these terminals was to take characters typed on a keyboard and send them through an asynchronous serial connection to the computer and receive characters back through the serial connection and display them on the screen. They were often called dumb terminals because they did not constitute a programmable computer system by themselves. All programmable computation happened on the remote computer. 
