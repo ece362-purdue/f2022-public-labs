@@ -31,6 +31,8 @@ The STM32 will be fully wired up with all the devices you may need for the pract
 
 The practical is arranged as steps (similar to your lab experiments), with points and expected behavior for each step.  In the event that you cannot complete a step, you do not need to indicate it to your TA - simply do the best you can, and leave your computer as is.  Your TAs will assign partial credit based on the **correctness of the work** you will have done so far.  
 
+If you need a number converter, you may use the in-built calculator on Ubuntu - it comes with a programming mode that allows you to convert between bases.  Press Start and type `calculator` to bring it up.
+
 ### Heisenbugs/Unexplainable Technical Phenomena
 Your data is saved on persistent storage even if the computer somehow freezes or crashes, so even if we have to forcibly restart the machine, you should be able to pick up where you left off when we set it up again.  We'll give you extra time if that rare situation happens.
 
