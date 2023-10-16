@@ -25,6 +25,12 @@ You will then enter your username into the application, click Validate, which wi
 
 ![Practical manual page](labprac_template.png)
 
+### Doing the practical
+
+The STM32 will be fully wired up with all the devices you may need for the practical.  Your focus will be on writing the code in SystemWorkbench, and hitting Run/Debug to flash it to the STM32.  
+
+The practical is arranged as steps (similar to your lab experiments), with points and expected behavior for each step.  In the event that you cannot complete a step, you do not need to indicate it to your TA - simply do the best you can, and leave your computer as is.  Your TAs will assign partial credit based on the **correctness of the work** you will have done so far.  
+
 ### Heisenbugs/Unexplainable Technical Phenomena
 Your data is saved on persistent storage even if the computer somehow freezes or crashes, so even if we have to forcibly restart the machine, you should be able to pick up where you left off when we set it up again.  We'll give you extra time if that rare situation happens.
 
