@@ -15,6 +15,10 @@ Except for Monday, there will be **no office hours** in the week of the practica
 
 24x7 lab access will also be revoked for the week of the practical, so please do not enter the lab without prior authorization.
 
+### Piazza
+
+Posts on Piazza during this week will be limited to instructors to ensure no accidental leaking of practical details.  (In general, you are expected not to share any details about the practical with your peers before everyone has taken it.) 
+
 ### At the beginning of your lab section...
 Try to show up early to your lab section, please wait outside until a lab GTA walks out and lets you know that the lab is ready for you to come in.  You will then be asked to line up, put all electronic items on your person into your bag.  If you have a physical Purdue ID, you may keep that with you, but for digital IDs, show that to your lab GTA before you enter your lab and then immediately put your phone in your bag.  Paper and pencil will be provided if you need it.  **Silence your phone and any other audible devices before you enter.**
 
@@ -44,6 +48,8 @@ If you are stuck with anything technical, you may ask the lab TAs for help, but 
 Raise your hand so that a TA can come over and confirm the functionality of your code on your STM32.  The instruction manual will tell them what to check for.  Your TA will perform an evaluation based on the circuit, tell you your score, and record it.  At that point, follow the instructions to end the practical, pick up your belongings, and leave the lab quietly.
 
 If you did not manage to finish the practical on time, type a comment into your code with your username, leave your lab station as it is, and exit the lab quietly.  
+
+**In doing this practical, you are expected not to share any details about the practical with your peers before everyone has taken it.  Sharing any details will be considered academic dishonesty.  This is to ensure a fair lab practical experience for everyone.**
 
 ## What will I be tested on?
 The practical will be limited to configuring the same peripherals you have been using the past 8 weeks.  If something isn't familiar, look through the associated lab manual to refresh your memory.  Use that to identify the portions of the datasheet to look at for a specific peripheral and its function.
