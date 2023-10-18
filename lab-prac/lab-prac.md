@@ -19,10 +19,16 @@ Except for Monday, there will be **no office hours** in the week of the practica
 
 Posts on Piazza during this week will be limited to instructors to ensure no accidental leaking of practical details.  (In general, you are expected not to share any details about the practical with your peers before everyone has taken it.) 
 
+### Do I need my lab kit?
+
+No.  Your practical will be entirely focused on your coding, and we'll give you a prebuilt breadboard with all the devices you'll need.  Just bring your Purdue ID (or your digital one on your phone, which you'll keep in your bag afterwards).  We will thoroughly check all of these to ensure you do not have any hardware issues before your practical.
+
 ### At the beginning of your lab section...
 Try to show up early to your lab section, please wait outside until a lab GTA walks out and lets you know that the lab is ready for you to come in.  You will then be asked to line up, put all electronic items on your person into your bag.  If you have a physical Purdue ID, you may keep that with you, but for digital IDs, show that to your lab GTA before you enter your lab and then immediately put your phone in your bag.  Paper and pencil will be provided if you need it.  **Silence your phone and any other audible devices before you enter.**
 
 Your TAs will indicate the designated space where your bag goes, and you will be told which station to go to.  Enter and sit at your station quietly, as there may be students already in the section who are taking their practical.  Your station will have a **LabPractical** program open with instructions on what to do - please read it carefully, and do not touch the mouse or keyboard yet.  Wait until all students have been seated, and watch for the lab GTA to give you the signal to start.  
+
+You won't need paper + pencils, but if you would like it anyway, ask one of the TAs as you enter.
 
 ### During the practical
 You will then enter your username into the application, click Validate, which will confirm your identity and save it, and enable the button that will allow you to start the practical.  Clicking this will close the application, and open SystemWorkbench with a configured workspace and a web browser with the instruction manual webpage.  Drag the windows to your liking, and follow the instructions on the webpage to do the practical.  
