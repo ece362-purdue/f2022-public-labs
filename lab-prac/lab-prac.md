@@ -41,10 +41,40 @@ The STM32 will be fully wired up with all the devices you may need for the pract
 
 The practical is arranged as steps (similar to your lab experiments), with points and expected behavior for each step.  In the event that you cannot complete a step, you do not need to indicate it to your TA - simply do the best you can, and leave your computer as is.  Your TAs will assign partial credit based on the **correctness of the work** you will have done so far.  
 
-If you need a number converter, you may use the in-built calculator on Ubuntu - it comes with a programming mode that allows you to convert between bases.  Press Start and type `calculator` to bring it up.
+### What if I need a base converter?
+
+If you need a number converter, you may use the in-built calculator on Ubuntu - it comes with a programming mode that allows you to convert between bases.  Click the shortcut on the left sidebar, or press Start and type `calculator` to bring it up.
+
+### Do I need to write the entire file from scratch?
+
+You'll be filling out some empty functions for configuring peripherals. If the functions are interrupt handlers, you need to get the name from a certain file and implement the function yourself (it always has a void/no-args function signature).
+
+The main function will always be prefilled with the function invocations, so you don't need to worry about that. It's because there's also stuff to invoke a grader that will run tests, and other custom code to tie it all together depending on the end goal for the practical. 
+
+We'll provide comment blocks so you know where to put the handlers, and where to find the functions.
+
+### Will we be provided a function to test our code?
+
+There will be a grader() function call that will be invoked after invoking the functions you are expected to implement. The grader will print something similar to the following over UART:
+
+```
+=================================
+Grader for _________ practical
+=================================
+step1: _/step1_points
+step2: _/step2_points
+step3: _/step3_points
+step4: _/step4_points
+step5: _/step5_points
+Final score: _/100
+```
+
+This grader determines your score.  If there are any **accidental** inconsistencies between what the grader reports and what you see on your breadboard, the TA checking you off will make the final call.
+
+To see the output via UART from the grader, we will provide a Serial Port application.  Click the terminal shortcut on the side (or press Start and type in 'serial port'), and it will open a terminal window.  If it is blank, press the reset button on your STM32 to see the output from the grader.  Keep this window open so you can see the output from the grader every time you flash your STM32.
 
 ### Heisenbugs/Unexplainable Technical Phenomena
-Your data is saved on persistent storage even if the computer somehow freezes or crashes, so even if we have to forcibly restart the machine, you should be able to pick up where you left off when we set it up again.  We'll give you extra time if that rare situation happens.
+Your data is saved on persistent storage even if the computer somehow freezes or crashes, so even if we have to forcibly restart the machine, you should be able to pick up where you left off when we set it up again.  We'll give you extra time if that rare situation happens.  
 
 The webpage will contain its own instructions, links to all reference material, and a step-by-step guide on what to do for your specific practical.  Read the instructions carefully, use the reference material as needed, and implement the design as per the steps in SystemWorkbench.  You should be able to build/run/debug the STM32 and see the results of your code on the test breadboard.  
 
