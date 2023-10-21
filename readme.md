@@ -40,11 +40,15 @@ Common Problems You May Run Into During This Course: [doc](./common_problems/com
 9. [Lab Practical](./lab-prac/lab-prac.md) (Takes place in your lab section in the week of 10/23)
     - TL:DR; practice such that you are prepared to configure a peripheral given only the prep slides, lab manuals and reference datasheets, and no other resources.
 
-10. [Lab 8 RISC-V Assembly Lab Setup](./lab-08/lab_08.md) (Due in week of 10/30 at the end of your lab section)
-    - (Not the final version of this lab.  Please re-check this page for updates.)
-    - You could download the [lab 08 template](https://github.com/ece362-purdue/riscv-lab-0)
-      - `git clone https://github.com/ece362-purdue/riscv-lab-0.git`
-    - Or with [zipped file](https://github.com/ece362-purdue/riscv-lab-0/archive/refs/heads/main.zip)
+10. Lab 8 Intro to RISC-V Assembly (Due in week of 10/30 at the end of your lab section)
+    - [Lab 8.0 Lab Setup](./lab-08/lab_08_0.md) 
+      - You could download the [lab 8.0 template](https://github.com/ece362-purdue/riscv-lab-0)
+        - `git clone https://github.com/ece362-purdue/riscv-lab-0.git`
+      - Or with [zipped file](https://github.com/ece362-purdue/riscv-lab-0/archive/refs/heads/main.zip)
+    - [Lab 8.1 Basic Assembly](./lab-08/lab_08_1.md)
+      - You could download the [lab 8.1 template](https://github.com/ece362-purdue/riscv-lab-1)
+        - `git clone https://github.com/ece362-purdue/riscv-lab-1.git`
+      - Or with [zipped file](https://github.com/ece362-purdue/riscv-lab-1/archive/refs/heads/main.zip)
 
 
 <!-- 9. Lab Practical (Takes place in your lab section in the week of 10/23) -->
