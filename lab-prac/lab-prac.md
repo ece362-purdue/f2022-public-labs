@@ -21,7 +21,7 @@ Posts on Piazza during this week will be limited to instructors to ensure no acc
 
 ### Do I need my lab kit?
 
-No.  Your practical will be entirely focused on your coding, and we'll give you a prebuilt breadboard with all the devices you'll need.  Just bring your Purdue ID (or your digital one on your phone, which you'll keep in your bag afterwards).  We will thoroughly check all of these to ensure you do not have any hardware issues before your practical.
+<s>No.</s>  You will need only your OLED display.  Your practical will be entirely focused on your coding, and we'll give you a prebuilt breadboard with all the devices you'll need.  Just bring your Purdue ID (or your digital one on your phone, which you'll keep in your bag afterwards).  We will thoroughly check all of these to ensure you do not have any hardware issues before your practical.
 
 ### At the beginning of your lab section...
 Try to show up early to your lab section, please wait outside until a lab GTA walks out and lets you know that the lab is ready for you to come in.  You will then be asked to line up, put all electronic items on your person into your bag.  If you have a physical Purdue ID, you may keep that with you, but for digital IDs, show that to your lab GTA before you enter your lab and then immediately put your phone in your bag.  Paper and pencil will be provided if you need it.  **Silence your phone and any other audible devices before you enter.**
