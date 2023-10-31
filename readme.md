@@ -47,9 +47,12 @@ Common Problems You May Run Into During This Course: [doc](./common_problems/com
       - Or with [zipped file](https://github.com/ece362-purdue/riscv-lab-0/archive/refs/heads/main.zip)
     - [Lab 8.1 Basic Assembly](./lab-08/lab_08_1.md)
       - You could download the [lab 8.1 template](https://github.com/ece362-purdue/riscv-lab-1)
-        - `git clone https://github.com/ece362-purdue/riscv-lab-1.git`
+        - `git clone https://github.com/ece362-purdue/riscv-lab-1.git` (Recommended)
       - Or with [zipped file](https://github.com/ece362-purdue/riscv-lab-1/archive/refs/heads/main.zip)
-
+11. [Lab 9 Complex Assembly](./lab-09/lab_09.md) (Due in week of 11/6 at the end of your lab section)
+   - You could download the [lab 9 template](https://github.com/ece362-purdue/riscv-lab-2):
+     - `git clone https://github.com/ece362-purdue/riscv-lab-2.git` (Recommended)
+     - or with [zipped file](https://github.com/ece362-purdue/riscv-lab-2/archive/refs/heads/main.zip)
 
 <!-- 9. Lab Practical (Takes place in your lab section in the week of 10/23) -->
 <!--9. [Lab 8 ARMv8 Development environment setup](./lab-0.2/lab_0.2.md) (Due in week of 10/9 at the end of your lab section)
