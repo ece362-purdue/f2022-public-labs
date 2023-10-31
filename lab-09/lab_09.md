@@ -1,5 +1,7 @@
 # Lab 9: Control flow and C-to-assembly
 
+**Submission schedule**: Your code for this lab must be submitted to Gradescope **before 5 PM on Friday, Nov 10 2023**.  This is regardless of when your section is, but keep in mind that office hours will fill up quickly if everyone puts it off until the last minute.  **Start early**.
+
 In this lab we will first continue our discussion on assembly directives, with a focus on memory space directives, as they will be utilized in the latter portion of the lab.
 
 After directives, we will touch on the next major category of the assembly instruction in our course, which is the control flow instruction, which enables CPUs to perform if-else statements and loops.
@@ -25,7 +27,6 @@ A reference manual for the RISC-V ISA can be found [here](https://riscv.org/tech
     - (35 points) [3.2 Fibonacci with loop](#32-fibonacci-with-loop)
     - (35 points) [3.3 Advanced uppercase formatter](#33-advanced-uppercase-formatter)
 <!-- code_chunk_output -->
-
 
 ## 1. Intro to directives and labels
 
