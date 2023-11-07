@@ -61,7 +61,7 @@ Common Problems You May Run Into During This Course: [doc](./common_problems/com
 <hr>
 
 99\. [Spring 2024, Lab 0 PlatformIO Beta-Test](https://engineering.purdue.edu/ece362/lab/lab0/) (No submission required, but must be completed by last lab session)
-- To remove liquid/clean/late penalties, or simply to stand out in your TA application for next semester, you can help us out by beta-testing PlatformIO in VScode in our lab 0 for next semester.  
+- To remove liquid/clean/late penalties, or simply to stand out in your TA application for next semester, you can help us out by beta-testing PlatformIO in VScode in our lab 0 for next semester.  **This is not an extra credit lab, nor will it replace a past lab.**
 - Use your personal computers, not a lab machine.  
 - Demonstrate that you can use PlatformIO in VScode to debug your C code, and that you can run C code on your microcontroller, debug it, and configure the UART to echo characters typed into the terminal.  
 - After a successful demo, your GTA will remove all penalties.
