@@ -1,6 +1,7 @@
 # Lab 9: Control flow and C-to-assembly
 
-**Submission schedule**: An earlier version of this document said that the deadline was Friday - this was a mistake.  **The deadline for this lab is the end of your lab section.**  If you submit late, we'll disregard it because of this mistake, but don't put it off until late.
+**Submission schedule**: Your code for this lab must be submitted to Gradescope **before 5:30 PM on Friday, Nov 10 2023**.  This is regardless of when your section is, but keep in mind that office hours will fill u
+p quickly if everyone puts it off until the last minute.  **Start early**.
 
 In this lab we will first continue our discussion on assembly directives, with a focus on memory space directives, as they will be utilized in the latter portion of the lab.
 
