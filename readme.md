@@ -49,10 +49,14 @@ Common Problems You May Run Into During This Course: [doc](./common_problems/com
       - You could download the [lab 8.1 template](https://github.com/ece362-purdue/riscv-lab-1)
         - `git clone https://github.com/ece362-purdue/riscv-lab-1.git` (Recommended)
       - Or with [zipped file](https://github.com/ece362-purdue/riscv-lab-1/archive/refs/heads/main.zip)
-11. [Lab 9 Complex Assembly](./lab-09/lab_09.md) (Due 5 PM ET on Friday, Nov 10, 2023)
-   - You could download the [lab 9 template](https://github.com/ece362-purdue/riscv-lab-2):
-     - `git clone https://github.com/ece362-purdue/riscv-lab-2.git` (Recommended)
-     - or with [zipped file](https://github.com/ece362-purdue/riscv-lab-2/archive/refs/heads/main.zip)
+11. [Lab 9 Complex Assembly](./lab-09/lab_09.md) (Due in week of 11/06 at the end of your lab section)
+    - You could download the [lab 9 template](https://github.com/ece362-purdue/riscv-lab-2):
+      - `git clone https://github.com/ece362-purdue/riscv-lab-2.git` (Recommended)
+      - or with [zipped file](https://github.com/ece362-purdue/riscv-lab-2/archive/refs/heads/main.zip)
+12. [Lab 10 Functions in Assembly](./lab-10/lab_10.md) (Due in week of 11/13 at the end of your lab section)
+    - You could download the [lab 10 template](https://github.com/ece362-purdue/riscv-lab-3):
+      - `git clone https://github.com/ece362-purdue/riscv-lab-3.git` (Recommended)
+      - or with [zipped file](https://github.com/ece362-purdue/riscv-lab-3/archive/refs/heads/main.zip)
 
 <!-- 9. Lab Practical (Takes place in your lab section in the week of 10/23) -->
 <!--9. [Lab 8 ARMv8 Development environment setup](./lab-0.2/lab_0.2.md) (Due in week of 10/9 at the end of your lab section)
