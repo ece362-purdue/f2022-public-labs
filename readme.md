@@ -58,6 +58,14 @@ Common Problems You May Run Into During This Course: [doc](./common_problems/com
       - `git clone https://github.com/ece362-purdue/riscv-lab-3.git` (Recommended)
       - or with [zipped file](https://github.com/ece362-purdue/riscv-lab-3/archive/refs/heads/main.zip)
 
+<hr>
+
+99\. [Spring 2024, Lab 0 PlatformIO Beta-Test](https://engineering.purdue.edu/ece362/lab/lab0/) (No submission required, but must be completed by last lab session)
+- To remove liquid/clean/late penalties, or simply to stand out in your TA application for next semester, you can help us out by beta-testing PlatformIO in VScode in our lab 0 for next semester.  
+- Use your personal computers, not a lab machine.  
+- Demonstrate that you can use PlatformIO in VScode to debug your C code, and that you can run C code on your microcontroller, debug it, and configure the UART to echo characters typed into the terminal.  
+- After a successful demo, your GTA will remove all penalties.
+
 <!-- 9. Lab Practical (Takes place in your lab section in the week of 10/23) -->
 <!--9. [Lab 8 ARMv8 Development environment setup](./lab-0.2/lab_0.2.md) (Due in week of 10/9 at the end of your lab section)
    - You could download the [lab 0.2 template](https://github.com/ece362-purdue/f2022-lab-0.2):
