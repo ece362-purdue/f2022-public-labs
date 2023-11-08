@@ -11,7 +11,7 @@ The points will be evenly distributed among the 4 questions with each problem ha
 - (100 points total) [Lab 10: Functions in assembly](#lab-3-functions-in-assembly)
   - (0 points) [1. What is a calling convention?](#1-what-is-a-calling-convention)
     - [1.1 Calling convention to the rescue!](#11-calling-convention-to-the-rescue)
-    - [1.2 Calling functions and returning in RISCV32 ISA](#12-calling-functions-and-returning-in-armv8-a64-isa)
+    - [1.2 Calling functions and returning in RISCV32 ISA](#12-calling-functions-and-returning-in-riscv32-isa)
       - [1.2.1 Calling a function](#121-calling-a-function)
       - [1.2.2 Entering in a function and returning from it](#122-entering-in-a-function-and-returning-from-it)
     - [1.3 Utilizing the stack](#13-utilizing-the-stack)
@@ -64,7 +64,7 @@ You have already encountered the RISC-V calling convention in the previous two l
 
 As you can see, a unified calling convention for our ISA allows all programs to speak the same "language" so that they can interact with each other while making safe assumptions about what registers they can use, and how to use them.
 
-### 1.2 Calling functions and returning in RISC-V ISA
+### 1.2 Calling functions and returning in RISCV32 ISA
 
 #### 1.2.1 Calling a function
 
@@ -295,7 +295,7 @@ void asm_sort_int(int* arr, uint32_t n) {
 int asm_cmp(const void *a, const void *b) {
     // Compare function used by the qsort
     // You do not need to worry about typecasting in asm
-    // just load them as signed double words (64-bit)
+    // just load them as signed words (32-bit)
     int tmp = *(int *)a - *(int *)b;
     if (tmp < 0)
         return -1;
