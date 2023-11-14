@@ -1,6 +1,6 @@
 # Lab 10: Functions in assembly
 
-Late penalty: 20% off, flat, after your section's deadline.
+Late penalty: 20% off, flat, after your section's deadline, until the Gradescope late deadline.  After that, your score is zero.
 
 In this lab we will first discuss the RISCV32 calling convention or ABI (application binary interface), which allows us to write functions that properly invoke each other in machine code level. Along with them we will also discuss some aspects of stacks.
 

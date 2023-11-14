@@ -3,7 +3,7 @@
 **Submission schedule**: Your code for this lab must be submitted to Gradescope **before 5:30 PM on Friday, Nov 10 2023**.  This is regardless of when your section is, but keep in mind that office hours will fill u
 p quickly if everyone puts it off until the last minute.  **Start early**.
 
-Late penalty: 20% off, flat, after the Friday deadline.
+Late penalty: 20% off, flat, after the Friday deadline, until the Gradescope late deadline.  After that, your score is zero.
 
 In this lab we will first continue our discussion on assembly directives, with a focus on memory space directives, as they will be utilized in the latter portion of the lab.
 
