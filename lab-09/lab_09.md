@@ -3,6 +3,8 @@
 **Submission schedule**: Your code for this lab must be submitted to Gradescope **before 5:30 PM on Friday, Nov 10 2023**.  This is regardless of when your section is, but keep in mind that office hours will fill u
 p quickly if everyone puts it off until the last minute.  **Start early**.
 
+Late penalty: 20% off, flat, after the Friday deadline.
+
 In this lab we will first continue our discussion on assembly directives, with a focus on memory space directives, as they will be utilized in the latter portion of the lab.
 
 After directives, we will touch on the next major category of the assembly instruction in our course, which is the control flow instruction, which enables CPUs to perform if-else statements and loops.
