@@ -59,3 +59,7 @@ outputSignals.Branch = One;
 Similar to Part A, write your code in the getExtendedBits() function to implement the Immediate Generator. It should take in the 32-bits of the instruction, and appropriately output the **sign extended** portion of an immediate instruction. Use bit manipulation in order to do so.
 
 > Hint: Instructions will not always assign the immediate to the same set of bits.  Check that you're using the correct bits for each of the instructions you'll be testing (see the top of the page again for that list).
+
+## Submit your work to Gradescope
+
+Only submit your `lab.cc` file to the lab 11 submission page - we'll include everything else for you automatically.
