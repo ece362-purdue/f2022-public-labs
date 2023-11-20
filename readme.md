@@ -57,6 +57,10 @@ Common Problems You May Run Into During This Course: [doc](./common_problems/com
     - You could download the [lab 10 template](https://github.com/ece362-purdue/riscv-lab-3):
       - `git clone https://github.com/ece362-purdue/riscv-lab-3.git` (Recommended)
       - or with [zipped file](https://github.com/ece362-purdue/riscv-lab-3/archive/refs/heads/main.zip)
+13. [Lab 11 Computer Organization](./lab-11/lab_11.md) (Due in week of 11/27 at the end of your lab section)
+    - You could download the [lab 11 template](https://github.com/ece362-purdue/riscv-lab-4):
+      - `git clone https://github.com/ece362-purdue/riscv-lab-4.git` (Recommended)
+      - or with [zipped file](https://github.com/ece362-purdue/riscv-lab-4/archive/refs/heads/main.zip)
 
 <hr>
 
