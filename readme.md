@@ -62,6 +62,8 @@ Common Problems You May Run Into During This Course: [doc](./common_problems/com
       - `git clone https://github.com/ece362-purdue/riscv-lab-4.git` (Recommended)
       - or with [zipped file](https://github.com/ece362-purdue/riscv-lab-4/archive/refs/heads/main.zip)
 
+...and that's a wrap on labs for the semester.  We'll put up details about the RISC-V exam as soon as it's ready.
+
 <hr>
 
 99\. [Spring 2024, Lab 0 PlatformIO Beta-Test](https://engineering.purdue.edu/ece362/lab/lab0/) (No submission required, but must be completed by last lab session)
