@@ -62,6 +62,8 @@ Common Problems You May Run Into During This Course: [doc](./common_problems/com
       - `git clone https://github.com/ece362-purdue/riscv-lab-4.git` (Recommended)
       - or with [zipped file](https://github.com/ece362-purdue/riscv-lab-4/archive/refs/heads/main.zip)
 
+...and that's a wrap on labs for the semester.
+
 14. [RISC-V Practical](./riscv-prac/riscv-prac.md) (Takes place in your lab section in the week of 12/04)
     - TL:DR; practice such that you are prepared to write assembly with only the RISC-V green/reference card.
 

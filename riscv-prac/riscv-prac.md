@@ -36,6 +36,17 @@ Once all students have the practical manual and VScode pulled up, your GTA will 
 ### Doing the practical
 You will only work in one file - `prac.S`.  The file will have the definitions for the three functions you are expected to implement.  You will be provided the same Makefile you had in labs, with an autograder that will run your code and give you a score.  Running `make` will run the autograder, same as your labs.
 
+### How will the autograder work?
+Similar to your labs, an autograder object file will be provided to be compiled with your `prac.S` file.  Running "make" will automatically run the autograder with your code, and the output format may look something like this:
+
+```
+==============  Test results  ==============
+asm_func1: 100/100
+asm_func2: 100/100
+asm_func3: 100/100
+=============================================
+```
+
 ### What if I need a base converter?
 If you need a number converter, you may use the in-built calculator on Ubuntu - it comes with a programming mode that allows you to convert between bases.  Click the shortcut on the left sidebar, or press Start and type `calculator` to bring it up.
 
@@ -86,12 +97,19 @@ Labs 8-10 serve as the references for which the practical will be based on.  Con
 ## How do I practice for the practical?
 As a starting point, go back through the examples covered in the labs, and try to implement them without using Copilot, ChatGPT, a compiler, or the various easy-to-use websites that convert C to RISC-V assembly.  It is extremely easy to take the hard work that goes into your compilers for granted with all these tools, so try to work without them.
 
-Your questions will not give you the equivalent C code - you will be given a description of what the function does, what arguments it takes, and what the expected return value is.  One approach is to write the C code for the function to better understand how it should work, and then translate that to assembly - much like a compiler.
+Your questions *may not* give you the equivalent C code - you will be given a description of what the function does, what arguments it takes, and what the expected return value is.  One approach is to write the C code for the function to better understand how it should work, and then translate that to assembly - much like a compiler.
 
 While you are practicing, don't just focus on the *right* method - focus on the *optimal* method.  Less lines of assembly can make it easier to keep track of different sections of code.
 
 Go over the following resources for some pointers on how you can tackle some question types:
 - [Looping](https://ece362-purdue.github.io/f2022-public-labs/common_problems/looping.html)
+- [Using the Watch panel and break-on-value](https://piazza.com/class/lliv2m1345130g/post/738)
+
+**Make yourself familiar with the debugger** - it is your helper through unexpected return values and seg faults.  You can use it to step through your code and see what is happening at each step, as well as what values are in each register and memory location.  
+
+Keep in mind that the debugger console might "hide" the output of the autograder + your program, so make sure to switch back to the terminal output (see the end of the video):
+
+<video src="output.webm" width="950" height="auto" controls preload></video> 
 
 ## Anything else you'd like to be covered?
 
