@@ -110,7 +110,7 @@ The practical questions will use the usual RISC-V register convention, i.e. inst
 
 Your questions *may not* give you the equivalent C code - you will be given a description of what the function does, what arguments it takes, and what the expected return value is.  One approach is to write the C code for the function to better understand how it should work, and then translate that to assembly - much like a compiler.
 
-While you are practicing, don't just focus on the *right* method - focus on the *optimal* method.  Less lines of assembly can make it easier to keep track of different sections of code.
+While you are practicing, don't just focus on the *right* method - focus on the *optimal* method.  Less lines of assembly can make it easier to keep track of different sections of code.  (To clarify - this is a suggestion, not a requirement.  If you already have a way that works for you, and you are confident you can use it to solve 3 questions of varying difficulty in 2 hours, use it.)
 
 Go over the following resources for some pointers on how you can tackle some question types:
 - [Looping](https://ece362-purdue.github.io/f2022-public-labs/common_problems/looping.html)
