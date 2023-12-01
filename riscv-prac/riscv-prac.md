@@ -20,7 +20,11 @@ Posts on Piazza during this week will be limited to instructors to ensure no acc
 No.  This practical will only test your ability to translate programs to RISC-V assembly, and will not include any material from the embedded systems portion of the class.
 
 ### What materials will I have to work with?
-Lecture slides will be provided, but no lab manuals for this one.
+Lecture slides will be provided, but no lab manuals for this one.  You will also have access to the RISC-V "green" card/reference card.
+
+For some functions where you need to manipulate strings and need to know the ASCII code for characters, you can type `man ascii` into a terminal (yes, it comes included on Linux).
+
+![ASCII table](ascii.png)
 
 ### At the beginning of your lab section...
 Show up early to your lab section, and wait outside until a lab GTA walks out and lets you know that the lab is ready for you to come in.  You will then be asked to line up, put all electronic items on your person into your bag.  If you have a physical Purdue ID, you may keep that with you, but for digital IDs, show that to your lab GTA before you enter your lab and then immediately put your phone in your bag.  Paper and pencil will be provided if you need it.  **Silence your phone and any other audible devices before you enter.**
@@ -44,14 +48,14 @@ Similar to your labs, an autograder object file will be provided to be compiled 
 
 ```
 ==============  Test results  ==============
-asm_func1: 100/100
-asm_func2: 100/100
-asm_func3: 100/100
+asm_func1: x/x
+asm_func2: y/y
+asm_func3: z/z
 =============================================
 ```
 
 ### What if I need a base converter?
-If you need a number converter, you may use the in-built calculator on Ubuntu - it comes with a programming mode that allows you to convert between bases.  Click the shortcut on the left sidebar, or press Start and type `calculator` to bring it up.
+If you need a number converter, you may use the in-built calculator on Ubuntu - it comes with a programming mode that allows you to convert between bases.  Click the shortcut on the left sidebar, or press Start and type `calculator` to bring it up, and press Ctrl-Alt-P to switch to programming mode.
 
 ### Do I need to write the entire file from scratch?
 You'll be filling out some functions in `prac.S`, but you will be given a template with the function names and comments already filled out.
