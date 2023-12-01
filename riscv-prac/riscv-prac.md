@@ -1,5 +1,7 @@
 # The ECE 36200 RISC-V Assembly Exam/Practical
 
+**Check this page regularly for updates.**
+
 ## Introduction
 This document aims to demystify anything and everything about the RISC-V practical - its administration, the infrastructure involved, and most importantly for you, how to prepare for it.  
 
@@ -103,6 +105,8 @@ Labs 8-10 serve as the references for which the practical will be based on.  Con
 
 ## How do I practice for the practical?
 As a starting point, go back through the examples covered in the labs, and try to implement them without using Copilot, ChatGPT, a compiler, or the various easy-to-use websites that convert C to RISC-V assembly.  It is extremely easy to take the hard work that goes into your compilers for granted with all these tools, so try to work without them.
+
+The practical questions will use the usual RISC-V register convention, i.e. instead of `x10`, we will use `a0`.  You can always refer to the RISC-V card to see which register is which.
 
 Your questions *may not* give you the equivalent C code - you will be given a description of what the function does, what arguments it takes, and what the expected return value is.  One approach is to write the C code for the function to better understand how it should work, and then translate that to assembly - much like a compiler.
 
