@@ -64,7 +64,7 @@ Common Problems You May Run Into During This Course: [doc](./common_problems/com
 
 ...and that's a wrap on labs for the semester.
 
-14. [RISC-V Practical](./riscv-prac/riscv-prac.md) (Takes place in your lab section in the week of 12/04)
+14\. [RISC-V Practical](./riscv-prac/riscv-prac.md) (Takes place in your lab section in the week of 12/04)
     - TL:DR; practice such that you are prepared to write assembly with only the RISC-V green/reference card.
 
 <hr>
