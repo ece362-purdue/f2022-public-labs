@@ -104,7 +104,7 @@ Labs 8-10 serve as the references for which the practical will be based on.  Con
     - How do you restore registers from the stack?
 
 ## How do I practice for the practical?
-As a starting point, go back through the examples covered in the labs, and try to implement them without using Copilot, ChatGPT, a compiler, or the various easy-to-use websites that convert C to RISC-V assembly.  It is extremely easy to take the hard work that goes into your compilers for granted with all these tools, so try to work without them.
+As a starting point, go back through the examples covered in the labs, and try to implement them without using Copilot, ChatGPT, a compiler, or the various easy-to-use websites that convert C to RISC-V assembly.  It is extremely easy to take the hard work that goes into your compilers for granted with all these tools, so try to work without them.  Take note of things like knowing how to load a character vs how to load an integer into a register, and how to handle strings in particular (identifying and/or changing to lowercase/uppercase).
 
 The practical questions will use the usual RISC-V register convention, i.e. instead of `x10`, we will use `a0`.  You can always refer to the RISC-V card to see which register is which.
 
