@@ -201,6 +201,7 @@ _if:
    // Condition check
    // if (x10 == x11)
    beq x10, x11, _then
+   jal x0, _else
 
 _then:
    // x10 == x11
@@ -211,7 +212,7 @@ _then:
 _else: 
    // x10 != x11
    some other assembly code...
-_end_if
+_end_if:
 
 // Similar to the C program below
 int x10 = 0;
